@@ -1,0 +1,2378 @@
+openapi: 3.1.0
+info:
+  title: riffle-api
+  version: '1.0'
+  summary: riffleのAPI Spec
+  description: riffleのAPI Spec
+  contact:
+    email: ''
+servers:
+  - url: 'http://localhost:8000'
+    description: localhost
+tags:
+  - name: book
+    description: 単語帳に関するエンドポイント
+  - name: share
+    description: 単語帳のシェアに関するエンドポイント
+  - name: friend
+    description: 友達に関するエンドポイント
+  - name: profile
+    description: 友達に関するエンドポイント
+paths:
+  /book:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - book
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ownedBooks:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OwnedBook'
+              examples:
+                example:
+                  value:
+                    ownedBooks:
+                      - id: 1
+                        book:
+                          id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                          title: 教科書第2章 新出単語
+                          category: english
+                          description: 教科書第2章の本文中に出てくる新出単語をまとめました
+                          words:
+                            - id: 1
+                              order: 1
+                              question: traditional
+                              answer: 伝統的な
+                              comments:
+                                - id: 1
+                                  content: サンプルコメント
+                                  type: default
+                                  author:
+                                    id: user-id
+                                    name: john-doe
+                                    iconUrl: 'http://example.com/icon.png'
+                                  createDate: '2021-08-24T14:15:22Z'
+                                  stamps:
+                                    - id: 1
+                                      stampTypeId: 1
+                                      author:
+                                        id: user-id
+                                        name: john-doe
+                                        iconUrl: 'http://example.com/icon.png'
+                                      createDate: '2021-08-25T14:15:22Z'
+                                    - id: 2
+                                      stampTypeId: 3
+                                      author:
+                                        id: user-id-2
+                                        name: 田中太郎
+                                        iconUrl: 'http://example.com/icon.png'
+                                      createDate: '2021-08-25T18:15:22Z'
+                              createDate: '2021-08-20T14:15:22Z'
+                              updateDate: '2021-08-20T14:30:22Z'
+                              author:
+                                id: user-id
+                                name: john-doe
+                                iconUrl: 'http://example.com/icon.png'
+                              done: true
+                              flags:
+                                - 0
+                                - 1
+                          comments:
+                            - id: 1
+                              content: サンプルコメント
+                              type: default
+                              author:
+                                id: user-id
+                                name: john-doe
+                                iconUrl: 'http://example.com/icon.png'
+                              createDate: '2021-08-24T14:15:22Z'
+                              stamps:
+                                - id: 1
+                                  stampTypeId: 1
+                                  author:
+                                    id: user-id
+                                    name: john-doe
+                                    iconUrl: 'http://example.com/icon.png'
+                                  createDate: '2021-08-25T14:15:22Z'
+                                - id: 2
+                                  stampTypeId: 3
+                                  author:
+                                    id: user-id-2
+                                    name: 田中太郎
+                                    iconUrl: 'http://example.com/icon.png'
+                                  createDate: '2021-08-25T18:15:22Z'
+                          author:
+                            id: user-id
+                            name: john-doe
+                            iconUrl: 'http://example.com/icon.png'
+                          createDate: '2021-08-20T14:15:22Z'
+                          updateDate: '2021-08-20T14:20:22Z'
+                          collaborators:
+                            - id: 2
+                              user:
+                                id: user-id-2
+                                name: 田中太郎
+                                iconUrl: 'http://example.com/icon.png'
+                              joinDate: '2021-08-27T14:15:22Z'
+                              requestDate: '2021-08-25T14:15:22Z'
+                              role: editor
+                          wordScores:
+                            - id: 1
+                              wordId: 1
+                              result: true
+                              createDate: '2019-08-24T14:15:22Z'
+                        type: own
+                        addDate: '2021-08-24T14:15:22Z'
+                        lastUseDate: '2021-08-24T14:15:22Z'
+                        isFavorite: true
+                        statistics:
+                          done: 8
+                        role: owner
+                        accessLevel: meta
+      operationId: get-book
+      description: 自分の持っている単語帳を取得する
+    post:
+      summary: ''
+      operationId: post-book
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ownedBook:
+                    $ref: '#/components/schemas/OwnedBook'
+              examples:
+                example:
+                  value:
+                    ownedBook:
+                      id: 1
+                      book:
+                        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                        title: 教科書第2章 新出単語
+                        category: english
+                        description: 教科書第2章の本文中に出てくる新出単語をまとめました
+                        words:
+                          - id: 1
+                            order: 1
+                            question: traditional
+                            answer: 伝統的な
+                            comments:
+                              - id: 1
+                                content: サンプルコメント
+                                type: default
+                                author:
+                                  id: user-id
+                                  name: john-doe
+                                  iconUrl: 'http://example.com/icon.png'
+                                createDate: '2021-08-24T14:15:22Z'
+                                stamps:
+                                  - id: 1
+                                    stampTypeId: 1
+                                    author:
+                                      id: user-id
+                                      name: john-doe
+                                      iconUrl: 'http://example.com/icon.png'
+                                    createDate: '2021-08-25T14:15:22Z'
+                                  - id: 2
+                                    stampTypeId: 3
+                                    author:
+                                      id: user-id-2
+                                      name: 田中太郎
+                                      iconUrl: 'http://example.com/icon.png'
+                                    createDate: '2021-08-25T18:15:22Z'
+                            createDate: '2021-08-20T14:15:22Z'
+                            updateDate: '2021-08-20T14:30:22Z'
+                            author:
+                              id: user-id
+                              name: john-doe
+                              iconUrl: 'http://example.com/icon.png'
+                            done: true
+                            flags:
+                              - 0
+                              - 1
+                        comments:
+                          - id: 1
+                            content: サンプルコメント
+                            type: default
+                            author:
+                              id: user-id
+                              name: john-doe
+                              iconUrl: 'http://example.com/icon.png'
+                            createDate: '2021-08-24T14:15:22Z'
+                            stamps:
+                              - id: 1
+                                stampTypeId: 1
+                                author:
+                                  id: user-id
+                                  name: john-doe
+                                  iconUrl: 'http://example.com/icon.png'
+                                createDate: '2021-08-25T14:15:22Z'
+                              - id: 2
+                                stampTypeId: 3
+                                author:
+                                  id: user-id-2
+                                  name: 田中太郎
+                                  iconUrl: 'http://example.com/icon.png'
+                                createDate: '2021-08-25T18:15:22Z'
+                        author:
+                          id: user-id
+                          name: john-doe
+                          iconUrl: 'http://example.com/icon.png'
+                        createDate: '2021-08-20T14:15:22Z'
+                        updateDate: '2021-08-20T14:20:22Z'
+                        collaborators:
+                          - id: 2
+                            user:
+                              id: user-id-2
+                              name: 田中太郎
+                              iconUrl: 'http://example.com/icon.png'
+                            joinDate: '2021-08-27T14:15:22Z'
+                            requestDate: '2021-08-25T14:15:22Z'
+                            role: editor
+                        wordScores:
+                          - id: 1
+                            wordId: 1
+                            result: true
+                            createDate: '2019-08-24T14:15:22Z'
+                      type: own
+                      addDate: '2021-08-24T14:15:22Z'
+                      lastUseDate: '2021-08-24T14:15:22Z'
+                      isFavorite: true
+                      statistics:
+                        done: 8
+                      role: owner
+                      accessLevel: meta
+      description: 新しい単語帳を登録する
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                category:
+                  $ref: '#/components/schemas/Category'
+                description:
+                  type: string
+                words:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      question:
+                        type: string
+                      answer:
+                        type: string
+                    required:
+                      - question
+                      - answer
+              required:
+                - title
+                - category
+                - words
+            examples:
+              example:
+                value:
+                  title: string
+                  category: japanese
+                  description: string
+                  words:
+                    - question: string
+                      answer: string
+      tags:
+        - book
+  '/book/{bookId}':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - book
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ownedBook:
+                    $ref: '#/components/schemas/OwnedBook'
+              examples:
+                example:
+                  value:
+                    ownedBook:
+                      id: 1
+                      book:
+                        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                        title: 教科書第2章 新出単語
+                        category: english
+                        description: 教科書第2章の本文中に出てくる新出単語をまとめました
+                        words:
+                          - id: 1
+                            order: 1
+                            question: traditional
+                            answer: 伝統的な
+                            comments:
+                              - id: 1
+                                content: サンプルコメント
+                                type: default
+                                author:
+                                  id: user-id
+                                  name: john-doe
+                                  iconUrl: 'http://example.com/icon.png'
+                                createDate: '2021-08-24T14:15:22Z'
+                                stamps:
+                                  - id: 1
+                                    stampTypeId: 1
+                                    author:
+                                      id: user-id
+                                      name: john-doe
+                                      iconUrl: 'http://example.com/icon.png'
+                                    createDate: '2021-08-25T14:15:22Z'
+                                  - id: 2
+                                    stampTypeId: 3
+                                    author:
+                                      id: user-id-2
+                                      name: 田中太郎
+                                      iconUrl: 'http://example.com/icon.png'
+                                    createDate: '2021-08-25T18:15:22Z'
+                            createDate: '2021-08-20T14:15:22Z'
+                            updateDate: '2021-08-20T14:30:22Z'
+                            author:
+                              id: user-id
+                              name: john-doe
+                              iconUrl: 'http://example.com/icon.png'
+                            done: true
+                            flags:
+                              - 0
+                              - 1
+                        comments:
+                          - id: 1
+                            content: サンプルコメント
+                            type: default
+                            author:
+                              id: user-id
+                              name: john-doe
+                              iconUrl: 'http://example.com/icon.png'
+                            createDate: '2021-08-24T14:15:22Z'
+                            stamps:
+                              - id: 1
+                                stampTypeId: 1
+                                author:
+                                  id: user-id
+                                  name: john-doe
+                                  iconUrl: 'http://example.com/icon.png'
+                                createDate: '2021-08-25T14:15:22Z'
+                              - id: 2
+                                stampTypeId: 3
+                                author:
+                                  id: user-id-2
+                                  name: 田中太郎
+                                  iconUrl: 'http://example.com/icon.png'
+                                createDate: '2021-08-25T18:15:22Z'
+                        author:
+                          id: user-id
+                          name: john-doe
+                          iconUrl: 'http://example.com/icon.png'
+                        createDate: '2021-08-20T14:15:22Z'
+                        updateDate: '2021-08-20T14:20:22Z'
+                        collaborators:
+                          - id: 2
+                            user:
+                              id: user-id-2
+                              name: 田中太郎
+                              iconUrl: 'http://example.com/icon.png'
+                            joinDate: '2021-08-27T14:15:22Z'
+                            requestDate: '2021-08-25T14:15:22Z'
+                            role: editor
+                        wordScores:
+                          - id: 1
+                            wordId: 1
+                            result: true
+                            createDate: '2019-08-24T14:15:22Z'
+                      type: own
+                      addDate: '2021-08-24T14:15:22Z'
+                      lastUseDate: '2021-08-24T14:15:22Z'
+                      isFavorite: true
+                      statistics:
+                        done: 8
+                      role: owner
+                      accessLevel: meta
+      operationId: get-book-bookId
+      description: 単語帳の詳細情報を取得する
+    patch:
+      summary: ''
+      operationId: patch-book-bookId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ownedBook:
+                    $ref: '#/components/schemas/OwnedBook'
+              examples:
+                example:
+                  value:
+                    ownedBook:
+                      id: 1
+                      book:
+                        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                        title: 教科書第2章 新出単語
+                        category: english
+                        description: 教科書第2章の本文中に出てくる新出単語をまとめました
+                        words:
+                          - id: 1
+                            order: 1
+                            question: traditional
+                            answer: 伝統的な
+                            comments:
+                              - id: 1
+                                content: サンプルコメント
+                                type: default
+                                author:
+                                  id: user-id
+                                  name: john-doe
+                                  iconUrl: 'http://example.com/icon.png'
+                                createDate: '2021-08-24T14:15:22Z'
+                                stamps:
+                                  - id: 1
+                                    stampTypeId: 1
+                                    author:
+                                      id: user-id
+                                      name: john-doe
+                                      iconUrl: 'http://example.com/icon.png'
+                                    createDate: '2021-08-25T14:15:22Z'
+                                  - id: 2
+                                    stampTypeId: 3
+                                    author:
+                                      id: user-id-2
+                                      name: 田中太郎
+                                      iconUrl: 'http://example.com/icon.png'
+                                    createDate: '2021-08-25T18:15:22Z'
+                            createDate: '2021-08-20T14:15:22Z'
+                            updateDate: '2021-08-20T14:30:22Z'
+                            author:
+                              id: user-id
+                              name: john-doe
+                              iconUrl: 'http://example.com/icon.png'
+                            done: true
+                            flags:
+                              - 0
+                              - 1
+                        comments:
+                          - id: 1
+                            content: サンプルコメント
+                            type: default
+                            author:
+                              id: user-id
+                              name: john-doe
+                              iconUrl: 'http://example.com/icon.png'
+                            createDate: '2021-08-24T14:15:22Z'
+                            stamps:
+                              - id: 1
+                                stampTypeId: 1
+                                author:
+                                  id: user-id
+                                  name: john-doe
+                                  iconUrl: 'http://example.com/icon.png'
+                                createDate: '2021-08-25T14:15:22Z'
+                              - id: 2
+                                stampTypeId: 3
+                                author:
+                                  id: user-id-2
+                                  name: 田中太郎
+                                  iconUrl: 'http://example.com/icon.png'
+                                createDate: '2021-08-25T18:15:22Z'
+                        author:
+                          id: user-id
+                          name: john-doe
+                          iconUrl: 'http://example.com/icon.png'
+                        createDate: '2021-08-20T14:15:22Z'
+                        updateDate: '2021-08-20T14:20:22Z'
+                        collaborators:
+                          - id: 2
+                            user:
+                              id: user-id-2
+                              name: 田中太郎
+                              iconUrl: 'http://example.com/icon.png'
+                            joinDate: '2021-08-27T14:15:22Z'
+                            requestDate: '2021-08-25T14:15:22Z'
+                            role: editor
+                        wordScores:
+                          - id: 1
+                            wordId: 1
+                            result: true
+                            createDate: '2019-08-24T14:15:22Z'
+                      type: own
+                      addDate: '2021-08-24T14:15:22Z'
+                      lastUseDate: '2021-08-24T14:15:22Z'
+                      isFavorite: true
+                      statistics:
+                        done: 8
+                      role: owner
+                      accessLevel: meta
+      description: 単語帳を編集する。主にお気に入りの付与・除去や、アクセスコントロールの変更など
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                category:
+                  $ref: '#/components/schemas/Category'
+                description:
+                  type: string
+                isFavorite:
+                  type: boolean
+            examples:
+              example:
+                value:
+                  title: string
+                  category: japanese
+                  description: string
+                  isFavorite: true
+      tags:
+        - book
+    delete:
+      summary: ''
+      operationId: delete-book-bookId
+      responses:
+        '200':
+          description: OK
+      description: 単語帳のアーカイブ
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hardDelete:
+                  type: boolean
+            examples:
+              example:
+                value:
+                  hardDelete: true
+        description: ''
+      tags:
+        - book
+  '/book/{bookId}/comment':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-book-bookId-comment
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  comment:
+                    $ref: '#/components/schemas/Comment'
+              examples:
+                example:
+                  value:
+                    comment:
+                      id: 1
+                      content: サンプルコメント
+                      type: default
+                      author:
+                        id: user-id
+                        name: john-doe
+                        iconUrl: 'http://example.com/icon.png'
+                      createDate: '2021-08-24T14:15:22Z'
+                      stamps:
+                        - id: 1
+                          stampTypeId: 1
+                          author:
+                            id: user-id
+                            name: john-doe
+                            iconUrl: 'http://example.com/icon.png'
+                          createDate: '2021-08-25T14:15:22Z'
+                        - id: 2
+                          stampTypeId: 3
+                          author:
+                            id: user-id-2
+                            name: 田中太郎
+                            iconUrl: 'http://example.com/icon.png'
+                          createDate: '2021-08-25T18:15:22Z'
+      description: 単語帳にコメントを投稿する
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                type:
+                  $ref: '#/components/schemas/CommentType'
+              required:
+                - content
+                - type
+            examples:
+              example:
+                value:
+                  content: string
+                  type: default
+      tags:
+        - book
+  '/book/{bookId}/comment/{commentId}':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: commentId
+        in: path
+        required: true
+    delete:
+      summary: ''
+      operationId: delete-book-bookId-comment-commentId
+      responses:
+        '200':
+          description: OK
+      description: コメントを削除する
+      tags:
+        - book
+  '/book/{bookId}/word':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-book-bookId-word
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  word:
+                    $ref: '#/components/schemas/Word'
+              examples:
+                example:
+                  value:
+                    word:
+                      id: 1
+                      order: 1
+                      question: traditional
+                      answer: 伝統的な
+                      comments:
+                        - id: 1
+                          content: サンプルコメント
+                          type: default
+                          author:
+                            id: user-id
+                            name: john-doe
+                            iconUrl: 'http://example.com/icon.png'
+                          createDate: '2021-08-24T14:15:22Z'
+                          stamps:
+                            - id: 1
+                              stampTypeId: 1
+                              author:
+                                id: user-id
+                                name: john-doe
+                                iconUrl: 'http://example.com/icon.png'
+                              createDate: '2021-08-25T14:15:22Z'
+                            - id: 2
+                              stampTypeId: 3
+                              author:
+                                id: user-id-2
+                                name: 田中太郎
+                                iconUrl: 'http://example.com/icon.png'
+                              createDate: '2021-08-25T18:15:22Z'
+                      createDate: '2021-08-20T14:15:22Z'
+                      updateDate: '2021-08-20T14:30:22Z'
+                      author:
+                        id: user-id
+                        name: john-doe
+                        iconUrl: 'http://example.com/icon.png'
+                      done: true
+                      flags:
+                        - 0
+                        - 1
+      description: 単語を追加する
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                order:
+                  type: integer
+                question:
+                  type: string
+                answer:
+                  type: string
+              required:
+                - question
+                - answer
+            examples:
+              example:
+                value:
+                  order: 0
+                  question: string
+                  answer: string
+        description: ''
+      tags:
+        - book
+  '/book/{bookId}/word/{wordId}':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: wordId
+        in: path
+        required: true
+    put:
+      summary: ''
+      operationId: put-book-bookId-word-wordId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  word:
+                    $ref: '#/components/schemas/Word'
+              examples:
+                example:
+                  value:
+                    word:
+                      id: 1
+                      order: 1
+                      question: traditional
+                      answer: 伝統的な
+                      comments:
+                        - id: 1
+                          content: サンプルコメント
+                          type: default
+                          author:
+                            id: user-id
+                            name: john-doe
+                            iconUrl: 'http://example.com/icon.png'
+                          createDate: '2021-08-24T14:15:22Z'
+                          stamps:
+                            - id: 1
+                              stampTypeId: 1
+                              author:
+                                id: user-id
+                                name: john-doe
+                                iconUrl: 'http://example.com/icon.png'
+                              createDate: '2021-08-25T14:15:22Z'
+                            - id: 2
+                              stampTypeId: 3
+                              author:
+                                id: user-id-2
+                                name: 田中太郎
+                                iconUrl: 'http://example.com/icon.png'
+                              createDate: '2021-08-25T18:15:22Z'
+                      createDate: '2021-08-20T14:15:22Z'
+                      updateDate: '2021-08-20T14:30:22Z'
+                      author:
+                        id: user-id
+                        name: john-doe
+                        iconUrl: 'http://example.com/icon.png'
+                      done: true
+                      flags:
+                        - 0
+                        - 1
+      description: 単語の修正
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                order:
+                  type: integer
+                question:
+                  type: string
+                answer:
+                  type: string
+              required:
+                - order
+                - question
+                - answer
+            examples:
+              example:
+                value:
+                  order: 0
+                  question: string
+                  answer: string
+      tags:
+        - book
+    delete:
+      summary: ''
+      operationId: delete-book-bookId-word-wordId
+      responses:
+        '200':
+          description: OK
+      description: 単語のアーカイブ
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hardDelete:
+                  type: boolean
+      tags:
+        - book
+  '/book/{bookId}/word/{wordId}/status':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: wordId
+        in: path
+        required: true
+    put:
+      summary: ''
+      operationId: put-book-bookId-word-wordId-status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  word:
+                    $ref: '#/components/schemas/Word'
+              examples:
+                example:
+                  value:
+                    word:
+                      id: 1
+                      order: 1
+                      question: traditional
+                      answer: 伝統的な
+                      comments:
+                        - id: 1
+                          content: サンプルコメント
+                          type: default
+                          author:
+                            id: user-id
+                            name: john-doe
+                            iconUrl: 'http://example.com/icon.png'
+                          createDate: '2021-08-24T14:15:22Z'
+                          stamps:
+                            - id: 1
+                              stampTypeId: 1
+                              author:
+                                id: user-id
+                                name: john-doe
+                                iconUrl: 'http://example.com/icon.png'
+                              createDate: '2021-08-25T14:15:22Z'
+                            - id: 2
+                              stampTypeId: 3
+                              author:
+                                id: user-id-2
+                                name: 田中太郎
+                                iconUrl: 'http://example.com/icon.png'
+                              createDate: '2021-08-25T18:15:22Z'
+                      createDate: '2021-08-20T14:15:22Z'
+                      updateDate: '2021-08-20T14:30:22Z'
+                      author:
+                        id: user-id
+                        name: john-doe
+                        iconUrl: 'http://example.com/icon.png'
+                      done: true
+                      flags:
+                        - 0
+                        - 1
+      description: 単語のフラグやDONEの変更
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                done:
+                  type: boolean
+                flags:
+                  type: array
+                  items:
+                    type: number
+            examples:
+              example:
+                value:
+                  done: true
+                  flags:
+                    - 0
+      tags:
+        - book
+  '/book/{bookId}/word/{wordId}/comment':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: wordId
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-book-bookId-word-wordId-comment
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  comment:
+                    $ref: '#/components/schemas/Comment'
+      description: コメントを投稿する
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  $ref: '#/components/schemas/CommentType'
+                content:
+                  type: string
+              required:
+                - type
+                - content
+            examples:
+              example:
+                value:
+                  type: default
+                  content: string
+      tags:
+        - book
+  '/book/{bookId}/word/{wordId}/comment/{commetId}':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: wordId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: commetId
+        in: path
+        required: true
+    delete:
+      summary: ''
+      operationId: delete-book-bookId-comment
+      responses:
+        '200':
+          description: OK
+      description: コメントを削除する
+      tags:
+        - book
+  '/book/{bookId}/word/{wordId}/comment/{commentId}/stamp':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: commentId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: wordId
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-book-bookId-comment-commentId-stamp
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  stamp:
+                    $ref: '#/components/schemas/Stamp'
+              examples:
+                example:
+                  value:
+                    stamp:
+                      id: 1
+                      stampTypeId: 1
+                      author:
+                        id: user-id
+                        name: john-doe
+                        iconUrl: 'http://example.com/icon.png'
+                      createDate: '2021-08-24T14:15:22Z'
+      description: スタンプの投稿
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                stampTypeId:
+                  type: integer
+            examples:
+              example:
+                value:
+                  stampTypeId: 0
+        description: ''
+      tags:
+        - book
+  '/book/{bookId}/word/{wordId}/comment/{commentId}/stamp/{stampId}':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: commentId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: stampId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: wordId
+        in: path
+        required: true
+    delete:
+      summary: ''
+      operationId: delete-book-bookId-comment-commentId-stamp-stampId
+      responses:
+        '200':
+          description: OK
+      description: スタンプの削除
+      tags:
+        - book
+  '/book/{bookId}/invited':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-book-bookId-invited
+      responses:
+        '200':
+          description: OK
+      description: 単語帳の共有を受ける
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accept:
+                  type: boolean
+              required:
+                - accept
+            examples:
+              example:
+                value:
+                  accept: true
+        description: ''
+      tags:
+        - share
+  '/book/{bookId}/collaborators/{collaboratorId}':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: collaboratorId
+        in: path
+        required: true
+    put:
+      summary: ''
+      operationId: put-book-bookId-preference
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  collaborator:
+                    $ref: '#/components/schemas/Collaborator'
+              examples:
+                example:
+                  value:
+                    collaborator:
+                      id: 0
+                      user:
+                        id: user-id
+                        name: john-doe
+                        iconUrl: 'http://example.com/icon.png'
+                      joinDate: '2021-08-27T14:15:22Z'
+                      requestDate: '2021-08-24T14:15:22Z'
+                      role: editor
+      description: アクセスコントロールの変更
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role:
+                  $ref: '#/components/schemas/Role'
+              required:
+                - role
+            examples:
+              example:
+                value:
+                  role: owner
+      tags:
+        - share
+    delete:
+      summary: ''
+      operationId: delete-book-bookId-collaborators-collaboratorId
+      responses:
+        '200':
+          description: OK
+      description: BANする
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hardDelete:
+                  type: boolean
+            examples:
+              example:
+                value:
+                  hardDelete: true
+      tags:
+        - book
+  '/book/{bookId}/collaborators/{collaboratorId}/approve':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: collaboratorId
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-book-bookId-approve
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  collaborator:
+                    $ref: '#/components/schemas/Collaborator'
+              examples:
+                example:
+                  value:
+                    collaborator:
+                      id: 0
+                      user:
+                        id: user-id
+                        name: john-doe
+                        iconUrl: 'http://example.com/icon.png'
+                      joinDate: '2021-08-27T14:15:22Z'
+                      requestDate: '2021-08-24T14:15:22Z'
+                      role: editor
+      description: 共有リクエストを許可する
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                approve:
+                  type: boolean
+              required:
+                - approve
+            examples:
+              example:
+                value:
+                  approve: true
+      tags:
+        - share
+  '/book/{bookId}/fork':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-book-bookId-fork
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ownerdBook:
+                    $ref: '#/components/schemas/OwnedBook'
+              examples:
+                example:
+                  value:
+                    ownerdBook:
+                      id: 1
+                      book:
+                        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                        title: 教科書第2章 新出単語
+                        category: english
+                        description: 教科書第2章の本文中に出てくる新出単語をまとめました
+                        words:
+                          - id: 1
+                            order: 1
+                            question: traditional
+                            answer: 伝統的な
+                            comments:
+                              - id: 1
+                                content: サンプルコメント
+                                type: default
+                                author:
+                                  id: user-id
+                                  name: john-doe
+                                  iconUrl: 'http://example.com/icon.png'
+                                createDate: '2021-08-24T14:15:22Z'
+                                stamps:
+                                  - id: 1
+                                    stampTypeId: 1
+                                    author:
+                                      id: user-id
+                                      name: john-doe
+                                      iconUrl: 'http://example.com/icon.png'
+                                    createDate: '2021-08-25T14:15:22Z'
+                                  - id: 2
+                                    stampTypeId: 3
+                                    author:
+                                      id: user-id-2
+                                      name: 田中太郎
+                                      iconUrl: 'http://example.com/icon.png'
+                                    createDate: '2021-08-25T18:15:22Z'
+                            createDate: '2021-08-20T14:15:22Z'
+                            updateDate: '2021-08-20T14:30:22Z'
+                            author:
+                              id: user-id
+                              name: john-doe
+                              iconUrl: 'http://example.com/icon.png'
+                            done: true
+                            flags:
+                              - 0
+                              - 1
+                        comments:
+                          - id: 1
+                            content: サンプルコメント
+                            type: default
+                            author:
+                              id: user-id
+                              name: john-doe
+                              iconUrl: 'http://example.com/icon.png'
+                            createDate: '2021-08-24T14:15:22Z'
+                            stamps:
+                              - id: 1
+                                stampTypeId: 1
+                                author:
+                                  id: user-id
+                                  name: john-doe
+                                  iconUrl: 'http://example.com/icon.png'
+                                createDate: '2021-08-25T14:15:22Z'
+                              - id: 2
+                                stampTypeId: 3
+                                author:
+                                  id: user-id-2
+                                  name: 田中太郎
+                                  iconUrl: 'http://example.com/icon.png'
+                                createDate: '2021-08-25T18:15:22Z'
+                        author:
+                          id: user-id
+                          name: john-doe
+                          iconUrl: 'http://example.com/icon.png'
+                        createDate: '2021-08-20T14:15:22Z'
+                        updateDate: '2021-08-20T14:20:22Z'
+                        collaborators:
+                          - id: 2
+                            user:
+                              id: user-id-2
+                              name: 田中太郎
+                              iconUrl: 'http://example.com/icon.png'
+                            joinDate: '2021-08-27T14:15:22Z'
+                            requestDate: '2021-08-25T14:15:22Z'
+                            role: editor
+                        wordScores:
+                          - id: 1
+                            wordId: 1
+                            result: true
+                            createDate: '2019-08-24T14:15:22Z'
+                      type: own
+                      addDate: '2021-08-24T14:15:22Z'
+                      lastUseDate: '2021-08-24T14:15:22Z'
+                      isFavorite: true
+                      statistics:
+                        done: 8
+                      role: owner
+                      accessLevel: meta
+      description: 単語帳をフォークする
+      tags:
+        - book
+  '/book/{bookId}/score':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-book-bookId-score
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  wordScores:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WordScore'
+              examples:
+                example:
+                  value:
+                    wordScores:
+                      - id: 1
+                        wordId: 1
+                        result: true
+                        createDate: '2019-08-24T14:15:22Z'
+      description: 単語帳のスコアを送信する
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                wordScores:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      wordId:
+                        type: integer
+                      result:
+                        type: boolean
+            examples:
+              example:
+                value:
+                  wordScores:
+                    - wordId: 0
+                      result: true
+      tags:
+        - book
+  /friend:
+    parameters: []
+    get:
+      summary: Your GET endpoint
+      tags:
+        - friend
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  friend:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Profile'
+              examples:
+                example:
+                  value:
+                    friend:
+                      - id: string
+                        user:
+                          id: user-id
+                          name: john-doe
+                          iconUrl: 'http://example.com/icon.png'
+                        ownedBooks:
+                          - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                            title: 教科書第2章 新出単語
+                            category: english
+                            description: 教科書第2章の本文中に出てくる新出単語をまとめました
+                            words:
+                              - id: 1
+                                order: 1
+                                question: traditional
+                                answer: 伝統的な
+                                comments:
+                                  - id: 1
+                                    content: サンプルコメント
+                                    type: default
+                                    author:
+                                      id: user-id
+                                      name: john-doe
+                                      iconUrl: 'http://example.com/icon.png'
+                                    createDate: '2021-08-24T14:15:22Z'
+                                    stamps:
+                                      - id: 1
+                                        stampTypeId: 1
+                                        author:
+                                          id: user-id
+                                          name: john-doe
+                                          iconUrl: 'http://example.com/icon.png'
+                                        createDate: '2021-08-25T14:15:22Z'
+                                      - id: 2
+                                        stampTypeId: 3
+                                        author:
+                                          id: user-id-2
+                                          name: 田中太郎
+                                          iconUrl: 'http://example.com/icon.png'
+                                        createDate: '2021-08-25T18:15:22Z'
+                                createDate: '2021-08-20T14:15:22Z'
+                                updateDate: '2021-08-20T14:30:22Z'
+                                author:
+                                  id: user-id
+                                  name: john-doe
+                                  iconUrl: 'http://example.com/icon.png'
+                                done: true
+                                flags:
+                                  - 0
+                                  - 1
+                            comments:
+                              - id: 1
+                                content: サンプルコメント
+                                type: default
+                                author:
+                                  id: user-id
+                                  name: john-doe
+                                  iconUrl: 'http://example.com/icon.png'
+                                createDate: '2021-08-24T14:15:22Z'
+                                stamps:
+                                  - id: 1
+                                    stampTypeId: 1
+                                    author:
+                                      id: user-id
+                                      name: john-doe
+                                      iconUrl: 'http://example.com/icon.png'
+                                    createDate: '2021-08-25T14:15:22Z'
+                                  - id: 2
+                                    stampTypeId: 3
+                                    author:
+                                      id: user-id-2
+                                      name: 田中太郎
+                                      iconUrl: 'http://example.com/icon.png'
+                                    createDate: '2021-08-25T18:15:22Z'
+                            author:
+                              id: user-id
+                              name: john-doe
+                              iconUrl: 'http://example.com/icon.png'
+                            createDate: '2021-08-20T14:15:22Z'
+                            updateDate: '2021-08-20T14:20:22Z'
+                            collaborators:
+                              - id: 2
+                                user:
+                                  id: user-id-2
+                                  name: 田中太郎
+                                  iconUrl: 'http://example.com/icon.png'
+                                joinDate: '2021-08-27T14:15:22Z'
+                                requestDate: '2021-08-25T14:15:22Z'
+                                role: editor
+      operationId: get-friend
+      description: フレンドのプロフィールを取得する
+  /friend/connect:
+    post:
+      summary: ''
+      operationId: post-friend-connect
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  friend:
+                    $ref: '#/components/schemas/Profile'
+              examples:
+                example:
+                  value:
+                    friend:
+                      id: string
+                      user:
+                        id: user-id
+                        name: john-doe
+                        iconUrl: 'http://example.com/icon.png'
+                      ownedBooks:
+                        - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                          title: 教科書第2章 新出単語
+                          category: english
+                          description: 教科書第2章の本文中に出てくる新出単語をまとめました
+                          words:
+                            - id: 1
+                              order: 1
+                              question: traditional
+                              answer: 伝統的な
+                              comments:
+                                - id: 1
+                                  content: サンプルコメント
+                                  type: default
+                                  author:
+                                    id: user-id
+                                    name: john-doe
+                                    iconUrl: 'http://example.com/icon.png'
+                                  createDate: '2021-08-24T14:15:22Z'
+                                  stamps:
+                                    - id: 1
+                                      stampTypeId: 1
+                                      author:
+                                        id: user-id
+                                        name: john-doe
+                                        iconUrl: 'http://example.com/icon.png'
+                                      createDate: '2021-08-25T14:15:22Z'
+                                    - id: 2
+                                      stampTypeId: 3
+                                      author:
+                                        id: user-id-2
+                                        name: 田中太郎
+                                        iconUrl: 'http://example.com/icon.png'
+                                      createDate: '2021-08-25T18:15:22Z'
+                              createDate: '2021-08-20T14:15:22Z'
+                              updateDate: '2021-08-20T14:30:22Z'
+                              author:
+                                id: user-id
+                                name: john-doe
+                                iconUrl: 'http://example.com/icon.png'
+                              done: true
+                              flags:
+                                - 0
+                                - 1
+                          comments:
+                            - id: 1
+                              content: サンプルコメント
+                              type: default
+                              author:
+                                id: user-id
+                                name: john-doe
+                                iconUrl: 'http://example.com/icon.png'
+                              createDate: '2021-08-24T14:15:22Z'
+                              stamps:
+                                - id: 1
+                                  stampTypeId: 1
+                                  author:
+                                    id: user-id
+                                    name: john-doe
+                                    iconUrl: 'http://example.com/icon.png'
+                                  createDate: '2021-08-25T14:15:22Z'
+                                - id: 2
+                                  stampTypeId: 3
+                                  author:
+                                    id: user-id-2
+                                    name: 田中太郎
+                                    iconUrl: 'http://example.com/icon.png'
+                                  createDate: '2021-08-25T18:15:22Z'
+                          author:
+                            id: user-id
+                            name: john-doe
+                            iconUrl: 'http://example.com/icon.png'
+                          createDate: '2021-08-20T14:15:22Z'
+                          updateDate: '2021-08-20T14:20:22Z'
+                          collaborators:
+                            - id: 2
+                              user:
+                                id: user-id-2
+                                name: 田中太郎
+                                iconUrl: 'http://example.com/icon.png'
+                              joinDate: '2021-08-27T14:15:22Z'
+                              requestDate: '2021-08-25T14:15:22Z'
+                              role: editor
+      description: 友達とつながる
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                inviteCode:
+                  type: string
+                  format: uuid
+            examples:
+              example:
+                value:
+                  inviteCode: aa5cd31a-c8c3-4f9a-921b-732fa896c3d0
+      tags:
+        - friend
+    parameters: []
+  '/friend/{friendId}':
+    parameters:
+      - schema:
+          type: string
+        name: friendId
+        in: path
+        required: true
+    delete:
+      summary: ''
+      operationId: delete-friend-friendId
+      responses:
+        '200':
+          description: OK
+      description: 友達との繋がりを削除する
+      tags:
+        - friend
+  /profile:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - profile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profile:
+                    $ref: '#/components/schemas/Profile'
+      operationId: get-profile
+      description: 自分のプロフィールを取得する
+    parameters: []
+components:
+  schemas:
+    Book:
+      title: Book
+      type: object
+      description: ''
+      examples:
+        - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+          title: 教科書第2章 新出単語
+          category: english
+          description: 教科書第2章の本文中に出てくる新出単語をまとめました
+          words:
+            - id: 1
+              order: 1
+              question: traditional
+              answer: 伝統的な
+              comments:
+                - id: 1
+                  content: サンプルコメント
+                  type: word
+                  author:
+                    id: user-id
+                    name: john-doe
+                    iconUrl: 'http://example.com/icon.png'
+                  createDate: '2021-08-24T14:15:22Z'
+                  stamps:
+                    - id: 1
+                      stampTypeId: 1
+                      author:
+                        id: user-id
+                        name: john-doe
+                        iconUrl: 'http://example.com/icon.png'
+                      createDate: '2021-08-25T14:15:22Z'
+                    - id: 2
+                      stampTypeId: 3
+                      author:
+                        id: user-id-2
+                        name: 田中太郎
+                        iconUrl: 'http://example.com/icon.png'
+                      createDate: '2021-08-25T18:15:22Z'
+              createDate: '2021-08-20T14:15:22Z'
+              updateDate: '2021-08-20T14:30:22Z'
+              author:
+                id: user-id
+                name: john-doe
+                iconUrl: 'http://example.com/icon.png'
+              done: true
+              flags:
+                - 0
+                - 1
+          comments:
+            - id: 1
+              content: サンプルコメント
+              type: text
+              author:
+                id: user-id
+                name: john-doe
+                iconUrl: 'http://example.com/icon.png'
+              createDate: '2021-08-24T14:15:22Z'
+              stamps:
+                - id: 1
+                  stampTypeId: 1
+                  author:
+                    id: user-id
+                    name: john-doe
+                    iconUrl: 'http://example.com/icon.png'
+                  createDate: '2021-08-25T14:15:22Z'
+                - id: 2
+                  stampTypeId: 3
+                  author:
+                    id: user-id-2
+                    name: 田中太郎
+                    iconUrl: 'http://example.com/icon.png'
+                  createDate: '2021-08-25T18:15:22Z'
+          author:
+            id: user-id
+            name: john-doe
+            iconUrl: 'http://example.com/icon.png'
+          createDate: '2021-08-20T14:15:22Z'
+          updateDate: '2021-08-20T14:20:22Z'
+          collaborators:
+            - id: 2
+              user:
+                id: user-id-2
+                name: 田中太郎
+                iconUrl: 'http://example.com/icon.png'
+              joinDate: '2021-08-27T14:15:22Z'
+              requestDate: '2021-08-25T14:15:22Z'
+              role: editor
+          wordScores:
+            - id: 1
+              wordId: 1
+              result: true
+              createDate: '2019-08-24T14:15:22Z'
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        category:
+          $ref: '#/components/schemas/Category'
+        description:
+          type: string
+        words:
+          type: array
+          items:
+            $ref: '#/components/schemas/Word'
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+        author:
+          $ref: '#/components/schemas/User'
+        createDate:
+          type: string
+          format: date-time
+        updateDate:
+          type: string
+          format: date-time
+        collaborators:
+          type: array
+          items:
+            $ref: '#/components/schemas/Collaborator'
+        wordScores:
+          type: array
+          items:
+            $ref: '#/components/schemas/WordScore'
+      required:
+        - id
+        - title
+        - category
+        - words
+        - comments
+        - author
+        - createDate
+        - updateDate
+        - collaborators
+    OwnedBook:
+      title: OwnedBook
+      type: object
+      examples:
+        - id: 1
+          book:
+            id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+            title: 教科書第2章 新出単語
+            category: english
+            description: 教科書第2章の本文中に出てくる新出単語をまとめました
+            words:
+              - id: 1
+                order: 1
+                question: traditional
+                answer: 伝統的な
+                comments:
+                  - id: 1
+                    content: サンプルコメント
+                    type: text
+                    author:
+                      id: user-id
+                      name: john-doe
+                      iconUrl: 'http://example.com/icon.png'
+                    createDate: '2021-08-24T14:15:22Z'
+                    stamps:
+                      - id: 1
+                        stampTypeId: 1
+                        author:
+                          id: user-id
+                          name: john-doe
+                          iconUrl: 'http://example.com/icon.png'
+                        createDate: '2021-08-25T14:15:22Z'
+                      - id: 2
+                        stampTypeId: 3
+                        author:
+                          id: user-id-2
+                          name: 田中太郎
+                          iconUrl: 'http://example.com/icon.png'
+                        createDate: '2021-08-25T18:15:22Z'
+                createDate: '2021-08-20T14:15:22Z'
+                updateDate: '2021-08-20T14:30:22Z'
+                author:
+                  id: user-id
+                  name: john-doe
+                  iconUrl: 'http://example.com/icon.png'
+                done: true
+                flags:
+                  - 0
+                  - 1
+            comments:
+              - id: 1
+                content: サンプルコメント
+                type: text
+                author:
+                  id: user-id
+                  name: john-doe
+                  iconUrl: 'http://example.com/icon.png'
+                createDate: '2021-08-24T14:15:22Z'
+                stamps:
+                  - id: 1
+                    stampTypeId: 1
+                    author:
+                      id: user-id
+                      name: john-doe
+                      iconUrl: 'http://example.com/icon.png'
+                    createDate: '2021-08-25T14:15:22Z'
+                  - id: 2
+                    stampTypeId: 3
+                    author:
+                      id: user-id-2
+                      name: 田中太郎
+                      iconUrl: 'http://example.com/icon.png'
+                    createDate: '2021-08-25T18:15:22Z'
+            author:
+              id: user-id
+              name: john-doe
+              iconUrl: 'http://example.com/icon.png'
+            createDate: '2021-08-20T14:15:22Z'
+            updateDate: '2021-08-20T14:20:22Z'
+            collaborators:
+              - id: 2
+                user:
+                  id: user-id-2
+                  name: 田中太郎
+                  iconUrl: 'http://example.com/icon.png'
+                joinDate: '2021-08-27T14:15:22Z'
+                requestDate: '2021-08-25T14:15:22Z'
+                role: editor
+            wordScores:
+              - id: 1
+                wordId: 1
+                result: true
+                createDate: '2019-08-24T14:15:22Z'
+          type: own
+          addDate: '2021-08-24T14:15:22Z'
+          lastUseDate: '2021-08-24T14:15:22Z'
+          isFavorite: true
+          statistics:
+            done: 8
+          role: owner
+      properties:
+        id:
+          type: number
+        book:
+          $ref: '#/components/schemas/Book'
+        type:
+          $ref: '#/components/schemas/BookType'
+        addDate:
+          type: string
+          format: date-time
+        lastUseDate:
+          type: string
+          format: date-time
+        isFavorite:
+          type: boolean
+        statistics:
+          type: object
+          properties:
+            done:
+              type: number
+        role:
+          $ref: '#/components/schemas/Role'
+        accessLevel:
+          $ref: '#/components/schemas/AccessLevel'
+      required:
+        - id
+        - book
+        - type
+        - addDate
+        - isFavorite
+        - statistics
+        - role
+        - accessLevel
+    Word:
+      title: Word
+      type: object
+      examples:
+        - id: 1
+          order: 1
+          question: traditional
+          answer: 伝統的な
+          comments:
+            - id: 1
+              content: サンプルコメント
+              type: word
+              author:
+                id: user-id
+                name: john-doe
+                iconUrl: 'http://example.com/icon.png'
+              createDate: '2021-08-24T14:15:22Z'
+              stamps:
+                - id: 1
+                  stampTypeId: 1
+                  author:
+                    id: user-id
+                    name: john-doe
+                    iconUrl: 'http://example.com/icon.png'
+                  createDate: '2021-08-25T14:15:22Z'
+                - id: 2
+                  stampTypeId: 3
+                  author:
+                    id: user-id-2
+                    name: 田中太郎
+                    iconUrl: 'http://example.com/icon.png'
+                  createDate: '2021-08-25T18:15:22Z'
+          createDate: '2021-08-20T14:15:22Z'
+          updateDate: '2021-08-20T14:30:22Z'
+          author:
+            id: user-id
+            name: john-doe
+            iconUrl: 'http://example.com/icon.png'
+          done: true
+          flags:
+            - 0
+            - 1
+      properties:
+        id:
+          type: number
+        order:
+          type: number
+        question:
+          type: string
+        answer:
+          type: string
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+        createDate:
+          type: string
+          format: date-time
+        updateDate:
+          type: string
+          format: date-time
+        author:
+          $ref: '#/components/schemas/User'
+        done:
+          type: boolean
+        flags:
+          type: array
+          items:
+            type: number
+      required:
+        - id
+        - order
+        - question
+        - answer
+        - comments
+        - createDate
+        - updateDate
+        - author
+        - done
+        - flags
+    Comment:
+      title: Comment
+      type: object
+      examples:
+        - id: 1
+          content: サンプルコメント
+          type: default
+          author:
+            id: user-id
+            name: john-doe
+            iconUrl: 'http://example.com/icon.png'
+          createDate: '2021-08-24T14:15:22Z'
+          stamps:
+            - id: 1
+              stampTypeId: 1
+              author:
+                id: user-id
+                name: john-doe
+                iconUrl: 'http://example.com/icon.png'
+              createDate: '2021-08-25T14:15:22Z'
+            - id: 2
+              stampTypeId: 3
+              author:
+                id: user-id-2
+                name: 田中太郎
+                iconUrl: 'http://example.com/icon.png'
+              createDate: '2021-08-25T18:15:22Z'
+      properties:
+        id:
+          type: number
+        content:
+          type: string
+        type:
+          $ref: '#/components/schemas/CommentType'
+        author:
+          $ref: '#/components/schemas/User'
+        createDate:
+          type: string
+          format: date-time
+        stamps:
+          type: array
+          items:
+            $ref: '#/components/schemas/Stamp'
+      required:
+        - id
+        - content
+        - type
+        - author
+        - createDate
+        - stamps
+    Stamp:
+      title: Stamp
+      type: object
+      examples:
+        - id: 1
+          stampTypeId: 1
+          author:
+            id: user-id
+            name: john-doe
+            iconUrl: 'http://example.com/icon.png'
+          createDate: '2021-08-24T14:15:22Z'
+      properties:
+        id:
+          type: number
+        stampTypeId:
+          type: number
+        author:
+          $ref: '#/components/schemas/User'
+        createDate:
+          type: string
+          format: date-time
+      required:
+        - id
+        - stampTypeId
+        - author
+        - createDate
+    Collaborator:
+      title: Collaborator
+      type: object
+      examples:
+        - id: 0
+          user:
+            id: user-id
+            name: john-doe
+            iconUrl: 'http://example.com/icon.png'
+          joinDate: '2021-08-27T14:15:22Z'
+          requestDate: '2021-08-24T14:15:22Z'
+          role: editor
+      properties:
+        id:
+          type: number
+        user:
+          $ref: '#/components/schemas/User'
+        joinDate:
+          type: string
+          format: date-time
+        requestDate:
+          type: string
+          format: date-time
+        role:
+          type: string
+          enum:
+            - editor
+            - viewer
+            - owner
+            - applicant
+      required:
+        - id
+        - user
+        - joinDate
+        - requestDate
+        - role
+    Category:
+      type: string
+      enum:
+        - japanese
+        - math
+        - science
+        - social_studies
+        - english
+        - toeic
+        - toefle
+      examples:
+        - english
+    User:
+      title: User
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        iconUrl:
+          type: string
+          format: uri
+      required:
+        - id
+        - name
+        - iconUrl
+      examples:
+        - id: user-id
+          name: john-doe
+          iconUrl: 'http://example.com/icon.png'
+    Profile:
+      title: Profile
+      type: object
+      properties:
+        id:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+        ownedBooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Book'
+      required:
+        - id
+        - user
+        - ownedBooks
+      examples:
+        - id: string
+          user:
+            id: user-id
+            name: john-doe
+            iconUrl: 'http://example.com/icon.png'
+          ownedBooks:
+            - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+              title: 教科書第2章 新出単語
+              category: english
+              description: 教科書第2章の本文中に出てくる新出単語をまとめました
+              words:
+                - id: 1
+                  order: 1
+                  question: traditional
+                  answer: 伝統的な
+                  comments:
+                    - id: 1
+                      content: サンプルコメント
+                      type: text
+                      author:
+                        id: user-id
+                        name: john-doe
+                        iconUrl: 'http://example.com/icon.png'
+                      createDate: '2021-08-24T14:15:22Z'
+                      stamps:
+                        - id: 1
+                          stampTypeId: 1
+                          author:
+                            id: user-id
+                            name: john-doe
+                            iconUrl: 'http://example.com/icon.png'
+                          createDate: '2021-08-25T14:15:22Z'
+                        - id: 2
+                          stampTypeId: 3
+                          author:
+                            id: user-id-2
+                            name: 田中太郎
+                            iconUrl: 'http://example.com/icon.png'
+                          createDate: '2021-08-25T18:15:22Z'
+                  createDate: '2021-08-20T14:15:22Z'
+                  updateDate: '2021-08-20T14:30:22Z'
+                  author:
+                    id: user-id
+                    name: john-doe
+                    iconUrl: 'http://example.com/icon.png'
+                  done: true
+                  flags:
+                    - 0
+                    - 1
+              comments:
+                - id: 1
+                  content: サンプルコメント
+                  type: text
+                  author:
+                    id: user-id
+                    name: john-doe
+                    iconUrl: 'http://example.com/icon.png'
+                  createDate: '2021-08-24T14:15:22Z'
+                  stamps:
+                    - id: 1
+                      stampTypeId: 1
+                      author:
+                        id: user-id
+                        name: john-doe
+                        iconUrl: 'http://example.com/icon.png'
+                      createDate: '2021-08-25T14:15:22Z'
+                    - id: 2
+                      stampTypeId: 3
+                      author:
+                        id: user-id-2
+                        name: 田中太郎
+                        iconUrl: 'http://example.com/icon.png'
+                      createDate: '2021-08-25T18:15:22Z'
+              author:
+                id: user-id
+                name: john-doe
+                iconUrl: 'http://example.com/icon.png'
+              createDate: '2021-08-20T14:15:22Z'
+              updateDate: '2021-08-20T14:20:22Z'
+              collaborators:
+                - id: 2
+                  user:
+                    id: user-id-2
+                    name: 田中太郎
+                    iconUrl: 'http://example.com/icon.png'
+                  joinDate: '2021-08-27T14:15:22Z'
+                  requestDate: '2021-08-25T14:15:22Z'
+                  role: editor
+      description: ''
+    BookType:
+      type: string
+      title: BookType
+      enum:
+        - own
+        - shared
+      examples:
+        - own
+        - shared
+    Role:
+      type: string
+      title: Role
+      enum:
+        - owner
+        - editor
+        - viewer
+      examples:
+        - owner
+        - editor
+        - viewer
+    CommentType:
+      type: string
+      title: CommentType
+      enum:
+        - default
+        - question
+      description: ''
+    WordScore:
+      title: WordScore
+      type: object
+      properties:
+        id:
+          type: integer
+        wordId:
+          type: integer
+        result:
+          type: boolean
+        createDate:
+          type: string
+          format: date-time
+      examples:
+        - id: 1
+          wordId: 1
+          result: true
+          createDate: '2019-08-24T14:15:22Z'
+      description: 単語の正誤記録
+    AccessLevel:
+      type: string
+      title: AccessLevel
+      description: roleを持たない友達への公開設定
+      enum:
+        - full
+        - meta
+        - none
+  securitySchemes:
+    id-token:
+      type: http
+      scheme: bearer
