@@ -2162,12 +2162,6 @@ components:
           type: number
         user:
           $ref: '#/components/schemas/User'
-        joinDate:
-          type: string
-          format: date-time
-        requestDate:
-          type: string
-          format: date-time
         role:
           type: string
           enum:
@@ -2175,11 +2169,15 @@ components:
             - viewer
             - owner
             - applicant
+        joinDate:
+          type: string
+          format: date-time
+        requestDate:
+          type: string
+          format: date-time
       required:
         - id
         - user
-        - joinDate
-        - requestDate
         - role
     Category:
       type: string
