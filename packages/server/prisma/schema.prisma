@@ -1,0 +1,208 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model OwnedBook {
+  id          Int         @id @default(autoincrement())
+  book        Book        @relation(fields: [bookId], references: [id])
+  type        BookType
+  createDate  DateTime    @default(now())
+  updateDate  DateTime    @updatedAt
+  isFavorite  Boolean
+  user        User        @relation(fields: [userId], references: [id])
+  role        Role
+  accessLevel AccessLevel
+  Profile     Profile?    @relation(fields: [profileId], references: [id])
+  profileId   String?
+  bookId      String
+  userId      String
+}
+
+model Book {
+  id                      String                    @id @default(uuid())
+  title                   String
+  category                Category
+  description             String?
+  createDate              DateTime                  @default(now())
+  updateDate              DateTime                  @updatedAt
+  words                   Word[]
+  comments                Comment[]
+  author                  User                      @relation(fields: [authorId], references: [id])
+  collaborators           Collaborator[]
+  wordScore               WordScore[]
+  OwnedBook               OwnedBook[]
+  authorId                String
+  InviteCode              InviteCode[]
+  CollaboratorApplication CollaboratorApplication[]
+}
+
+model Word {
+  id         Int          @id @default(autoincrement())
+  order      Int          @unique
+  question   String
+  answer     String
+  createDate DateTime     @default(now())
+  updateDate DateTime     @updatedAt
+  comments   Comment[]
+  author     User         @relation(fields: [userId], references: [id])
+  Book       Book?        @relation(fields: [bookId], references: [id])
+  bookId     String?
+  WordDetail WordDetail[]
+  WordScores WordScore[]
+  userId     String
+}
+
+model WordDetail {
+  id    Int     @id @default(autoincrement())
+  done  Boolean
+  flags Int[]
+  word  Word    @relation(fields: [id], references: [id])
+}
+
+model Comment {
+  id         Int         @id @default(autoincrement())
+  content    String
+  type       CommentType
+  author     User        @relation(fields: [userId], references: [id])
+  createDate DateTime    @default(now())
+  stamps     Stamp[]
+  Book       Book?       @relation(fields: [bookId], references: [id])
+  bookId     String?
+  Word       Word?       @relation(fields: [wordId], references: [id])
+  wordId     Int?
+  userId     String
+}
+
+model Stamp {
+  id          Int      @id @default(autoincrement())
+  stampTypeId Int
+  author      User     @relation(fields: [userId], references: [id])
+  createDate  DateTime @default(now())
+  Comment     Comment? @relation(fields: [commentId], references: [id])
+  commentId   Int?
+  userId      String
+}
+
+model Collaborator {
+  id          Int       @id @default(autoincrement())
+  user        User      @relation(fields: [userId], references: [id])
+  role        Role
+  joinDate    DateTime?
+  requestDate DateTime?
+  createDate  DateTime  @default(now())
+  updateDate  DateTime  @updatedAt
+  Book        Book?     @relation(fields: [bookId], references: [id])
+  bookId      String?
+  userId      String
+}
+
+model CollaboratorApplication {
+  userId String
+  bookId String
+  user   User   @relation(fields: [userId], references: [id])
+  book   Book   @relation(fields: [bookId], references: [id])
+
+  @@id([userId, bookId])
+}
+
+model User {
+  id                      String                    @id
+  name                    String
+  iconUrl                 String
+  createDate              DateTime                  @default(now())
+  Book                    Book[]
+  Word                    Word[]
+  Comment                 Comment[]
+  Stamp                   Stamp[]
+  Collaborator            Collaborator[]
+  Profile                 Profile[]
+  OwnedBook               OwnedBook[]
+  InviteCode              InviteCode[]              @relation("inviter")
+  InviteedCode            InviteCode[]              @relation("invitee")
+  ConnectCode             Friend[]                  @relation("apply")
+  ConnectedCode           Friend[]                  @relation("applied")
+  CollaboratorApplication CollaboratorApplication[]
+}
+
+model Profile {
+  id         String      @id
+  user       User        @relation(fields: [id], references: [id])
+  ownedBooks OwnedBook[]
+  createDate DateTime    @default(now())
+  updateDate DateTime    @updatedAt
+}
+
+model WordScore {
+  id         Int      @id @default(autoincrement())
+  wordId     Int
+  result     Boolean
+  word       Word     @relation(fields: [wordId], references: [id])
+  createDate DateTime @default(now())
+  Book       Book?    @relation(fields: [bookId], references: [id])
+  bookId     String?
+}
+
+model InviteCode {
+  id            Int      @id @default(autoincrement())
+  inviteCode    String   @default(uuid())
+  inviterUserId String
+  inviteeUserId String
+  inviterUser   User     @relation(name: "inviter", fields: [inviterUserId], references: [id])
+  inviteeUser   User     @relation(name: "invitee", fields: [inviteeUserId], references: [id])
+  bookId        String
+  book          Book     @relation(fields: [bookId], references: [id])
+  completed     Boolean
+  expireDate    DateTime
+  createDate    DateTime
+}
+
+model Friend {
+  id            Int      @id @default(autoincrement())
+  connectCode   String   @default(uuid())
+  applyUserId   String
+  appliedUserId String
+  applyUser     User     @relation(name: "apply", fields: [applyUserId], references: [id])
+  appliedUser   User     @relation(name: "applied", fields: [appliedUserId], references: [id])
+  accepted      Boolean
+  expireDate    DateTime
+}
+
+enum Category {
+  japanese
+  math
+  science
+  social_studies
+  english
+  toeic
+  toefle
+}
+
+enum CommentType {
+  default
+  question
+}
+
+enum Role {
+  owner
+  editor
+  viewer
+}
+
+enum BookType {
+  own
+  shared
+}
+
+enum AccessLevel {
+  full
+  meta
+  none
+}

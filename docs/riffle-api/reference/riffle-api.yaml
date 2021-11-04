@@ -1111,7 +1111,33 @@ paths:
       description: スタンプの削除
       tags:
         - book
-  '/book/{bookId}/invited':
+  '/book/{bookId}/collaborators/invite-code':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+    get:
+      summary: ''
+      operationId: get-book-bookId-collaborators-invite-code
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  inviteCode:
+                    type: string
+                    format: uuid
+                required:
+                  - inviteCode
+      description: 招待コードの発行
+      tags:
+        - share
+  '/book/{bookId}/collaborators/invited':
     parameters:
       - schema:
           type: string
@@ -1140,6 +1166,22 @@ paths:
                 value:
                   accept: true
         description: ''
+      tags:
+        - share
+  '/book/{bookId}/collaborators/request':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-book-bookId-collaborators-request
+      responses:
+        '200':
+          description: OK
+      description: 閲覧をリクエストする
       tags:
         - share
   '/book/{bookId}/collaborators/{collaboratorId}':
@@ -1216,7 +1258,7 @@ paths:
                 value:
                   hardDelete: true
       tags:
-        - book
+        - share
   '/book/{bookId}/collaborators/{collaboratorId}/approve':
     parameters:
       - schema:
@@ -1452,7 +1494,7 @@ paths:
   /friend:
     parameters: []
     get:
-      summary: Your GET endpoint
+      summary: ''
       tags:
         - friend
       responses:
@@ -1561,6 +1603,124 @@ paths:
                                 role: editor
       operationId: get-friend
       description: フレンドのプロフィールを取得する
+  /friend/connect-code:
+    parameters: []
+    get:
+      summary: ''
+      tags:
+        - friend
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  connectCode:
+                    type: string
+              examples:
+                example:
+                  value:
+                    friend:
+                      - id: string
+                        user:
+                          id: user-id
+                          name: john-doe
+                          iconUrl: 'http://example.com/icon.png'
+                        ownedBooks:
+                          - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                            title: 教科書第2章 新出単語
+                            category: english
+                            description: 教科書第2章の本文中に出てくる新出単語をまとめました
+                            words:
+                              - id: 1
+                                order: 1
+                                question: traditional
+                                answer: 伝統的な
+                                comments:
+                                  - id: 1
+                                    content: サンプルコメント
+                                    type: default
+                                    author:
+                                      id: user-id
+                                      name: john-doe
+                                      iconUrl: 'http://example.com/icon.png'
+                                    createDate: '2021-08-24T14:15:22Z'
+                                    stamps:
+                                      - id: 1
+                                        stampTypeId: 1
+                                        author:
+                                          id: user-id
+                                          name: john-doe
+                                          iconUrl: 'http://example.com/icon.png'
+                                        createDate: '2021-08-25T14:15:22Z'
+                                      - id: 2
+                                        stampTypeId: 3
+                                        author:
+                                          id: user-id-2
+                                          name: 田中太郎
+                                          iconUrl: 'http://example.com/icon.png'
+                                        createDate: '2021-08-25T18:15:22Z'
+                                createDate: '2021-08-20T14:15:22Z'
+                                updateDate: '2021-08-20T14:30:22Z'
+                                author:
+                                  id: user-id
+                                  name: john-doe
+                                  iconUrl: 'http://example.com/icon.png'
+                                done: true
+                                flags:
+                                  - 0
+                                  - 1
+                            comments:
+                              - id: 1
+                                content: サンプルコメント
+                                type: default
+                                author:
+                                  id: user-id
+                                  name: john-doe
+                                  iconUrl: 'http://example.com/icon.png'
+                                createDate: '2021-08-24T14:15:22Z'
+                                stamps:
+                                  - id: 1
+                                    stampTypeId: 1
+                                    author:
+                                      id: user-id
+                                      name: john-doe
+                                      iconUrl: 'http://example.com/icon.png'
+                                    createDate: '2021-08-25T14:15:22Z'
+                                  - id: 2
+                                    stampTypeId: 3
+                                    author:
+                                      id: user-id-2
+                                      name: 田中太郎
+                                      iconUrl: 'http://example.com/icon.png'
+                                    createDate: '2021-08-25T18:15:22Z'
+                            author:
+                              id: user-id
+                              name: john-doe
+                              iconUrl: 'http://example.com/icon.png'
+                            createDate: '2021-08-20T14:15:22Z'
+                            updateDate: '2021-08-20T14:20:22Z'
+                            collaborators:
+                              - id: 2
+                                user:
+                                  id: user-id-2
+                                  name: 田中太郎
+                                  iconUrl: 'http://example.com/icon.png'
+                                joinDate: '2021-08-27T14:15:22Z'
+                                requestDate: '2021-08-25T14:15:22Z'
+                                role: editor
+        '':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  connectCode:
+                    type: string
+      operationId: get-friend-connect-code
+      description: フレンド申請コードを発行する
   /friend/connect:
     post:
       summary: ''
@@ -1668,19 +1828,6 @@ paths:
                               requestDate: '2021-08-25T14:15:22Z'
                               role: editor
       description: 友達とつながる
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                inviteCode:
-                  type: string
-                  format: uuid
-            examples:
-              example:
-                value:
-                  inviteCode: aa5cd31a-c8c3-4f9a-921b-732fa896c3d0
       tags:
         - friend
     parameters: []

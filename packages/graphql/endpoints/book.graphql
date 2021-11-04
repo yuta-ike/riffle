@@ -1,0 +1,15 @@
+extend type Mutation {
+  postBookComment(bookId: ID!, input: PostBoolCommentInput!): Comment!
+  deleteBookComment(bookId: ID!, commentId: ID!): Void
+  postWordScore(bookId: ID!, input: WordScoreInput): [WordScore!]!
+}
+
+type PostBoolCommentInput {
+  type: CommentType!
+  content: String!
+}
+
+type WordScoreInput {
+  wordId: ID!
+  result: Boolean!
+}

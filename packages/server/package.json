@@ -12,14 +12,30 @@
     "format": "prettier --check \"**/*.{js,ts,json}\" .",
     "fix": "run-p lint:fix format:fix",
     "lint:fix": "yarn lint --fix",
-    "format:fix": "yarn format --write"
+    "format:fix": "yarn format --write",
+    "migrate:dev": "yarn prisma migrate dev",
+    "resetdb:dev": "yarn prisma migrate reset",
+    "migrate:prod": "yarn prisma migrate deploy",
+    "graphql:typegen": "graphql-codegen --config codegen.yml",
+    "studio": "yarn prisma studio"
   },
   "dependencies": {
+    "@graphql-tools/graphql-file-loader": "^7.3.2",
+    "@graphql-tools/load": "^7.4.1",
+    "@graphql-tools/schema": "^8.3.1",
+    "@prisma/client": "3.4.0",
+    "apollo-server-core": "^3.4.0",
+    "apollo-server-fastify": "^3.4.0",
     "fastify": "^3.22.1",
-    "fastify-cors": "^6.0.2"
+    "fastify-cors": "^6.0.2",
+    "graphql": "^16.0.1"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.2.2",
+    "@graphql-codegen/typescript": "^2.3.0",
+    "@graphql-codegen/typescript-resolvers": "^2.4.0",
     "dotenv": "^10.0.0",
+    "prisma": "3.4.0",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.4.4"
   }

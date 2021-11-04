@@ -1,0 +1,17 @@
+overwrite: true
+generates:
+  ./src/types/generated/graphql.ts:
+    schema: ../graphql/**/*.graphql
+    config:
+      useIndexSignature: true
+      # リゾルバーのためのContextの型をsrc/types/context.d.tsから読み込む
+      contextType: ../context#Context
+      strictScalars: true
+      scalars:
+        Date: string
+        Void: void
+      avoidOptionals: true
+      enumsAsTypes: true
+    plugins:
+      - typescript
+      - typescript-resolvers

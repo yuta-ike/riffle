@@ -1,0 +1,13 @@
+extend type Query {
+  getFriends: [Profile!]!
+  getConnectCode: String!
+}
+
+extend type Mutation {
+  postConnect(input: PostConnectInput!): Profile!
+  deleteFriend(friendId: ID!): Void
+}
+
+input PostConnectInput {
+  connectCode: String!
+}

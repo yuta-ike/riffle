@@ -1,0 +1,34 @@
+extend type Query {
+  getOwnedBooks: [OwnedBook!]!
+  getOwnedBook(bookId: ID!): OwnedBook!
+}
+
+extend type Mutation {
+  postBook(input: PostBookInput!): OwnedBook!
+  putBook(bookId: ID!, input: PutBookInput!): OwnedBook!
+  deleteBook(bookId: ID!, input: DeleteInput!): Void
+  postFork(bookId: ID!, input: ForkInput): OwnedBook!
+}
+
+input PostBookInput {
+  title: String!
+  category: String!
+  description: String
+  words: [WordsInput!]!
+}
+
+input WordsInput {
+  question: String!
+  answer: String!
+}
+
+input PutBookInput {
+  title: String
+  category: Category
+  description: String
+  isFavorite: Boolean
+}
+
+input ForkInput {
+  bookId: ID!
+}
