@@ -12,7 +12,7 @@ const startApolloServer = async () => {
     await prisma.user
       .create({
         data: {
-          id: "sample",
+          id: "sample-id",
           name: "name",
           iconUrl: "icon",
         },
