@@ -9,6 +9,7 @@ WORKDIR /app
 # node.js の環境変数を定義する
 # 本番環境では production
 ENV NODE_ENV=development
+ENV HOST="0.0.0.0"
 
 COPY package.json ./
 COPY yarn.lock ./
