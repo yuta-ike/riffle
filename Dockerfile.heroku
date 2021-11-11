@@ -2,7 +2,7 @@ FROM node:16
 
 WORKDIR /app
 
-ENV NODE_ENV=development
+ENV NODE_ENV=production
 ENV HOST="0.0.0.0"
 
 COPY package.json ./
