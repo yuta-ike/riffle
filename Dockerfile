@@ -26,4 +26,4 @@ RUN yarn build:server
 
 EXPOSE 8000
 
-CMD ["yarn", "start:server"]
+CMD PORT=$PORT yarn start:server
