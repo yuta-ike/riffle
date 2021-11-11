@@ -2,6 +2,7 @@ import fastify from "fastify"
 import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
 
+const HOST = process.env.HOST || "localhost"
 const PORT = process.env.PORT || "8000"
 
 const startApolloServer = async () => {
@@ -20,7 +21,7 @@ const startApolloServer = async () => {
     reply.send("hello, world")
   })
 
-  await app.listen(PORT, "0.0.0.0")
+  await app.listen(PORT, HOST)
   console.log(`🚀 Server ready at ${PORT}`)
 }
 
