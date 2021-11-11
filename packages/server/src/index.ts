@@ -22,7 +22,7 @@ const startApolloServer = async () => {
   })
 
   await app.listen(PORT, HOST)
-  console.log(`🚀 Server ready at ${PORT}`)
+  console.log(`🚀 Server ready at ${HOST}:${PORT}`)
 }
 
 startApolloServer()
