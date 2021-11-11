@@ -20,7 +20,7 @@ const startApolloServer = async () => {
     reply.send("hello, world")
   })
 
-  await app.listen(PORT, "localhost")
+  await app.listen(PORT, "0.0.0.0")
   console.log(`🚀 Server ready at ${PORT}`)
 }
 
