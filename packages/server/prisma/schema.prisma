@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,38 +7,158 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model OwnedBook {
+model Book {
+  id                      String                    @id @default(dbgenerated("uuid_generate_v4()"))
+  title                   String
+  category                String
+  description             String?
+  createDate              DateTime                  @default(now())
+  authorId                String
+  updateDate              DateTime                  @default(now()) @db.Timestamptz(6)
+  accessLevel             String                    @default("meta")
+  deleteDate              DateTime?                 @db.Time(6)
+  AccessLevel             AccessLevel
+  User                    User                      @relation(fields: [authorId], references: [id])
+  Category                Category
+  Collaborator            Collaborator[]
+  CollaboratorApplication CollaboratorApplication[]
+  Comment                 Comment[]
+  InviteCode              InviteCode[]
+  OwnedBook               OwnedBook[]
+  Word                    Word[]
+}
+
+model Collaborator {
+  id          Int       @id @default(autoincrement())
+  role        String
+  joinDate    DateTime?
+  requestDate DateTime?
+  createDate  DateTime  @default(now())
+  bookId      String?
+  userId      String
+  updateDate  DateTime? @default(now()) @db.Timestamptz(6)
+  deleteDate  DateTime? @db.Timestamptz(6)
+  Book        Book?     @relation(fields: [bookId], references: [id])
+  Role        Role
+  User        User      @relation(fields: [userId], references: [id])
+}
+
+model CollaboratorApplication {
+  userId     String
+  bookId     String
+  createDate DateTime  @default(now()) @db.Timestamptz(6)
+  deleteDate DateTime? @db.Timestamptz(6)
+  Book       Book      @relation(fields: [bookId], references: [id])
+  User       User      @relation(fields: [userId], references: [id])
+
+  @@id([userId, bookId])
+}
+
+model Comment {
   id          Int         @id @default(autoincrement())
-  book        Book        @relation(fields: [bookId], references: [id])
-  type        BookType
+  content     String
+  type        String
   createDate  DateTime    @default(now())
-  updateDate  DateTime    @updatedAt
-  isFavorite  Boolean
-  user        User        @relation(fields: [userId], references: [id])
-  role        Role
-  accessLevel AccessLevel
-  Profile     Profile?    @relation(fields: [profileId], references: [id])
+  bookId      String?
+  wordId      Int?
+  userId      String
+  deleteDate  DateTime?   @db.Timestamptz(6)
+  Book        Book?       @relation(fields: [bookId], references: [id])
+  CommentType CommentType
+  User        User        @relation(fields: [userId], references: [id])
+  Word        Word?       @relation(fields: [wordId], references: [id])
+  Stamp       Stamp[]
+}
+
+model ConnectCode {
+  id                                   Int       @id @default(autoincrement())
+  connectCode                          String    @default(dbgenerated("uuid_generate_v4()"))
+  applyUserId                          String
+  expireDate                           DateTime  @db.Timestamptz(6)
+  createDate                           DateTime  @default(now()) @db.Timestamptz(6)
+  completeDate                         DateTime? @db.Timestamptz(6)
+  appliedUserId                        String?
+  User_ConnectCode_appliedUserIdToUser User?     @relation("ConnectCode_appliedUserIdToUser", fields: [appliedUserId], references: [id], onDelete: Restrict)
+  User_ConnectCode_applyUserIdToUser   User      @relation("ConnectCode_applyUserIdToUser", fields: [applyUserId], references: [id])
+}
+
+model Friend {
+  applyUserId                     String
+  appliedUserId                   String
+  createDate                      DateTime  @default(now()) @db.Time(6)
+  deleteDate                      DateTime? @db.Timestamptz(6)
+  User_Friend_appliedUserIdToUser User      @relation("Friend_appliedUserIdToUser", fields: [appliedUserId], references: [id])
+  User_Friend_applyUserIdToUser   User      @relation("Friend_applyUserIdToUser", fields: [applyUserId], references: [id])
+
+  @@id([applyUserId, appliedUserId])
+}
+
+model InviteCode {
+  id                                  Int       @id @default(autoincrement())
+  inviteCode                          String    @default(dbgenerated("uuid_generate_v4()"))
+  inviterUserId                       String
+  bookId                              String
+  expireDate                          DateTime
+  createDate                          DateTime
+  completeDate                        DateTime? @db.Timestamptz(6)
+  inviteeUserId                       String?
+  Book                                Book      @relation(fields: [bookId], references: [id])
+  User_InviteCode_inviteeUserIdToUser User?     @relation("InviteCode_inviteeUserIdToUser", fields: [inviteeUserId], references: [id], onDelete: Restrict)
+  User_InviteCode_inviterUserIdToUser User      @relation("InviteCode_inviterUserIdToUser", fields: [inviterUserId], references: [id])
+}
+
+model OwnedBook {
+  id          Int       @id @default(autoincrement())
+  type        String
+  createDate  DateTime  @default(now())
+  isFavorite  Boolean   @default(false)
+  role        String
+  accessLevel String
   profileId   String?
   bookId      String
   userId      String
+  updateDate  DateTime  @default(now()) @db.Timestamp(6)
+  deleteDate  DateTime? @db.Timestamptz(6)
+  Book        Book      @relation(fields: [bookId], references: [id])
+  Role        Role
+  BookType    BookType
+  User        User      @relation(fields: [userId], references: [id])
 }
 
-model Book {
-  id                      String                    @id @default(uuid())
-  title                   String
-  category                Category
-  description             String?
-  createDate              DateTime                  @default(now())
-  updateDate              DateTime                  @updatedAt
-  words                   Word[]
-  comments                Comment[]
-  author                  User                      @relation(fields: [authorId], references: [id])
-  collaborators           Collaborator[]
-  wordScore               WordScore[]
-  OwnedBook               OwnedBook[]
-  authorId                String
-  InviteCode              InviteCode[]
-  CollaboratorApplication CollaboratorApplication[]
+model Stamp {
+  id         Int       @id @default(autoincrement())
+  stampType  String
+  createDate DateTime  @default(now())
+  commentId  Int?
+  userId     String
+  deleteDate DateTime? @db.Timestamptz(6)
+  Comment    Comment?  @relation(fields: [commentId], references: [id])
+  StampType  StampType
+  User       User      @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id                                          String                    @id
+  name                                        String
+  iconUrl                                     String
+  createDate                                  DateTime                  @default(now())
+  updateDate                                  DateTime?                 @db.Timestamptz(6)
+  deleteDate                                  DateTime?                 @db.Timestamptz(6)
+  Book                                        Book[]
+  Collaborator                                Collaborator[]
+  CollaboratorApplication                     CollaboratorApplication[]
+  Comment                                     Comment[]
+  ConnectCode_ConnectCode_appliedUserIdToUser ConnectCode[]             @relation("ConnectCode_appliedUserIdToUser")
+  ConnectCode_ConnectCode_applyUserIdToUser   ConnectCode[]             @relation("ConnectCode_applyUserIdToUser")
+  Friend_Friend_appliedUserIdToUser           Friend[]                  @relation("Friend_appliedUserIdToUser")
+  Friend_Friend_applyUserIdToUser             Friend[]                  @relation("Friend_applyUserIdToUser")
+  InviteCode_InviteCode_inviteeUserIdToUser   InviteCode[]              @relation("InviteCode_inviteeUserIdToUser")
+  InviteCode_InviteCode_inviterUserIdToUser   InviteCode[]              @relation("InviteCode_inviterUserIdToUser")
+  OwnedBook                                   OwnedBook[]
+  Stamp                                       Stamp[]
+  Word                                        Word[]
+  WordDetail                                  WordDetail[]
+  WordScore                                   WordScore[]
 }
 
 model Word {
@@ -50,129 +167,40 @@ model Word {
   question   String
   answer     String
   createDate DateTime     @default(now())
-  updateDate DateTime     @updatedAt
-  comments   Comment[]
-  author     User         @relation(fields: [userId], references: [id])
-  Book       Book?        @relation(fields: [bookId], references: [id])
+  updateDate DateTime
   bookId     String?
-  WordDetail WordDetail[]
-  WordScores WordScore[]
   userId     String
+  deleteDate DateTime?    @db.Timestamptz(6)
+  Book       Book?        @relation(fields: [bookId], references: [id])
+  User       User         @relation(fields: [userId], references: [id])
+  Comment    Comment[]
+  WordDetail WordDetail[]
+  WordScore  WordScore[]
 }
 
 model WordDetail {
-  id    Int     @id @default(autoincrement())
-  done  Boolean
-  flags Int[]
-  word  Word    @relation(fields: [id], references: [id])
-}
-
-model Comment {
-  id         Int         @id @default(autoincrement())
-  content    String
-  type       CommentType
-  author     User        @relation(fields: [userId], references: [id])
-  createDate DateTime    @default(now())
-  stamps     Stamp[]
-  Book       Book?       @relation(fields: [bookId], references: [id])
-  bookId     String?
-  Word       Word?       @relation(fields: [wordId], references: [id])
-  wordId     Int?
+  wordId     Int
+  done       Boolean
+  flags      Int[]
   userId     String
-}
+  id         Int       @id @default(autoincrement())
+  createDate DateTime  @default(now()) @db.Timestamptz(6)
+  updateDate DateTime? @db.Timestamptz(6)
+  User       User      @relation(fields: [userId], references: [id])
+  Word       Word      @relation(fields: [wordId], references: [id], map: "WordDetail_id_fkey")
 
-model Stamp {
-  id          Int      @id @default(autoincrement())
-  stampTypeId Int
-  author      User     @relation(fields: [userId], references: [id])
-  createDate  DateTime @default(now())
-  Comment     Comment? @relation(fields: [commentId], references: [id])
-  commentId   Int?
-  userId      String
-}
-
-model Collaborator {
-  id          Int       @id @default(autoincrement())
-  user        User      @relation(fields: [userId], references: [id])
-  role        Role
-  joinDate    DateTime?
-  requestDate DateTime?
-  createDate  DateTime  @default(now())
-  updateDate  DateTime  @updatedAt
-  Book        Book?     @relation(fields: [bookId], references: [id])
-  bookId      String?
-  userId      String
-}
-
-model CollaboratorApplication {
-  userId String
-  bookId String
-  user   User   @relation(fields: [userId], references: [id])
-  book   Book   @relation(fields: [bookId], references: [id])
-
-  @@id([userId, bookId])
-}
-
-model User {
-  id                      String                    @id
-  name                    String
-  iconUrl                 String
-  createDate              DateTime                  @default(now())
-  Book                    Book[]
-  Word                    Word[]
-  Comment                 Comment[]
-  Stamp                   Stamp[]
-  Collaborator            Collaborator[]
-  Profile                 Profile[]
-  OwnedBook               OwnedBook[]
-  InviteCode              InviteCode[]              @relation("inviter")
-  InviteedCode            InviteCode[]              @relation("invitee")
-  ConnectCode             Friend[]                  @relation("apply")
-  ConnectedCode           Friend[]                  @relation("applied")
-  CollaboratorApplication CollaboratorApplication[]
-}
-
-model Profile {
-  id         String      @id
-  user       User        @relation(fields: [id], references: [id])
-  ownedBooks OwnedBook[]
-  createDate DateTime    @default(now())
-  updateDate DateTime    @updatedAt
+  @@unique([wordId, userId])
 }
 
 model WordScore {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   wordId     Int
   result     Boolean
-  word       Word     @relation(fields: [wordId], references: [id])
-  createDate DateTime @default(now())
-  Book       Book?    @relation(fields: [bookId], references: [id])
-  bookId     String?
-}
-
-model InviteCode {
-  id            Int      @id @default(autoincrement())
-  inviteCode    String   @default(uuid())
-  inviterUserId String
-  inviteeUserId String
-  inviterUser   User     @relation(name: "inviter", fields: [inviterUserId], references: [id])
-  inviteeUser   User     @relation(name: "invitee", fields: [inviteeUserId], references: [id])
-  bookId        String
-  book          Book     @relation(fields: [bookId], references: [id])
-  completed     Boolean
-  expireDate    DateTime
-  createDate    DateTime
-}
-
-model Friend {
-  id            Int      @id @default(autoincrement())
-  connectCode   String   @default(uuid())
-  applyUserId   String
-  appliedUserId String
-  applyUser     User     @relation(name: "apply", fields: [applyUserId], references: [id])
-  appliedUser   User     @relation(name: "applied", fields: [appliedUserId], references: [id])
-  accepted      Boolean
-  expireDate    DateTime
+  createDate DateTime  @default(now())
+  userId     String
+  deleteDate DateTime? @db.Timestamptz(6)
+  User       User      @relation(fields: [userId], references: [id])
+  Word       Word      @relation(fields: [wordId], references: [id])
 }
 
 enum Category {
@@ -205,4 +233,9 @@ enum AccessLevel {
   full
   meta
   none
+}
+
+enum StampType {
+  good
+  bad
 }

@@ -1,3 +1,0 @@
-type DeleteInput {
-  hardDelete: Boolean
-}

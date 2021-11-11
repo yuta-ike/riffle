@@ -16,7 +16,6 @@
     "migrate:dev": "yarn prisma migrate dev",
     "resetdb:dev": "yarn prisma migrate reset",
     "migrate:prod": "yarn prisma migrate deploy",
-    "graphql:typegen": "graphql-codegen --config codegen.yml",
     "studio": "yarn prisma studio"
   },
   "dependencies": {
