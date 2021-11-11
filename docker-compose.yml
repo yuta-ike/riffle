@@ -8,11 +8,10 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: password
       PGDATA: /var/lib/postgresql/data/pgdata
       TZ: Asia/Tokyo
-    ports:
-      - 5432:5432
+    expose:
+      - 5432
     volumes:
       - postgres:/var/lib/postgresql/data
   app:
@@ -27,6 +26,7 @@ services:
       - "8000:8000"
     environment:
       HOST: 0.0.0.0
+      DATABASE_URL: postgres://postgres:password@db:5432/postgres
     expose:
       - 8000
 volumes:

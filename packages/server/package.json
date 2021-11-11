@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "ts-node-dev --require dotenv/config --transpile-only --rs ./src/index.ts",
     "build": "tsc -p .",
-    "start": "node --require dotenv/config ./dist/index.js",
+    "start": "run-s migrate:prod start:app",
+    "start:app": "node --require dotenv/config ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext \".js,.ts\" --cache ./src",
     "type-check": "tsc -p . --noEmit",
@@ -13,10 +14,11 @@
     "fix": "run-p lint:fix format:fix",
     "lint:fix": "yarn lint --fix",
     "format:fix": "yarn format --write",
-    "migrate:dev": "yarn prisma migrate dev",
-    "resetdb:dev": "yarn prisma migrate reset",
-    "migrate:prod": "yarn prisma migrate deploy",
-    "studio": "yarn prisma studio"
+    "prisma:generate": "prisma generate",
+    "migrate:dev": "prisma migrate dev",
+    "resetdb:dev": "prisma migrate reset",
+    "migrate:prod": "prisma migrate deploy",
+    "studio": "prisma studio"
   },
   "dependencies": {
     "@prisma/client": "3.4.0",

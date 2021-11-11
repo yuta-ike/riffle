@@ -1,6 +1,8 @@
 # ベースイメージを指定
 FROM node:16
 
+ARG DATABASE_URL=postgres://postgres:password@db:5432/postgres
+
 # ディレクトリを移動する
 WORKDIR /app
 
@@ -16,8 +18,10 @@ COPY packages/server/tsconfig.json ./packages/server/
 
 RUN yarn install
 
-COPY packages/server packages/server
+COPY packages/server/prisma ./packages/server/
+RUN yarn workspace server prisma:generate
 
+COPY packages/server packages/server
 RUN yarn build:server
 
 EXPOSE 8000
