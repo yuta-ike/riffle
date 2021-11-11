@@ -1,7 +1,7 @@
 # ベースイメージを指定
 FROM node:16
 
-ARG DATABASE_URL=postgres://postgres:password@db:5432/postgres
+# ARG DATABASE_URL=postgres://postgres:password@db:5432/postgres
 
 # ディレクトリを移動する
 WORKDIR /app
