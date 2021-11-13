@@ -112,14 +112,14 @@ export interface paths {
       }
     }
   }
-  "/book/{bookId}/word/{wordId}/comment/{commetId}": {
+  "/book/{bookId}/word/{wordId}/comment/{commentId}": {
     /** コメントを削除する */
     delete: operations["delete-book-bookId-comment"]
     parameters: {
       path: {
         bookId: string
         wordId: number
-        commetId: string
+        commentId: string
       }
     }
   }
@@ -665,7 +665,7 @@ export interface operations {
       path: {
         bookId: string
         wordId: number
-        commetId: string
+        commentId: string
       }
     }
     responses: {

@@ -1089,7 +1089,7 @@ paths:
                   content: string
       tags:
         - book
-  '/book/{bookId}/word/{wordId}/comment/{commetId}':
+  '/book/{bookId}/word/{wordId}/comment/{commentId}':
     parameters:
       - schema:
           type: string
@@ -1103,7 +1103,7 @@ paths:
         required: true
       - schema:
           type: string
-        name: commetId
+        name: commentId
         in: path
         required: true
     delete:
