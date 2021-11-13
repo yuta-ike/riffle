@@ -19,9 +19,9 @@ tags:
   - name: profile
     description: 友達に関するエンドポイント
 paths:
-  /book:
+  /owned-book:
     get:
-      summary: Your GET endpoint
+      summary: 単語帳一覧
       tags:
         - book
       responses:
@@ -59,7 +59,7 @@ paths:
                                     id: user-id
                                     name: john-doe
                                     iconUrl: 'http://example.com/icon.png'
-                                  createDate: '2021-08-24T14:15:22Z'
+                                  createdAt: '2021-08-24T14:15:22Z'
                                   stamps:
                                     - id: 1
                                       stampTypeId: 1
@@ -67,16 +67,16 @@ paths:
                                         id: user-id
                                         name: john-doe
                                         iconUrl: 'http://example.com/icon.png'
-                                      createDate: '2021-08-25T14:15:22Z'
+                                      createdAt: '2021-08-25T14:15:22Z'
                                     - id: 2
                                       stampTypeId: 3
                                       author:
                                         id: user-id-2
                                         name: 田中太郎
                                         iconUrl: 'http://example.com/icon.png'
-                                      createDate: '2021-08-25T18:15:22Z'
-                              createDate: '2021-08-20T14:15:22Z'
-                              updateDate: '2021-08-20T14:30:22Z'
+                                      createdAt: '2021-08-25T18:15:22Z'
+                              createdAt: '2021-08-20T14:15:22Z'
+                              updatedAt: '2021-08-20T14:30:22Z'
                               author:
                                 id: user-id
                                 name: john-doe
@@ -93,7 +93,7 @@ paths:
                                 id: user-id
                                 name: john-doe
                                 iconUrl: 'http://example.com/icon.png'
-                              createDate: '2021-08-24T14:15:22Z'
+                              createdAt: '2021-08-24T14:15:22Z'
                               stamps:
                                 - id: 1
                                   stampTypeId: 1
@@ -101,20 +101,20 @@ paths:
                                     id: user-id
                                     name: john-doe
                                     iconUrl: 'http://example.com/icon.png'
-                                  createDate: '2021-08-25T14:15:22Z'
+                                  createdAt: '2021-08-25T14:15:22Z'
                                 - id: 2
                                   stampTypeId: 3
                                   author:
                                     id: user-id-2
                                     name: 田中太郎
                                     iconUrl: 'http://example.com/icon.png'
-                                  createDate: '2021-08-25T18:15:22Z'
+                                  createdAt: '2021-08-25T18:15:22Z'
                           author:
                             id: user-id
                             name: john-doe
                             iconUrl: 'http://example.com/icon.png'
-                          createDate: '2021-08-20T14:15:22Z'
-                          updateDate: '2021-08-20T14:20:22Z'
+                          createdAt: '2021-08-20T14:15:22Z'
+                          updatedAt: '2021-08-20T14:20:22Z'
                           collaborators:
                             - id: 2
                               user:
@@ -128,7 +128,7 @@ paths:
                             - id: 1
                               wordId: 1
                               result: true
-                              createDate: '2019-08-24T14:15:22Z'
+                              createdAt: '2019-08-24T14:15:22Z'
                         type: own
                         addDate: '2021-08-24T14:15:22Z'
                         lastUseDate: '2021-08-24T14:15:22Z'
@@ -137,11 +137,11 @@ paths:
                           done: 8
                         role: owner
                         accessLevel: meta
-      operationId: get-book
+      operationId: get-owned-book
       description: 自分の持っている単語帳を取得する
     post:
-      summary: ''
-      operationId: post-book
+      summary: 単語帳投稿
+      operationId: post-owned-book
       responses:
         '200':
           description: OK
@@ -175,7 +175,7 @@ paths:
                                   id: user-id
                                   name: john-doe
                                   iconUrl: 'http://example.com/icon.png'
-                                createDate: '2021-08-24T14:15:22Z'
+                                createdAt: '2021-08-24T14:15:22Z'
                                 stamps:
                                   - id: 1
                                     stampTypeId: 1
@@ -183,16 +183,16 @@ paths:
                                       id: user-id
                                       name: john-doe
                                       iconUrl: 'http://example.com/icon.png'
-                                    createDate: '2021-08-25T14:15:22Z'
+                                    createdAt: '2021-08-25T14:15:22Z'
                                   - id: 2
                                     stampTypeId: 3
                                     author:
                                       id: user-id-2
                                       name: 田中太郎
                                       iconUrl: 'http://example.com/icon.png'
-                                    createDate: '2021-08-25T18:15:22Z'
-                            createDate: '2021-08-20T14:15:22Z'
-                            updateDate: '2021-08-20T14:30:22Z'
+                                    createdAt: '2021-08-25T18:15:22Z'
+                            createdAt: '2021-08-20T14:15:22Z'
+                            updatedAt: '2021-08-20T14:30:22Z'
                             author:
                               id: user-id
                               name: john-doe
@@ -209,7 +209,7 @@ paths:
                               id: user-id
                               name: john-doe
                               iconUrl: 'http://example.com/icon.png'
-                            createDate: '2021-08-24T14:15:22Z'
+                            createdAt: '2021-08-24T14:15:22Z'
                             stamps:
                               - id: 1
                                 stampTypeId: 1
@@ -217,20 +217,20 @@ paths:
                                   id: user-id
                                   name: john-doe
                                   iconUrl: 'http://example.com/icon.png'
-                                createDate: '2021-08-25T14:15:22Z'
+                                createdAt: '2021-08-25T14:15:22Z'
                               - id: 2
                                 stampTypeId: 3
                                 author:
                                   id: user-id-2
                                   name: 田中太郎
                                   iconUrl: 'http://example.com/icon.png'
-                                createDate: '2021-08-25T18:15:22Z'
+                                createdAt: '2021-08-25T18:15:22Z'
                         author:
                           id: user-id
                           name: john-doe
                           iconUrl: 'http://example.com/icon.png'
-                        createDate: '2021-08-20T14:15:22Z'
-                        updateDate: '2021-08-20T14:20:22Z'
+                        createdAt: '2021-08-20T14:15:22Z'
+                        updatedAt: '2021-08-20T14:20:22Z'
                         collaborators:
                           - id: 2
                             user:
@@ -244,7 +244,7 @@ paths:
                           - id: 1
                             wordId: 1
                             result: true
-                            createDate: '2019-08-24T14:15:22Z'
+                            createdAt: '2019-08-24T14:15:22Z'
                       type: own
                       addDate: '2021-08-24T14:15:22Z'
                       lastUseDate: '2021-08-24T14:15:22Z'
@@ -278,30 +278,35 @@ paths:
                     required:
                       - question
                       - answer
+                accessLevel:
+                  $ref: '#/components/schemas/AccessLevel'
               required:
                 - title
                 - category
                 - words
+                - accessLevel
             examples:
               example:
                 value:
                   title: string
                   category: japanese
                   description: string
+                  accessLevel: meta
                   words:
                     - question: string
                       answer: string
       tags:
         - book
-  '/book/{bookId}':
+    parameters: []
+  '/owned-book/{bookId}':
     parameters:
       - schema:
-          type: string
+          type: integer
         name: bookId
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: 単語帳詳細
       tags:
         - book
       responses:
@@ -337,7 +342,7 @@ paths:
                                   id: user-id
                                   name: john-doe
                                   iconUrl: 'http://example.com/icon.png'
-                                createDate: '2021-08-24T14:15:22Z'
+                                createdAt: '2021-08-24T14:15:22Z'
                                 stamps:
                                   - id: 1
                                     stampTypeId: 1
@@ -345,16 +350,16 @@ paths:
                                       id: user-id
                                       name: john-doe
                                       iconUrl: 'http://example.com/icon.png'
-                                    createDate: '2021-08-25T14:15:22Z'
+                                    createdAt: '2021-08-25T14:15:22Z'
                                   - id: 2
                                     stampTypeId: 3
                                     author:
                                       id: user-id-2
                                       name: 田中太郎
                                       iconUrl: 'http://example.com/icon.png'
-                                    createDate: '2021-08-25T18:15:22Z'
-                            createDate: '2021-08-20T14:15:22Z'
-                            updateDate: '2021-08-20T14:30:22Z'
+                                    createdAt: '2021-08-25T18:15:22Z'
+                            createdAt: '2021-08-20T14:15:22Z'
+                            updatedAt: '2021-08-20T14:30:22Z'
                             author:
                               id: user-id
                               name: john-doe
@@ -371,7 +376,7 @@ paths:
                               id: user-id
                               name: john-doe
                               iconUrl: 'http://example.com/icon.png'
-                            createDate: '2021-08-24T14:15:22Z'
+                            createdAt: '2021-08-24T14:15:22Z'
                             stamps:
                               - id: 1
                                 stampTypeId: 1
@@ -379,20 +384,20 @@ paths:
                                   id: user-id
                                   name: john-doe
                                   iconUrl: 'http://example.com/icon.png'
-                                createDate: '2021-08-25T14:15:22Z'
+                                createdAt: '2021-08-25T14:15:22Z'
                               - id: 2
                                 stampTypeId: 3
                                 author:
                                   id: user-id-2
                                   name: 田中太郎
                                   iconUrl: 'http://example.com/icon.png'
-                                createDate: '2021-08-25T18:15:22Z'
+                                createdAt: '2021-08-25T18:15:22Z'
                         author:
                           id: user-id
                           name: john-doe
                           iconUrl: 'http://example.com/icon.png'
-                        createDate: '2021-08-20T14:15:22Z'
-                        updateDate: '2021-08-20T14:20:22Z'
+                        createdAt: '2021-08-20T14:15:22Z'
+                        updatedAt: '2021-08-20T14:20:22Z'
                         collaborators:
                           - id: 2
                             user:
@@ -406,7 +411,7 @@ paths:
                           - id: 1
                             wordId: 1
                             result: true
-                            createDate: '2019-08-24T14:15:22Z'
+                            createdAt: '2019-08-24T14:15:22Z'
                       type: own
                       addDate: '2021-08-24T14:15:22Z'
                       lastUseDate: '2021-08-24T14:15:22Z'
@@ -415,11 +420,11 @@ paths:
                         done: 8
                       role: owner
                       accessLevel: meta
-      operationId: get-book-bookId
+      operationId: get-owned-book-bookId
       description: 単語帳の詳細情報を取得する
-    patch:
-      summary: ''
-      operationId: patch-book-bookId
+    put:
+      summary: 単語帳編集
+      operationId: put-owned-book-bookId
       responses:
         '200':
           description: OK
@@ -453,7 +458,7 @@ paths:
                                   id: user-id
                                   name: john-doe
                                   iconUrl: 'http://example.com/icon.png'
-                                createDate: '2021-08-24T14:15:22Z'
+                                createdAt: '2021-08-24T14:15:22Z'
                                 stamps:
                                   - id: 1
                                     stampTypeId: 1
@@ -461,16 +466,16 @@ paths:
                                       id: user-id
                                       name: john-doe
                                       iconUrl: 'http://example.com/icon.png'
-                                    createDate: '2021-08-25T14:15:22Z'
+                                    createdAt: '2021-08-25T14:15:22Z'
                                   - id: 2
                                     stampTypeId: 3
                                     author:
                                       id: user-id-2
                                       name: 田中太郎
                                       iconUrl: 'http://example.com/icon.png'
-                                    createDate: '2021-08-25T18:15:22Z'
-                            createDate: '2021-08-20T14:15:22Z'
-                            updateDate: '2021-08-20T14:30:22Z'
+                                    createdAt: '2021-08-25T18:15:22Z'
+                            createdAt: '2021-08-20T14:15:22Z'
+                            updatedAt: '2021-08-20T14:30:22Z'
                             author:
                               id: user-id
                               name: john-doe
@@ -487,7 +492,7 @@ paths:
                               id: user-id
                               name: john-doe
                               iconUrl: 'http://example.com/icon.png'
-                            createDate: '2021-08-24T14:15:22Z'
+                            createdAt: '2021-08-24T14:15:22Z'
                             stamps:
                               - id: 1
                                 stampTypeId: 1
@@ -495,20 +500,20 @@ paths:
                                   id: user-id
                                   name: john-doe
                                   iconUrl: 'http://example.com/icon.png'
-                                createDate: '2021-08-25T14:15:22Z'
+                                createdAt: '2021-08-25T14:15:22Z'
                               - id: 2
                                 stampTypeId: 3
                                 author:
                                   id: user-id-2
                                   name: 田中太郎
                                   iconUrl: 'http://example.com/icon.png'
-                                createDate: '2021-08-25T18:15:22Z'
+                                createdAt: '2021-08-25T18:15:22Z'
                         author:
                           id: user-id
                           name: john-doe
                           iconUrl: 'http://example.com/icon.png'
-                        createDate: '2021-08-20T14:15:22Z'
-                        updateDate: '2021-08-20T14:20:22Z'
+                        createdAt: '2021-08-20T14:15:22Z'
+                        updatedAt: '2021-08-20T14:20:22Z'
                         collaborators:
                           - id: 2
                             user:
@@ -522,7 +527,7 @@ paths:
                           - id: 1
                             wordId: 1
                             result: true
-                            createDate: '2019-08-24T14:15:22Z'
+                            createdAt: '2019-08-24T14:15:22Z'
                       type: own
                       addDate: '2021-08-24T14:15:22Z'
                       lastUseDate: '2021-08-24T14:15:22Z'
@@ -555,8 +560,15 @@ paths:
                   isFavorite: true
       tags:
         - book
+  '/book/{bookId}':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
     delete:
-      summary: ''
+      summary: 単語帳削除
       operationId: delete-book-bookId
       responses:
         '200':
@@ -585,7 +597,7 @@ paths:
         in: path
         required: true
     post:
-      summary: ''
+      summary: コメント投稿
       operationId: post-book-bookId-comment
       responses:
         '200':
@@ -608,7 +620,7 @@ paths:
                         id: user-id
                         name: john-doe
                         iconUrl: 'http://example.com/icon.png'
-                      createDate: '2021-08-24T14:15:22Z'
+                      createdAt: '2021-08-24T14:15:22Z'
                       stamps:
                         - id: 1
                           stampTypeId: 1
@@ -616,14 +628,14 @@ paths:
                             id: user-id
                             name: john-doe
                             iconUrl: 'http://example.com/icon.png'
-                          createDate: '2021-08-25T14:15:22Z'
+                          createdAt: '2021-08-25T14:15:22Z'
                         - id: 2
                           stampTypeId: 3
                           author:
                             id: user-id-2
                             name: 田中太郎
                             iconUrl: 'http://example.com/icon.png'
-                          createDate: '2021-08-25T18:15:22Z'
+                          createdAt: '2021-08-25T18:15:22Z'
       description: 単語帳にコメントを投稿する
       requestBody:
         content:
@@ -658,12 +670,92 @@ paths:
         in: path
         required: true
     delete:
-      summary: ''
+      summary: コメント削除
       operationId: delete-book-bookId-comment-commentId
       responses:
         '200':
           description: OK
       description: コメントを削除する
+      tags:
+        - book
+  '/book/{bookId}/comment/{commentId}/stamp':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: commentId
+        in: path
+        required: true
+    post:
+      summary: スタンプ投稿
+      operationId: post-book-bookId-comment-commentId-stamp
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  stamp:
+                    $ref: '#/components/schemas/Stamp'
+              examples:
+                example:
+                  value:
+                    stamp:
+                      id: 1
+                      stampTypeId: 1
+                      author:
+                        id: user-id
+                        name: john-doe
+                        iconUrl: 'http://example.com/icon.png'
+                      createdAt: '2021-08-24T14:15:22Z'
+      description: スタンプの投稿
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                stampTypeId:
+                  $ref: '#/components/schemas/StampType'
+              required:
+                - stampTypeId
+            examples:
+              example:
+                value:
+                  stampTypeId: 0
+        description: ''
+      tags:
+        - book
+  '/book/{bookId}/comment/{commentId}/stamp/{stampId}':
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: commentId
+        in: path
+        required: true
+      - schema:
+          type: integer
+        name: stampId
+        in: path
+        required: true
+    delete:
+      summary: スタンプ削除
+      operationId: delete-book-bookId-comment-commentId-stamp-stampId
+      responses:
+        '200':
+          description: OK
+      description: スタンプの削除
       tags:
         - book
   '/book/{bookId}/word':
@@ -674,7 +766,7 @@ paths:
         in: path
         required: true
     post:
-      summary: ''
+      summary: ワード追加
       operationId: post-book-bookId-word
       responses:
         '200':
@@ -703,7 +795,7 @@ paths:
                             id: user-id
                             name: john-doe
                             iconUrl: 'http://example.com/icon.png'
-                          createDate: '2021-08-24T14:15:22Z'
+                          createdAt: '2021-08-24T14:15:22Z'
                           stamps:
                             - id: 1
                               stampTypeId: 1
@@ -711,16 +803,16 @@ paths:
                                 id: user-id
                                 name: john-doe
                                 iconUrl: 'http://example.com/icon.png'
-                              createDate: '2021-08-25T14:15:22Z'
+                              createdAt: '2021-08-25T14:15:22Z'
                             - id: 2
                               stampTypeId: 3
                               author:
                                 id: user-id-2
                                 name: 田中太郎
                                 iconUrl: 'http://example.com/icon.png'
-                              createDate: '2021-08-25T18:15:22Z'
-                      createDate: '2021-08-20T14:15:22Z'
-                      updateDate: '2021-08-20T14:30:22Z'
+                              createdAt: '2021-08-25T18:15:22Z'
+                      createdAt: '2021-08-20T14:15:22Z'
+                      updatedAt: '2021-08-20T14:30:22Z'
                       author:
                         id: user-id
                         name: john-doe
@@ -762,12 +854,12 @@ paths:
         in: path
         required: true
       - schema:
-          type: string
+          type: integer
         name: wordId
         in: path
         required: true
     put:
-      summary: ''
+      summary: ワード編集
       operationId: put-book-bookId-word-wordId
       responses:
         '200':
@@ -795,7 +887,7 @@ paths:
                             id: user-id
                             name: john-doe
                             iconUrl: 'http://example.com/icon.png'
-                          createDate: '2021-08-24T14:15:22Z'
+                          createdAt: '2021-08-24T14:15:22Z'
                           stamps:
                             - id: 1
                               stampTypeId: 1
@@ -803,16 +895,16 @@ paths:
                                 id: user-id
                                 name: john-doe
                                 iconUrl: 'http://example.com/icon.png'
-                              createDate: '2021-08-25T14:15:22Z'
+                              createdAt: '2021-08-25T14:15:22Z'
                             - id: 2
                               stampTypeId: 3
                               author:
                                 id: user-id-2
                                 name: 田中太郎
                                 iconUrl: 'http://example.com/icon.png'
-                              createDate: '2021-08-25T18:15:22Z'
-                      createDate: '2021-08-20T14:15:22Z'
-                      updateDate: '2021-08-20T14:30:22Z'
+                              createdAt: '2021-08-25T18:15:22Z'
+                      createdAt: '2021-08-20T14:15:22Z'
+                      updatedAt: '2021-08-20T14:30:22Z'
                       author:
                         id: user-id
                         name: john-doe
@@ -847,7 +939,7 @@ paths:
       tags:
         - book
     delete:
-      summary: ''
+      summary: 単語削除
       operationId: delete-book-bookId-word-wordId
       responses:
         '200':
@@ -871,12 +963,12 @@ paths:
         in: path
         required: true
       - schema:
-          type: string
+          type: integer
         name: wordId
         in: path
         required: true
     put:
-      summary: ''
+      summary: ワードステータス編集
       operationId: put-book-bookId-word-wordId-status
       responses:
         '200':
@@ -904,7 +996,7 @@ paths:
                             id: user-id
                             name: john-doe
                             iconUrl: 'http://example.com/icon.png'
-                          createDate: '2021-08-24T14:15:22Z'
+                          createdAt: '2021-08-24T14:15:22Z'
                           stamps:
                             - id: 1
                               stampTypeId: 1
@@ -912,16 +1004,16 @@ paths:
                                 id: user-id
                                 name: john-doe
                                 iconUrl: 'http://example.com/icon.png'
-                              createDate: '2021-08-25T14:15:22Z'
+                              createdAt: '2021-08-25T14:15:22Z'
                             - id: 2
                               stampTypeId: 3
                               author:
                                 id: user-id-2
                                 name: 田中太郎
                                 iconUrl: 'http://example.com/icon.png'
-                              createDate: '2021-08-25T18:15:22Z'
-                      createDate: '2021-08-20T14:15:22Z'
-                      updateDate: '2021-08-20T14:30:22Z'
+                              createdAt: '2021-08-25T18:15:22Z'
+                      createdAt: '2021-08-20T14:15:22Z'
+                      updatedAt: '2021-08-20T14:30:22Z'
                       author:
                         id: user-id
                         name: john-doe
@@ -959,12 +1051,12 @@ paths:
         in: path
         required: true
       - schema:
-          type: string
+          type: integer
         name: wordId
         in: path
         required: true
     post:
-      summary: ''
+      summary: コメント投稿（ワード）
       operationId: post-book-bookId-word-wordId-comment
       responses:
         '200':
@@ -1005,7 +1097,7 @@ paths:
         in: path
         required: true
       - schema:
-          type: string
+          type: integer
         name: wordId
         in: path
         required: true
@@ -1015,7 +1107,7 @@ paths:
         in: path
         required: true
     delete:
-      summary: ''
+      summary: コメント削除（ワード）
       operationId: delete-book-bookId-comment
       responses:
         '200':
@@ -1036,12 +1128,12 @@ paths:
         in: path
         required: true
       - schema:
-          type: string
+          type: integer
         name: wordId
         in: path
         required: true
     post:
-      summary: ''
+      summary: スタンプ投稿
       operationId: post-book-bookId-comment-commentId-stamp
       responses:
         '200':
@@ -1063,7 +1155,7 @@ paths:
                         id: user-id
                         name: john-doe
                         iconUrl: 'http://example.com/icon.png'
-                      createDate: '2021-08-24T14:15:22Z'
+                      createdAt: '2021-08-24T14:15:22Z'
       description: スタンプの投稿
       requestBody:
         content:
@@ -1072,7 +1164,9 @@ paths:
               type: object
               properties:
                 stampTypeId:
-                  type: integer
+                  $ref: '#/components/schemas/StampType'
+              required:
+                - stampTypeId
             examples:
               example:
                 value:
@@ -1093,17 +1187,17 @@ paths:
         in: path
         required: true
       - schema:
-          type: string
+          type: integer
         name: stampId
         in: path
         required: true
       - schema:
-          type: string
+          type: integer
         name: wordId
         in: path
         required: true
     delete:
-      summary: ''
+      summary: スタンプ削除
       operationId: delete-book-bookId-comment-commentId-stamp-stampId
       responses:
         '200':
@@ -1118,9 +1212,9 @@ paths:
         name: bookId
         in: path
         required: true
-    get:
-      summary: ''
-      operationId: get-book-bookId-collaborators-invite-code
+    post:
+      summary: 招待コード発行
+      operationId: post-book-bookId-collaborators-invite-code
       responses:
         '200':
           description: OK
@@ -1137,6 +1231,50 @@ paths:
       description: 招待コードの発行
       tags:
         - share
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role:
+                  $ref: '#/components/schemas/Role'
+              required:
+                - role
+    get:
+      summary: ''
+      operationId: get-book-bookId-collaborators-invite-code
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  inviteCodes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        expireDate:
+                          type: string
+                          format: date-time
+                        inviteCode:
+                          type: string
+                          format: uuid
+                        role:
+                          $ref: '#/components/schemas/Role'
+                        deauthorizedAt:
+                          type: string
+                          format: date-time
+                        accepted:
+                          type: boolean
+                      required:
+                        - expireDate
+                        - inviteCode
+                        - role
+      description: 招待コード一覧
   '/book/{bookId}/collaborators/invited':
     parameters:
       - schema:
@@ -1145,7 +1283,7 @@ paths:
         in: path
         required: true
     post:
-      summary: ''
+      summary: 招待承認
       operationId: post-book-bookId-invited
       responses:
         '200':
@@ -1159,8 +1297,12 @@ paths:
               properties:
                 accept:
                   type: boolean
+                inviteCode:
+                  type: string
+                  format: uuid
               required:
                 - accept
+                - inviteCode
             examples:
               example:
                 value:
@@ -1176,11 +1318,18 @@ paths:
         in: path
         required: true
     post:
-      summary: ''
+      summary: 参加リクエスト
       operationId: post-book-bookId-collaborators-request
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  collaboratorRequest:
+                    $ref: '#/components/schemas/CollaboratorRequest'
       description: 閲覧をリクエストする
       tags:
         - share
@@ -1192,12 +1341,12 @@ paths:
         in: path
         required: true
       - schema:
-          type: string
+          type: integer
         name: collaboratorId
         in: path
         required: true
     put:
-      summary: ''
+      summary: コラボレータロール変更
       operationId: put-book-bookId-preference
       responses:
         '200':
@@ -1239,7 +1388,7 @@ paths:
       tags:
         - share
     delete:
-      summary: ''
+      summary: コラボレータ削除
       operationId: delete-book-bookId-collaborators-collaboratorId
       responses:
         '200':
@@ -1267,12 +1416,12 @@ paths:
         in: path
         required: true
       - schema:
-          type: string
+          type: integer
         name: collaboratorId
         in: path
         required: true
     post:
-      summary: ''
+      summary: リクエスト承認
       operationId: post-book-bookId-approve
       responses:
         '200':
@@ -1356,7 +1505,7 @@ paths:
                                   id: user-id
                                   name: john-doe
                                   iconUrl: 'http://example.com/icon.png'
-                                createDate: '2021-08-24T14:15:22Z'
+                                createdAt: '2021-08-24T14:15:22Z'
                                 stamps:
                                   - id: 1
                                     stampTypeId: 1
@@ -1364,16 +1513,16 @@ paths:
                                       id: user-id
                                       name: john-doe
                                       iconUrl: 'http://example.com/icon.png'
-                                    createDate: '2021-08-25T14:15:22Z'
+                                    createdAt: '2021-08-25T14:15:22Z'
                                   - id: 2
                                     stampTypeId: 3
                                     author:
                                       id: user-id-2
                                       name: 田中太郎
                                       iconUrl: 'http://example.com/icon.png'
-                                    createDate: '2021-08-25T18:15:22Z'
-                            createDate: '2021-08-20T14:15:22Z'
-                            updateDate: '2021-08-20T14:30:22Z'
+                                    createdAt: '2021-08-25T18:15:22Z'
+                            createdAt: '2021-08-20T14:15:22Z'
+                            updatedAt: '2021-08-20T14:30:22Z'
                             author:
                               id: user-id
                               name: john-doe
@@ -1390,7 +1539,7 @@ paths:
                               id: user-id
                               name: john-doe
                               iconUrl: 'http://example.com/icon.png'
-                            createDate: '2021-08-24T14:15:22Z'
+                            createdAt: '2021-08-24T14:15:22Z'
                             stamps:
                               - id: 1
                                 stampTypeId: 1
@@ -1398,20 +1547,20 @@ paths:
                                   id: user-id
                                   name: john-doe
                                   iconUrl: 'http://example.com/icon.png'
-                                createDate: '2021-08-25T14:15:22Z'
+                                createdAt: '2021-08-25T14:15:22Z'
                               - id: 2
                                 stampTypeId: 3
                                 author:
                                   id: user-id-2
                                   name: 田中太郎
                                   iconUrl: 'http://example.com/icon.png'
-                                createDate: '2021-08-25T18:15:22Z'
+                                createdAt: '2021-08-25T18:15:22Z'
                         author:
                           id: user-id
                           name: john-doe
                           iconUrl: 'http://example.com/icon.png'
-                        createDate: '2021-08-20T14:15:22Z'
-                        updateDate: '2021-08-20T14:20:22Z'
+                        createdAt: '2021-08-20T14:15:22Z'
+                        updatedAt: '2021-08-20T14:20:22Z'
                         collaborators:
                           - id: 2
                             user:
@@ -1425,7 +1574,7 @@ paths:
                           - id: 1
                             wordId: 1
                             result: true
-                            createDate: '2019-08-24T14:15:22Z'
+                            createdAt: '2019-08-24T14:15:22Z'
                       type: own
                       addDate: '2021-08-24T14:15:22Z'
                       lastUseDate: '2021-08-24T14:15:22Z'
@@ -1445,7 +1594,7 @@ paths:
         in: path
         required: true
     post:
-      summary: ''
+      summary: スコア送信
       operationId: post-book-bookId-score
       responses:
         '200':
@@ -1466,7 +1615,7 @@ paths:
                       - id: 1
                         wordId: 1
                         result: true
-                        createDate: '2019-08-24T14:15:22Z'
+                        createdAt: '2019-08-24T14:15:22Z'
       description: 単語帳のスコアを送信する
       requestBody:
         content:
@@ -1494,7 +1643,7 @@ paths:
   /friend:
     parameters: []
     get:
-      summary: ''
+      summary: フレンド一覧
       tags:
         - friend
       responses:
@@ -1536,7 +1685,7 @@ paths:
                                       id: user-id
                                       name: john-doe
                                       iconUrl: 'http://example.com/icon.png'
-                                    createDate: '2021-08-24T14:15:22Z'
+                                    createdAt: '2021-08-24T14:15:22Z'
                                     stamps:
                                       - id: 1
                                         stampTypeId: 1
@@ -1544,16 +1693,16 @@ paths:
                                           id: user-id
                                           name: john-doe
                                           iconUrl: 'http://example.com/icon.png'
-                                        createDate: '2021-08-25T14:15:22Z'
+                                        createdAt: '2021-08-25T14:15:22Z'
                                       - id: 2
                                         stampTypeId: 3
                                         author:
                                           id: user-id-2
                                           name: 田中太郎
                                           iconUrl: 'http://example.com/icon.png'
-                                        createDate: '2021-08-25T18:15:22Z'
-                                createDate: '2021-08-20T14:15:22Z'
-                                updateDate: '2021-08-20T14:30:22Z'
+                                        createdAt: '2021-08-25T18:15:22Z'
+                                createdAt: '2021-08-20T14:15:22Z'
+                                updatedAt: '2021-08-20T14:30:22Z'
                                 author:
                                   id: user-id
                                   name: john-doe
@@ -1570,7 +1719,7 @@ paths:
                                   id: user-id
                                   name: john-doe
                                   iconUrl: 'http://example.com/icon.png'
-                                createDate: '2021-08-24T14:15:22Z'
+                                createdAt: '2021-08-24T14:15:22Z'
                                 stamps:
                                   - id: 1
                                     stampTypeId: 1
@@ -1578,20 +1727,20 @@ paths:
                                       id: user-id
                                       name: john-doe
                                       iconUrl: 'http://example.com/icon.png'
-                                    createDate: '2021-08-25T14:15:22Z'
+                                    createdAt: '2021-08-25T14:15:22Z'
                                   - id: 2
                                     stampTypeId: 3
                                     author:
                                       id: user-id-2
                                       name: 田中太郎
                                       iconUrl: 'http://example.com/icon.png'
-                                    createDate: '2021-08-25T18:15:22Z'
+                                    createdAt: '2021-08-25T18:15:22Z'
                             author:
                               id: user-id
                               name: john-doe
                               iconUrl: 'http://example.com/icon.png'
-                            createDate: '2021-08-20T14:15:22Z'
-                            updateDate: '2021-08-20T14:20:22Z'
+                            createdAt: '2021-08-20T14:15:22Z'
+                            updatedAt: '2021-08-20T14:20:22Z'
                             collaborators:
                               - id: 2
                                 user:
@@ -1606,7 +1755,7 @@ paths:
   /friend/connect-code:
     parameters: []
     get:
-      summary: ''
+      summary: フレンド申請コード発行
       tags:
         - friend
       responses:
@@ -1622,108 +1771,12 @@ paths:
               examples:
                 example:
                   value:
-                    friend:
-                      - id: string
-                        user:
-                          id: user-id
-                          name: john-doe
-                          iconUrl: 'http://example.com/icon.png'
-                        ownedBooks:
-                          - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
-                            title: 教科書第2章 新出単語
-                            category: english
-                            description: 教科書第2章の本文中に出てくる新出単語をまとめました
-                            words:
-                              - id: 1
-                                order: 1
-                                question: traditional
-                                answer: 伝統的な
-                                comments:
-                                  - id: 1
-                                    content: サンプルコメント
-                                    type: default
-                                    author:
-                                      id: user-id
-                                      name: john-doe
-                                      iconUrl: 'http://example.com/icon.png'
-                                    createDate: '2021-08-24T14:15:22Z'
-                                    stamps:
-                                      - id: 1
-                                        stampTypeId: 1
-                                        author:
-                                          id: user-id
-                                          name: john-doe
-                                          iconUrl: 'http://example.com/icon.png'
-                                        createDate: '2021-08-25T14:15:22Z'
-                                      - id: 2
-                                        stampTypeId: 3
-                                        author:
-                                          id: user-id-2
-                                          name: 田中太郎
-                                          iconUrl: 'http://example.com/icon.png'
-                                        createDate: '2021-08-25T18:15:22Z'
-                                createDate: '2021-08-20T14:15:22Z'
-                                updateDate: '2021-08-20T14:30:22Z'
-                                author:
-                                  id: user-id
-                                  name: john-doe
-                                  iconUrl: 'http://example.com/icon.png'
-                                done: true
-                                flags:
-                                  - 0
-                                  - 1
-                            comments:
-                              - id: 1
-                                content: サンプルコメント
-                                type: default
-                                author:
-                                  id: user-id
-                                  name: john-doe
-                                  iconUrl: 'http://example.com/icon.png'
-                                createDate: '2021-08-24T14:15:22Z'
-                                stamps:
-                                  - id: 1
-                                    stampTypeId: 1
-                                    author:
-                                      id: user-id
-                                      name: john-doe
-                                      iconUrl: 'http://example.com/icon.png'
-                                    createDate: '2021-08-25T14:15:22Z'
-                                  - id: 2
-                                    stampTypeId: 3
-                                    author:
-                                      id: user-id-2
-                                      name: 田中太郎
-                                      iconUrl: 'http://example.com/icon.png'
-                                    createDate: '2021-08-25T18:15:22Z'
-                            author:
-                              id: user-id
-                              name: john-doe
-                              iconUrl: 'http://example.com/icon.png'
-                            createDate: '2021-08-20T14:15:22Z'
-                            updateDate: '2021-08-20T14:20:22Z'
-                            collaborators:
-                              - id: 2
-                                user:
-                                  id: user-id-2
-                                  name: 田中太郎
-                                  iconUrl: 'http://example.com/icon.png'
-                                joinDate: '2021-08-27T14:15:22Z'
-                                requestDate: '2021-08-25T14:15:22Z'
-                                role: editor
-        '':
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  connectCode:
-                    type: string
+                    connectCode: string
       operationId: get-friend-connect-code
       description: フレンド申請コードを発行する
   /friend/connect:
     post:
-      summary: ''
+      summary: フレンド申請許可
       operationId: post-friend-connect
       responses:
         '200':
@@ -1762,7 +1815,7 @@ paths:
                                     id: user-id
                                     name: john-doe
                                     iconUrl: 'http://example.com/icon.png'
-                                  createDate: '2021-08-24T14:15:22Z'
+                                  createdAt: '2021-08-24T14:15:22Z'
                                   stamps:
                                     - id: 1
                                       stampTypeId: 1
@@ -1770,16 +1823,16 @@ paths:
                                         id: user-id
                                         name: john-doe
                                         iconUrl: 'http://example.com/icon.png'
-                                      createDate: '2021-08-25T14:15:22Z'
+                                      createdAt: '2021-08-25T14:15:22Z'
                                     - id: 2
                                       stampTypeId: 3
                                       author:
                                         id: user-id-2
                                         name: 田中太郎
                                         iconUrl: 'http://example.com/icon.png'
-                                      createDate: '2021-08-25T18:15:22Z'
-                              createDate: '2021-08-20T14:15:22Z'
-                              updateDate: '2021-08-20T14:30:22Z'
+                                      createdAt: '2021-08-25T18:15:22Z'
+                              createdAt: '2021-08-20T14:15:22Z'
+                              updatedAt: '2021-08-20T14:30:22Z'
                               author:
                                 id: user-id
                                 name: john-doe
@@ -1796,7 +1849,7 @@ paths:
                                 id: user-id
                                 name: john-doe
                                 iconUrl: 'http://example.com/icon.png'
-                              createDate: '2021-08-24T14:15:22Z'
+                              createdAt: '2021-08-24T14:15:22Z'
                               stamps:
                                 - id: 1
                                   stampTypeId: 1
@@ -1804,20 +1857,20 @@ paths:
                                     id: user-id
                                     name: john-doe
                                     iconUrl: 'http://example.com/icon.png'
-                                  createDate: '2021-08-25T14:15:22Z'
+                                  createdAt: '2021-08-25T14:15:22Z'
                                 - id: 2
                                   stampTypeId: 3
                                   author:
                                     id: user-id-2
                                     name: 田中太郎
                                     iconUrl: 'http://example.com/icon.png'
-                                  createDate: '2021-08-25T18:15:22Z'
+                                  createdAt: '2021-08-25T18:15:22Z'
                           author:
                             id: user-id
                             name: john-doe
                             iconUrl: 'http://example.com/icon.png'
-                          createDate: '2021-08-20T14:15:22Z'
-                          updateDate: '2021-08-20T14:20:22Z'
+                          createdAt: '2021-08-20T14:15:22Z'
+                          updatedAt: '2021-08-20T14:20:22Z'
                           collaborators:
                             - id: 2
                               user:
@@ -1839,7 +1892,7 @@ paths:
         in: path
         required: true
     delete:
-      summary: ''
+      summary: フレンド削除
       operationId: delete-friend-friendId
       responses:
         '200':
@@ -1849,7 +1902,7 @@ paths:
         - friend
   /profile:
     get:
-      summary: Your GET endpoint
+      summary: 自分のプロフィール取得
       tags:
         - profile
       responses:
@@ -1873,9 +1926,9 @@ components:
       description: ''
       examples:
         - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
-          title: 教科書第2章 新出単語
-          category: english
-          description: 教科書第2章の本文中に出てくる新出単語をまとめました
+          title: string
+          category: japanese
+          description: string
           words:
             - id: 1
               order: 1
@@ -1889,7 +1942,7 @@ components:
                     id: user-id
                     name: john-doe
                     iconUrl: 'http://example.com/icon.png'
-                  createDate: '2021-08-24T14:15:22Z'
+                  createdAt: '2021-08-24T14:15:22Z'
                   stamps:
                     - id: 1
                       stampTypeId: 1
@@ -1897,16 +1950,16 @@ components:
                         id: user-id
                         name: john-doe
                         iconUrl: 'http://example.com/icon.png'
-                      createDate: '2021-08-25T14:15:22Z'
+                      createdAt: '2021-08-25T14:15:22Z'
                     - id: 2
                       stampTypeId: 3
                       author:
                         id: user-id-2
                         name: 田中太郎
                         iconUrl: 'http://example.com/icon.png'
-                      createDate: '2021-08-25T18:15:22Z'
-              createDate: '2021-08-20T14:15:22Z'
-              updateDate: '2021-08-20T14:30:22Z'
+                      createdAt: '2021-08-25T18:15:22Z'
+              createdAt: '2021-08-20T14:15:22Z'
+              updatedAt: '2021-08-20T14:30:22Z'
               author:
                 id: user-id
                 name: john-doe
@@ -1918,12 +1971,12 @@ components:
           comments:
             - id: 1
               content: サンプルコメント
-              type: text
+              type: default
               author:
                 id: user-id
                 name: john-doe
                 iconUrl: 'http://example.com/icon.png'
-              createDate: '2021-08-24T14:15:22Z'
+              createdAt: '2021-08-24T14:15:22Z'
               stamps:
                 - id: 1
                   stampTypeId: 1
@@ -1931,34 +1984,34 @@ components:
                     id: user-id
                     name: john-doe
                     iconUrl: 'http://example.com/icon.png'
-                  createDate: '2021-08-25T14:15:22Z'
+                  createdAt: '2021-08-25T14:15:22Z'
                 - id: 2
                   stampTypeId: 3
                   author:
                     id: user-id-2
                     name: 田中太郎
                     iconUrl: 'http://example.com/icon.png'
-                  createDate: '2021-08-25T18:15:22Z'
+                  createdAt: '2021-08-25T18:15:22Z'
           author:
             id: user-id
             name: john-doe
             iconUrl: 'http://example.com/icon.png'
-          createDate: '2021-08-20T14:15:22Z'
-          updateDate: '2021-08-20T14:20:22Z'
+          createdAt: '2019-08-24T14:15:22Z'
+          updatedAt: '2019-08-24T14:15:22Z'
           collaborators:
-            - id: 2
+            - id: 0
               user:
-                id: user-id-2
-                name: 田中太郎
+                id: user-id
+                name: john-doe
                 iconUrl: 'http://example.com/icon.png'
               joinDate: '2021-08-27T14:15:22Z'
-              requestDate: '2021-08-25T14:15:22Z'
+              requestDate: '2021-08-24T14:15:22Z'
               role: editor
           wordScores:
             - id: 1
               wordId: 1
               result: true
-              createDate: '2019-08-24T14:15:22Z'
+              createdAt: '2019-08-24T14:15:22Z'
       properties:
         id:
           type: string
@@ -1979,10 +2032,10 @@ components:
             $ref: '#/components/schemas/Comment'
         author:
           $ref: '#/components/schemas/User'
-        createDate:
+        createdAt:
           type: string
           format: date-time
-        updateDate:
+        updatedAt:
           type: string
           format: date-time
         collaborators:
@@ -2000,14 +2053,13 @@ components:
         - words
         - comments
         - author
-        - createDate
-        - updateDate
+        - createdAt
         - collaborators
     OwnedBook:
       title: OwnedBook
       type: object
       examples:
-        - id: 1
+        - id: 0
           book:
             id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
             title: 教科書第2章 新出単語
@@ -2021,12 +2073,12 @@ components:
                 comments:
                   - id: 1
                     content: サンプルコメント
-                    type: text
+                    type: word
                     author:
                       id: user-id
                       name: john-doe
                       iconUrl: 'http://example.com/icon.png'
-                    createDate: '2021-08-24T14:15:22Z'
+                    createdAt: '2021-08-24T14:15:22Z'
                     stamps:
                       - id: 1
                         stampTypeId: 1
@@ -2034,16 +2086,16 @@ components:
                           id: user-id
                           name: john-doe
                           iconUrl: 'http://example.com/icon.png'
-                        createDate: '2021-08-25T14:15:22Z'
+                        createdAt: '2021-08-25T14:15:22Z'
                       - id: 2
                         stampTypeId: 3
                         author:
                           id: user-id-2
                           name: 田中太郎
                           iconUrl: 'http://example.com/icon.png'
-                        createDate: '2021-08-25T18:15:22Z'
-                createDate: '2021-08-20T14:15:22Z'
-                updateDate: '2021-08-20T14:30:22Z'
+                        createdAt: '2021-08-25T18:15:22Z'
+                createdAt: '2021-08-20T14:15:22Z'
+                updatedAt: '2021-08-20T14:30:22Z'
                 author:
                   id: user-id
                   name: john-doe
@@ -2060,7 +2112,7 @@ components:
                   id: user-id
                   name: john-doe
                   iconUrl: 'http://example.com/icon.png'
-                createDate: '2021-08-24T14:15:22Z'
+                createdAt: '2021-08-24T14:15:22Z'
                 stamps:
                   - id: 1
                     stampTypeId: 1
@@ -2068,20 +2120,20 @@ components:
                       id: user-id
                       name: john-doe
                       iconUrl: 'http://example.com/icon.png'
-                    createDate: '2021-08-25T14:15:22Z'
+                    createdAt: '2021-08-25T14:15:22Z'
                   - id: 2
                     stampTypeId: 3
                     author:
                       id: user-id-2
                       name: 田中太郎
                       iconUrl: 'http://example.com/icon.png'
-                    createDate: '2021-08-25T18:15:22Z'
+                    createdAt: '2021-08-25T18:15:22Z'
             author:
               id: user-id
               name: john-doe
               iconUrl: 'http://example.com/icon.png'
-            createDate: '2021-08-20T14:15:22Z'
-            updateDate: '2021-08-20T14:20:22Z'
+            createdAt: '2021-08-20T14:15:22Z'
+            updatedAt: '2021-08-20T14:20:22Z'
             collaborators:
               - id: 2
                 user:
@@ -2095,14 +2147,17 @@ components:
               - id: 1
                 wordId: 1
                 result: true
-                createDate: '2019-08-24T14:15:22Z'
+                createdAt: '2019-08-24T14:15:22Z'
           type: own
-          addDate: '2021-08-24T14:15:22Z'
-          lastUseDate: '2021-08-24T14:15:22Z'
+          createdAt: '2019-08-24T14:15:22Z'
+          updatedAt: '2019-08-24T14:15:22Z'
+          lastUsedAt: '2019-08-24T14:15:22Z'
           isFavorite: true
           statistics:
-            done: 8
+            done: 10
           role: owner
+          accessLevel: full
+      description: ''
       properties:
         id:
           type: number
@@ -2110,16 +2165,21 @@ components:
           $ref: '#/components/schemas/Book'
         type:
           $ref: '#/components/schemas/BookType'
-        addDate:
+        createdAt:
           type: string
           format: date-time
-        lastUseDate:
+        updatedAt:
+          type: string
+          format: date-time
+        lastUsedAt:
           type: string
           format: date-time
         isFavorite:
           type: boolean
         statistics:
           type: object
+          required:
+            - done
           properties:
             done:
               type: number
@@ -2131,7 +2191,8 @@ components:
         - id
         - book
         - type
-        - addDate
+        - createdAt
+        - lastUsedAt
         - isFavorite
         - statistics
         - role
@@ -2152,7 +2213,7 @@ components:
                 id: user-id
                 name: john-doe
                 iconUrl: 'http://example.com/icon.png'
-              createDate: '2021-08-24T14:15:22Z'
+              createdAt: '2021-08-24T14:15:22Z'
               stamps:
                 - id: 1
                   stampTypeId: 1
@@ -2160,16 +2221,16 @@ components:
                     id: user-id
                     name: john-doe
                     iconUrl: 'http://example.com/icon.png'
-                  createDate: '2021-08-25T14:15:22Z'
+                  createdAt: '2021-08-25T14:15:22Z'
                 - id: 2
                   stampTypeId: 3
                   author:
                     id: user-id-2
                     name: 田中太郎
                     iconUrl: 'http://example.com/icon.png'
-                  createDate: '2021-08-25T18:15:22Z'
-          createDate: '2021-08-20T14:15:22Z'
-          updateDate: '2021-08-20T14:30:22Z'
+                  createdAt: '2021-08-25T18:15:22Z'
+          createdAt: '2021-08-20T14:15:22Z'
+          updatedAt: '2021-08-20T14:30:22Z'
           author:
             id: user-id
             name: john-doe
@@ -2191,10 +2252,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Comment'
-        createDate:
+        createdAt:
           type: string
           format: date-time
-        updateDate:
+        updatedAt:
           type: string
           format: date-time
         author:
@@ -2211,8 +2272,7 @@ components:
         - question
         - answer
         - comments
-        - createDate
-        - updateDate
+        - createdAt
         - author
         - done
         - flags
@@ -2227,7 +2287,7 @@ components:
             id: user-id
             name: john-doe
             iconUrl: 'http://example.com/icon.png'
-          createDate: '2021-08-24T14:15:22Z'
+          createdAt: '2021-08-24T14:15:22Z'
           stamps:
             - id: 1
               stampTypeId: 1
@@ -2235,24 +2295,25 @@ components:
                 id: user-id
                 name: john-doe
                 iconUrl: 'http://example.com/icon.png'
-              createDate: '2021-08-25T14:15:22Z'
+              createdAt: '2021-08-25T14:15:22Z'
             - id: 2
               stampTypeId: 3
               author:
                 id: user-id-2
                 name: 田中太郎
                 iconUrl: 'http://example.com/icon.png'
-              createDate: '2021-08-25T18:15:22Z'
+              createdAt: '2021-08-25T18:15:22Z'
       properties:
         id:
-          type: number
+          type: string
+          format: uuid
         content:
           type: string
-        type:
+        commentType:
           $ref: '#/components/schemas/CommentType'
         author:
           $ref: '#/components/schemas/User'
-        createDate:
+        createdAt:
           type: string
           format: date-time
         stamps:
@@ -2262,36 +2323,36 @@ components:
       required:
         - id
         - content
-        - type
+        - commentType
         - author
-        - createDate
+        - createdAt
         - stamps
     Stamp:
       title: Stamp
       type: object
       examples:
-        - id: 1
-          stampTypeId: 1
+        - id: 0
+          stampType: string
           author:
             id: user-id
             name: john-doe
             iconUrl: 'http://example.com/icon.png'
-          createDate: '2021-08-24T14:15:22Z'
+          createdAt: '2019-08-24T14:15:22Z'
       properties:
         id:
           type: number
-        stampTypeId:
-          type: number
+        stampType:
+          type: string
         author:
           $ref: '#/components/schemas/User'
-        createDate:
+        createdAt:
           type: string
           format: date-time
       required:
         - id
-        - stampTypeId
+        - stampType
         - author
-        - createDate
+        - createdAt
     Collaborator:
       title: Collaborator
       type: object
@@ -2397,7 +2458,7 @@ components:
                         id: user-id
                         name: john-doe
                         iconUrl: 'http://example.com/icon.png'
-                      createDate: '2021-08-24T14:15:22Z'
+                      createdAt: '2021-08-24T14:15:22Z'
                       stamps:
                         - id: 1
                           stampTypeId: 1
@@ -2405,16 +2466,16 @@ components:
                             id: user-id
                             name: john-doe
                             iconUrl: 'http://example.com/icon.png'
-                          createDate: '2021-08-25T14:15:22Z'
+                          createdAt: '2021-08-25T14:15:22Z'
                         - id: 2
                           stampTypeId: 3
                           author:
                             id: user-id-2
                             name: 田中太郎
                             iconUrl: 'http://example.com/icon.png'
-                          createDate: '2021-08-25T18:15:22Z'
-                  createDate: '2021-08-20T14:15:22Z'
-                  updateDate: '2021-08-20T14:30:22Z'
+                          createdAt: '2021-08-25T18:15:22Z'
+                  createdAt: '2021-08-20T14:15:22Z'
+                  updatedAt: '2021-08-20T14:30:22Z'
                   author:
                     id: user-id
                     name: john-doe
@@ -2431,7 +2492,7 @@ components:
                     id: user-id
                     name: john-doe
                     iconUrl: 'http://example.com/icon.png'
-                  createDate: '2021-08-24T14:15:22Z'
+                  createdAt: '2021-08-24T14:15:22Z'
                   stamps:
                     - id: 1
                       stampTypeId: 1
@@ -2439,20 +2500,20 @@ components:
                         id: user-id
                         name: john-doe
                         iconUrl: 'http://example.com/icon.png'
-                      createDate: '2021-08-25T14:15:22Z'
+                      createdAt: '2021-08-25T14:15:22Z'
                     - id: 2
                       stampTypeId: 3
                       author:
                         id: user-id-2
                         name: 田中太郎
                         iconUrl: 'http://example.com/icon.png'
-                      createDate: '2021-08-25T18:15:22Z'
+                      createdAt: '2021-08-25T18:15:22Z'
               author:
                 id: user-id
                 name: john-doe
                 iconUrl: 'http://example.com/icon.png'
-              createDate: '2021-08-20T14:15:22Z'
-              updateDate: '2021-08-20T14:20:22Z'
+              createdAt: '2021-08-20T14:15:22Z'
+              updatedAt: '2021-08-20T14:20:22Z'
               collaborators:
                 - id: 2
                   user:
@@ -2493,6 +2554,12 @@ components:
     WordScore:
       title: WordScore
       type: object
+      examples:
+        - id: 1
+          wordId: 1
+          result: true
+          createdAt: '2019-08-24T14:15:22Z'
+      description: 単語の正誤記録
       properties:
         id:
           type: integer
@@ -2500,15 +2567,14 @@ components:
           type: integer
         result:
           type: boolean
-        createDate:
+        createdAt:
           type: string
           format: date-time
-      examples:
-        - id: 1
-          wordId: 1
-          result: true
-          createDate: '2019-08-24T14:15:22Z'
-      description: 単語の正誤記録
+      required:
+        - id
+        - wordId
+        - result
+        - createdAt
     AccessLevel:
       type: string
       title: AccessLevel
@@ -2517,6 +2583,30 @@ components:
         - full
         - meta
         - none
+    StampType:
+      type: string
+      title: StampType
+      enum:
+        - good
+        - bad
+    CollaboratorRequest:
+      title: CollaboratorRequest
+      type: object
+      properties:
+        userId:
+          type: string
+        bookId:
+          type: string
+        book:
+          $ref: '#/components/schemas/Book'
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - userId
+        - bookId
+        - book
+        - createdAt
   securitySchemes:
     id-token:
       type: http

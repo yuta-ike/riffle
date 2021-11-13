@@ -1,6 +1,6 @@
 import fastify from "fastify"
-import { PrismaClient } from "@prisma/client"
-const prisma = new PrismaClient()
+import controller from "./controller"
+import notFoundDecoratorPlugin from "./lib/decorator/notFound"
 
 const HOST = process.env.HOST || "localhost"
 const PORT = process.env.PORT || "8000"
@@ -8,18 +8,8 @@ const PORT = process.env.PORT || "8000"
 const startApolloServer = async () => {
   const app = fastify()
 
-  app.get("/", async (_, reply) => {
-    await prisma.user
-      .create({
-        data: {
-          id: "sample-id",
-          name: "name",
-          iconUrl: "icon",
-        },
-      })
-      .catch((e) => console.log(e))
-    reply.send("hello, world")
-  })
+  app.register(notFoundDecoratorPlugin)
+  app.register(controller)
 
   await app.listen(PORT, HOST)
   console.log(`🚀 Server ready at ${HOST}:${PORT}`)
