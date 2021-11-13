@@ -18,6 +18,8 @@ tags:
     description: 友達に関するエンドポイント
   - name: profile
     description: 友達に関するエンドポイント
+  - name: auth
+    description: 認証に関するエンドポイント
 paths:
   /auth:
     post:
@@ -64,6 +66,8 @@ paths:
               properties:
                 name:
                   type: string
+      tags:
+        - auth
   /owned-book:
     get:
       summary: 単語帳一覧
@@ -1179,7 +1183,7 @@ paths:
         required: true
     post:
       summary: スタンプ投稿
-      operationId: post-book-bookId-comment-commentId-stamp
+      operationId: post-book-bookId-word-wordId-comment-commentId-stamp
       responses:
         '200':
           description: OK
@@ -1243,7 +1247,7 @@ paths:
         required: true
     delete:
       summary: スタンプ削除
-      operationId: delete-book-bookId-comment-commentId-stamp-stampId
+      operationId: delete-book-bookId-word-wordId-comment-commentId-stamp-stampId
       responses:
         '200':
           description: OK
@@ -1320,6 +1324,8 @@ paths:
                         - inviteCode
                         - role
       description: 招待コード一覧
+      tags:
+        - share
   '/book/{bookId}/collaborators/invited':
     parameters:
       - schema:

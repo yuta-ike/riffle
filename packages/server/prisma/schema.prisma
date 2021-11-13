@@ -138,6 +138,7 @@ model User {
   createdAt                                   DateTime              @default(now())
   updatedAt                                   DateTime?             @updatedAt
   deletedAt                                   DateTime?
+  isManualUpdated                             Boolean               @default(false)
   Book                                        Book[]
   Collaborator                                Collaborator[]
   CollaboratorRequest                         CollaboratorRequest[]

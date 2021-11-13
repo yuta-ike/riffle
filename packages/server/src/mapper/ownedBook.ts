@@ -8,7 +8,7 @@ export const prismaOwnedBookQuery = (userId: string) /*: Omit<Prisma.OwnedBookCr
         include: {
           User: true,
           Collaborator: true,
-          CollaboratorApplication: true,
+          CollaboratorRequest: true,
           Comment: true,
           Word: {
             where: {
