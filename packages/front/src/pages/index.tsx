@@ -7,7 +7,7 @@ const Home: NextPage = () => {
 
   return (
     <div>
-      <p>hello, world</p>
+      <p className="text-red-100">hello, world</p>
       <p>
         <Link href="/profile">
           <a>プロフィールを見る</a>
