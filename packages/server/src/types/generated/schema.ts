@@ -4,6 +4,13 @@
  */
 
 export interface paths {
+  "/auth": {
+    /** 認証情報を修正する */
+    put: operations["put-auth"]
+    /** ログインする。カスタムトークンを返す。 */
+    post: operations["post-auth"]
+    parameters: {}
+  }
   "/owned-book": {
     /** 自分の持っている単語帳を取得する */
     get: operations["get-owned-book"]
@@ -342,6 +349,42 @@ export interface components {
 }
 
 export interface operations {
+  /** 認証情報を修正する */
+  "put-auth": {
+    parameters: {}
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": {
+            user?: components["schemas"]["User"]
+          }
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        "application/json": {
+          name?: string
+        }
+      }
+    }
+  }
+  /** ログインする。カスタムトークンを返す。 */
+  "post-auth": {
+    parameters: {}
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": {
+            user: components["schemas"]["User"]
+            token: string
+          }
+        }
+      }
+    }
+  }
   /** 自分の持っている単語帳を取得する */
   "get-owned-book": {
     parameters: {}

@@ -1,6 +1,6 @@
 import fastify from "fastify"
 import controller from "./controller"
-import notFoundDecoratorPlugin from "./lib/decorator/notFound"
+import authPlugin from "./lib/plugin/auth"
 
 const HOST = process.env.HOST || "localhost"
 const PORT = process.env.PORT || "8000"
@@ -8,7 +8,8 @@ const PORT = process.env.PORT || "8000"
 const startApolloServer = async () => {
   const app = fastify()
 
-  app.register(notFoundDecoratorPlugin)
+  authPlugin(app, {})
+
   app.register(controller)
 
   await app.listen(PORT, HOST)
