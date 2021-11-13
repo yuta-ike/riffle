@@ -5,7 +5,7 @@ const getInviteCodeController: FastifyPluginAsync = async (server) => {
   server.get<"get", "/book/:bookId/collaborators/invite-code">(
     "/book/:bookId/collaborators/invite-code",
     async (req) => {
-      const inviteCodes = await getInviteCode("dummy-user-id", req.params.bookId)
+      const inviteCodes = await getInviteCode(req.authUser.id, req.params.bookId)
       return {
         inviteCodes: inviteCodes.map((inviteCode) => ({
           expireDate: inviteCode.expireDate.toISOString(),

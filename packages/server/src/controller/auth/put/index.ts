@@ -3,7 +3,7 @@ import putAuth from "./db"
 
 const putAuthController: FastifyPluginAsync = async (server) => {
   server.put<"put", "/auth">("/auth", async (req) => {
-    const user = await putAuth("dummy-user-id", req.body)
+    const user = await putAuth(req.authUser.id, req.body)
     return {
       user,
     }

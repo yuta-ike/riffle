@@ -6,7 +6,7 @@ const deleteStampController: FastifyPluginAsync = async (server) => {
     "/book/:bookId/word/:wordId/comment/:commentId/stamp/:stampId",
     async (req) => {
       // TODO: 本人確認
-      await deleteWordStamp("dummy-user-id", req.params.stampId)
+      await deleteWordStamp(req.authUser.id, req.params.stampId)
     },
   )
 }

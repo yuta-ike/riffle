@@ -6,7 +6,7 @@ const postWordStampController: FastifyPluginAsync = async (server) => {
   server.post<"post", "/book/:bookId/word/:wordId/comment/:commentId/stamp">(
     "/book/:bookId/word/:wordId/comment/:commentId/stamp",
     async (req) => {
-      const stamp = await postWordStamp("dummy-user-id", req.params.commentId, req.body.stampTypeId)
+      const stamp = await postWordStamp(req.authUser.id, req.params.commentId, req.body.stampTypeId)
       return {
         stamp: stampMapper(stamp),
       }

@@ -12,9 +12,9 @@ const postInvitedController: FastifyPluginAsync = async (server) => {
     }
 
     if (req.body.accept) {
-      await acceptInviteAndCreateCollaborator("dummy-user-id", req.params.bookId, req.body.inviteCode)
+      await acceptInviteAndCreateCollaborator(req.authUser.id, req.params.bookId, req.body.inviteCode)
     } else {
-      await denyInvite("dummy-user-id", req.body.inviteCode)
+      await denyInvite(req.authUser.id, req.body.inviteCode)
     }
   })
 }

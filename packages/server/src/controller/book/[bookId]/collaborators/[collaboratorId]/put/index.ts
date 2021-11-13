@@ -6,7 +6,7 @@ const putCollaboratorController: FastifyPluginAsync = async (server) => {
   server.put<"put", "/book/:bookId/collaborators/:collaboratorId">(
     "/book/:bookId/collaborators/:collaboratorId",
     async (req) => {
-      const collaborator = await putCollaborator("dummy-user-id", req.params.collaboratorId, req.body.role)
+      const collaborator = await putCollaborator(req.authUser.id, req.params.collaboratorId, req.body.role)
 
       return {
         collaborator: collaboratorMapper(collaborator),

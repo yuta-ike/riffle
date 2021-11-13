@@ -9,10 +9,10 @@ const putOwnedBookDetailController: FastifyPluginAsync = async (server) => {
   server.put<"put", "/owned-book/:bookId">("/owned-book/:bookId", async (req) => {
     const prismaPromise = []
     if (req.body.isFavorite !== undefined) {
-      prismaPromise.push(patchOwnedBookDetailFavorite("dummy-user-id", req.params.bookId, req.body.isFavorite))
+      prismaPromise.push(patchOwnedBookDetailFavorite(req.authUser.id, req.params.bookId, req.body.isFavorite))
     }
     if (req.body.category !== undefined || req.body.description !== undefined || req.body.title !== undefined) {
-      prismaPromise.push(patchOwnedBookDetail("dummy-user-id", req.params.bookId, req.body))
+      prismaPromise.push(patchOwnedBookDetail(req.authUser.id, req.params.bookId, req.body))
     }
     const res = await prisma.$transaction(prismaPromise)
 
