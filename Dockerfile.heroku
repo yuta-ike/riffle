@@ -10,7 +10,7 @@ COPY tsconfig.json ./
 COPY packages/server/package.json ./packages/server/
 COPY packages/server/tsconfig.json ./packages/server/
 
-RUN yarn install
+RUN yarn --frozen-lockfile
 
 COPY packages/server/prisma ./packages/server/
 RUN yarn workspace server prisma:generate
