@@ -357,7 +357,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            user?: components["schemas"]["User"]
+            user: components["schemas"]["User"]
           }
         }
       }
@@ -393,7 +393,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            ownedBooks?: components["schemas"]["OwnedBook"][]
+            ownedBooks: components["schemas"]["OwnedBook"][]
           }
         }
       }
@@ -407,7 +407,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            ownedBook?: components["schemas"]["OwnedBook"]
+            ownedBook: components["schemas"]["OwnedBook"]
           }
         }
       }
@@ -439,7 +439,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            ownedBook?: components["schemas"]["OwnedBook"]
+            ownedBook: components["schemas"]["OwnedBook"]
           }
         }
       }
@@ -457,7 +457,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            ownedBook?: components["schemas"]["OwnedBook"]
+            ownedBook: components["schemas"]["OwnedBook"]
           }
         }
       }
@@ -504,7 +504,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            comment?: components["schemas"]["Comment"]
+            comment: components["schemas"]["Comment"]
           }
         }
       }
@@ -544,7 +544,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            stamp?: components["schemas"]["Stamp"]
+            stamp: components["schemas"]["Stamp"]
           }
         }
       }
@@ -583,7 +583,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            word?: components["schemas"]["Word"]
+            word: components["schemas"]["Word"]
           }
         }
       }
@@ -611,7 +611,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            word?: components["schemas"]["Word"]
+            word: components["schemas"]["Word"]
           }
         }
       }
@@ -659,7 +659,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            word?: components["schemas"]["Word"]
+            word: components["schemas"]["Word"]
           }
         }
       }
@@ -686,7 +686,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            comment?: components["schemas"]["Comment"]
+            comment: components["schemas"]["Comment"]
           }
         }
       }
@@ -728,7 +728,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            stamp?: components["schemas"]["Stamp"]
+            stamp: components["schemas"]["Stamp"]
           }
         }
       }
@@ -768,7 +768,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            inviteCodes?: {
+            inviteCodes: {
               expireDate: string
               inviteCode: string
               role: components["schemas"]["Role"]
@@ -837,7 +837,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            collaboratorRequest?: components["schemas"]["CollaboratorRequest"]
+            collaboratorRequest: components["schemas"]["CollaboratorRequest"]
           }
         }
       }
@@ -856,7 +856,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            collaborator?: components["schemas"]["Collaborator"]
+            collaborator: components["schemas"]["Collaborator"]
           }
         }
       }
@@ -902,7 +902,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            collaborator?: components["schemas"]["Collaborator"]
+            collaborator: components["schemas"]["Collaborator"]
           }
         }
       }
@@ -927,7 +927,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            ownerdBook?: components["schemas"]["OwnedBook"]
+            ownerdBook: components["schemas"]["OwnedBook"]
           }
         }
       }
@@ -945,7 +945,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            wordScores?: components["schemas"]["WordScore"][]
+            wordScores: components["schemas"]["WordScore"][]
           }
         }
       }
@@ -969,7 +969,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            friend?: components["schemas"]["Profile"][]
+            friend: components["schemas"]["Profile"][]
           }
         }
       }
@@ -983,7 +983,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            connectCode?: string
+            connectCode: string
           }
         }
       }
@@ -997,7 +997,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            friend?: components["schemas"]["Profile"]
+            friend: components["schemas"]["Profile"]
           }
         }
       }
@@ -1023,7 +1023,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            profile?: components["schemas"]["Profile"]
+            profile: components["schemas"]["Profile"]
           }
         }
       }

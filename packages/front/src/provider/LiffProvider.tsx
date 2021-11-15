@@ -1,20 +1,25 @@
 import React, { useContext, useEffect, useState } from "react"
 import { auth } from "../lib/firebase"
 import { GoogleAuthProvider, signInWithCustomToken, signInWithPopup } from "@firebase/auth"
-import ApiClient, { getApiClient } from "../lib/apiClient"
+import ApiClient, { apiClient as getApiClient } from "../lib/apiClient"
 import type { Liff } from "@line/liff"
-import { useRouter } from "next/dist/client/router"
+import nookies from "nookies"
+
+// TODO: AuthとLiffが一緒くたになってるのでリファクタ対象
 
 const LIFF_ID = process.env.NEXT_PUBLIC_LIFF_ID ?? ""
 
 export type AuthUser = {
-  userId: string
+  id: string
   name: string
-  iconUrl?: string
-  token: string
+  iconUrl: string
+  token: () => Promise<string>
+  cachedToken: string
 }
 
-const LiffContext = React.createContext<{ liff: Liff; authUser: AuthUser } | null>(null)
+export type LiffContextType = { liff: Liff | null; authUser: AuthUser | null }
+const liffContextInit = { liff: null, authUser: null }
+const LiffContext = React.createContext<LiffContextType>(liffContextInit)
 
 type LiffProviderProps = {
   children: React.ReactNode
@@ -38,8 +43,7 @@ const loginWithLine = async (liff: Liff, apiClient: ApiClient) => {
 }
 
 const LiffProvider: React.VFC<LiffProviderProps> = ({ children }) => {
-  const router = useRouter()
-  const [value, setValue] = useState<{ liff: Liff; authUser: AuthUser } | null>(null)
+  const [value, setValue] = useState<LiffContextType>(liffContextInit)
 
   useEffect(() => {
     if (process.env.NODE_ENV === "development" && window.location.search.indexOf("GOOGLE_LOGIN") >= 0) {
@@ -64,30 +68,58 @@ const LiffProvider: React.VFC<LiffProviderProps> = ({ children }) => {
           const credential = await signInWithPopup(auth, new GoogleAuthProvider())
           apiClient.token = await credential.user.getIdToken()
         }
-        setValue({
+        setValue((prev) => ({
+          ...prev,
           liff,
-          authUser: {
-            userId: auth.currentUser?.uid ?? "",
-            name: auth.currentUser?.displayName ?? "",
-            iconUrl: auth.currentUser?.photoURL ?? "",
-            token: apiClient.token,
-          },
-        })
+          // authUser: {
+          //   id: auth.currentUser?.uid ?? "",
+          //   name: auth.currentUser?.displayName ?? "",
+          //   iconUrl: auth.currentUser?.photoURL ?? "",
+          //   token: apiClient.token,
+          // },
+        }))
       } else {
+        console.log("#loginWithLine")
         const token = await loginWithLine(liff, apiClient)
-        apiClient.token = token
-        const profile = await liff.getProfile()
-        setValue({
+        // const profile = await liff.getProfile()
+        setValue((prev) => ({
+          ...prev,
           liff,
-          authUser: {
-            userId: profile.userId,
-            name: profile.displayName,
-            iconUrl: profile.pictureUrl,
-            token,
-          },
-        })
+          // authUser: {
+          //   id: profile.userId,
+          //   name: profile.displayName,
+          //   iconUrl: profile.pictureUrl ?? "",
+          //   token,
+          // },
+        }))
       }
     })()
+  }, [])
+
+  useEffect(() => {
+    auth.onIdTokenChanged(async (user) => {
+      if (user != null) {
+        const token = await user.getIdToken()
+        setValue((prev) => ({
+          ...prev,
+          authUser: {
+            id: user.uid,
+            name: user.displayName ?? "",
+            iconUrl: user.photoURL ?? "",
+            token: () => user.getIdToken(),
+            cachedToken: token,
+          },
+        }))
+        nookies.set(null, "token", token, {})
+      } else {
+        setValue((prev) => ({
+          ...prev,
+          authUser: null,
+        }))
+        value.liff?.logout()
+        nookies.set(null, "token", "", {})
+      }
+    })
   }, [])
 
   return <LiffContext.Provider value={value}>{children}</LiffContext.Provider>

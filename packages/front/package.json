@@ -19,11 +19,16 @@
     "@line/liff": "^2.17.0",
     "autoprefixer": "^10.3.7",
     "axios": "^0.24.0",
+    "classnames": "^2.3.1",
     "firebase": "^9.4.1",
+    "firebase-admin": "^10.0.0",
     "next": "12.0.2",
+    "nookies": "^2.5.2",
     "postcss": "^8.3.11",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-feather": "^2.0.9",
+    "react-textarea-autosize": "^8.3.3",
     "swr": "^1.0.1"
   },
   "devDependencies": {

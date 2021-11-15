@@ -57,6 +57,8 @@ paths:
                 properties:
                   user:
                     $ref: '#/components/schemas/User'
+                required:
+                  - user
       description: 認証情報を修正する
       requestBody:
         content:
@@ -85,6 +87,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/OwnedBook'
+                required:
+                  - ownedBooks
               examples:
                 example:
                   value:
@@ -201,6 +205,8 @@ paths:
                 properties:
                   ownedBook:
                     $ref: '#/components/schemas/OwnedBook'
+                required:
+                  - ownedBook
               examples:
                 example:
                   value:
@@ -368,6 +374,8 @@ paths:
                 properties:
                   ownedBook:
                     $ref: '#/components/schemas/OwnedBook'
+                required:
+                  - ownedBook
               examples:
                 example:
                   value:
@@ -484,6 +492,8 @@ paths:
                 properties:
                   ownedBook:
                     $ref: '#/components/schemas/OwnedBook'
+                required:
+                  - ownedBook
               examples:
                 example:
                   value:
@@ -658,6 +668,8 @@ paths:
                 properties:
                   comment:
                     $ref: '#/components/schemas/Comment'
+                required:
+                  - comment
               examples:
                 example:
                   value:
@@ -752,6 +764,8 @@ paths:
                 properties:
                   stamp:
                     $ref: '#/components/schemas/Stamp'
+                required:
+                  - stamp
               examples:
                 example:
                   value:
@@ -828,6 +842,8 @@ paths:
                 properties:
                   word:
                     $ref: '#/components/schemas/Word'
+                required:
+                  - word
               examples:
                 example:
                   value:
@@ -920,6 +936,8 @@ paths:
                 properties:
                   word:
                     $ref: '#/components/schemas/Word'
+                required:
+                  - word
               examples:
                 example:
                   value:
@@ -1029,6 +1047,8 @@ paths:
                 properties:
                   word:
                     $ref: '#/components/schemas/Word'
+                required:
+                  - word
               examples:
                 example:
                   value:
@@ -1117,6 +1137,8 @@ paths:
                 properties:
                   comment:
                     $ref: '#/components/schemas/Comment'
+                required:
+                  - comment
       description: コメントを投稿する
       requestBody:
         content:
@@ -1194,6 +1216,8 @@ paths:
                 properties:
                   stamp:
                     $ref: '#/components/schemas/Stamp'
+                required:
+                  - stamp
               examples:
                 example:
                   value:
@@ -1323,6 +1347,8 @@ paths:
                         - expireDate
                         - inviteCode
                         - role
+                required:
+                  - inviteCodes
       description: 招待コード一覧
       tags:
         - share
@@ -1381,6 +1407,8 @@ paths:
                 properties:
                   collaboratorRequest:
                     $ref: '#/components/schemas/CollaboratorRequest'
+                required:
+                  - collaboratorRequest
       description: 閲覧をリクエストする
       tags:
         - share
@@ -1409,6 +1437,8 @@ paths:
                 properties:
                   collaborator:
                     $ref: '#/components/schemas/Collaborator'
+                required:
+                  - collaborator
               examples:
                 example:
                   value:
@@ -1484,6 +1514,8 @@ paths:
                 properties:
                   collaborator:
                     $ref: '#/components/schemas/Collaborator'
+                required:
+                  - collaborator
               examples:
                 example:
                   value:
@@ -1533,6 +1565,8 @@ paths:
                 properties:
                   ownerdBook:
                     $ref: '#/components/schemas/OwnedBook'
+                required:
+                  - ownerdBook
               examples:
                 example:
                   value:
@@ -1659,6 +1693,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/WordScore'
+                required:
+                  - wordScores
               examples:
                 example:
                   value:
@@ -1709,6 +1745,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Profile'
+                required:
+                  - friend
               examples:
                 example:
                   value:
@@ -1819,6 +1857,8 @@ paths:
                 properties:
                   connectCode:
                     type: string
+                required:
+                  - connectCode
               examples:
                 example:
                   value:
@@ -1839,6 +1879,8 @@ paths:
                 properties:
                   friend:
                     $ref: '#/components/schemas/Profile'
+                required:
+                  - friend
               examples:
                 example:
                   value:
@@ -1966,6 +2008,8 @@ paths:
                 properties:
                   profile:
                     $ref: '#/components/schemas/Profile'
+                required:
+                  - profile
       operationId: get-profile
       description: 自分のプロフィールを取得する
     parameters: []

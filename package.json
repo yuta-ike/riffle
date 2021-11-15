@@ -34,6 +34,7 @@
     "fix": "run-p fix:*",
     "fix:front": "yarn workspace front fix",
     "fix:server": "yarn workspace server fix",
+    "gen:api-type": "run-p gen:api-type:*",
     "gen:api-type:front": "openapi-typescript ./docs/riffle-api/reference/riffle-api.yaml --output ./packages/front/src/types/generated/schema.ts --prettier-config ./prettierrc",
     "gen:api-type:server": "openapi-typescript ./docs/riffle-api/reference/riffle-api.yaml --output ./packages/server/src/types/generated/schema.ts --prettier-config ./prettierrc"
   },

@@ -17,4 +17,6 @@ a {
 
 * {
   box-sizing: border-box;
+  @apply font-sans;
+  @apply text-black;
 }

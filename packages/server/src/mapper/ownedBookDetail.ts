@@ -12,7 +12,7 @@ export const prismaOwnedBookDetailQuery = (userId: string) /*: Omit<Prisma.Owned
               User: true,
             },
           },
-          CollaboratorApplication: true,
+          CollaboratorRequest: true,
           Comment: {
             include: {
               User: true,

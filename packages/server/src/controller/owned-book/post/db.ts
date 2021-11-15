@@ -30,7 +30,6 @@ const postBook = async ({ title, category, description, authorId, accessLevel, w
           category,
           description,
           accessLevel,
-          authorId,
           Word: {
             createMany: {
               data: words.map(({ question, answer }, index) => ({
@@ -39,6 +38,18 @@ const postBook = async ({ title, category, description, authorId, accessLevel, w
                 order: index + 1,
                 userId: authorId,
               })),
+            },
+          },
+          User: {
+            connect: {
+              id: authorId,
+            },
+          },
+          Collaborator: {
+            create: {
+              userId: authorId,
+              role: "owner",
+              joinedAt: new Date().toISOString(),
             },
           },
         },

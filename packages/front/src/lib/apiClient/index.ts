@@ -2,24 +2,24 @@ import axios, { AxiosResponse } from "axios"
 import type { Axios } from "axios"
 import { paths } from "../../types/generated/schema"
 
-type MethodPaths<Methods extends "get" | "post" | "put" | "delete"> = {
+export type MethodPaths<Methods extends "get" | "post" | "put" | "delete"> = {
   [K in keyof paths]: Methods extends keyof paths[K] ? paths[K] : never
 }
 
-type PathObj<Path extends keyof paths> = "path" extends keyof paths[Path]["parameters"]
+export type PathObj<Path extends keyof paths> = "path" extends keyof paths[Path]["parameters"]
   ? {
       url: Path
       params: paths[Path]["parameters"]["path"]
     }
   : Path
 
-const buildPath = <Path extends keyof paths>(path: PathObj<Path>) => {
+export const buildPath = <Path extends keyof paths>(path: PathObj<Path>) => {
   if (typeof path === "string") {
     return path as string
   }
   let url: string = path.url
   Object.entries(path.params).map(([key, value]) => {
-    url = url.replaceAll(`{${key}}`, value)
+    url = url.replace(new RegExp(`{${key}}`, "g"), value)
   })
   return url
 }
@@ -64,6 +64,7 @@ class ApiClient {
 
   public get<Path extends keyof MethodPaths<"get">>(
     path: PathObj<Path>,
+    customHeader?: Record<string, unknown>,
   ): Promise<
     AxiosResponse<
       paths[Path] extends { get: { responses: { 200: { content: { "application/json": unknown } } } } }
@@ -72,7 +73,7 @@ class ApiClient {
     >
   > {
     return this.axiosInstance.get(buildPath(path), {
-      headers: this.authorizationHeader,
+      headers: { ...this.authorizationHeader, ...customHeader },
     })
   }
 
@@ -102,6 +103,7 @@ class ApiClient {
     data: MethodPaths<"put">[Path]["put"] extends { requestBody: { content: { "application/json": unknown } } }
       ? MethodPaths<"put">[Path]["put"]["requestBody"]["content"]["application/json"]
       : null,
+    customHeader?: Record<string, unknown>,
   ): Promise<
     AxiosResponse<
       paths[Path] extends { put: { responses: { 200: { content: { "application/json": unknown } } } } }
@@ -110,12 +112,13 @@ class ApiClient {
     >
   > {
     return this.axiosInstance.post(buildPath(path), data, {
-      headers: this.authorizationHeader,
+      headers: { ...this.authorizationHeader, ...customHeader },
     })
   }
 
   public delete<Path extends keyof MethodPaths<"delete">>(
     path: PathObj<Path>,
+    customHeader?: Record<string, unknown>,
   ): Promise<
     AxiosResponse<
       paths[Path] extends { delete: { responses: { 200: { content: { "application/json": unknown } } } } }
@@ -124,7 +127,7 @@ class ApiClient {
     >
   > {
     return this.axiosInstance.get(buildPath(path), {
-      headers: this.authorizationHeader,
+      headers: { ...this.authorizationHeader, ...customHeader },
     })
   }
 }
@@ -132,4 +135,4 @@ class ApiClient {
 export default ApiClient
 
 const NEXT_PUBLIC_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? ""
-export const getApiClient = () => ApiClient.getInstance(NEXT_PUBLIC_API_BASE_URL)
+export const apiClient = () => ApiClient.getInstance(NEXT_PUBLIC_API_BASE_URL)

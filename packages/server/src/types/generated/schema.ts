@@ -132,7 +132,7 @@ export interface paths {
   }
   "/book/{bookId}/word/{wordId}/comment/{commentId}/stamp": {
     /** スタンプの投稿 */
-    post: operations["post-book-bookId-comment-commentId-stamp"]
+    post: operations["post-book-bookId-word-wordId-comment-commentId-stamp"]
     parameters: {
       path: {
         bookId: string
@@ -143,7 +143,7 @@ export interface paths {
   }
   "/book/{bookId}/word/{wordId}/comment/{commentId}/stamp/{stampId}": {
     /** スタンプの削除 */
-    delete: operations["delete-book-bookId-comment-commentId-stamp-stampId"]
+    delete: operations["delete-book-bookId-word-wordId-comment-commentId-stamp-stampId"]
     parameters: {
       path: {
         bookId: string
@@ -357,7 +357,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            user?: components["schemas"]["User"]
+            user: components["schemas"]["User"]
           }
         }
       }
@@ -393,7 +393,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            ownedBooks?: components["schemas"]["OwnedBook"][]
+            ownedBooks: components["schemas"]["OwnedBook"][]
           }
         }
       }
@@ -407,7 +407,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            ownedBook?: components["schemas"]["OwnedBook"]
+            ownedBook: components["schemas"]["OwnedBook"]
           }
         }
       }
@@ -439,7 +439,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            ownedBook?: components["schemas"]["OwnedBook"]
+            ownedBook: components["schemas"]["OwnedBook"]
           }
         }
       }
@@ -457,7 +457,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            ownedBook?: components["schemas"]["OwnedBook"]
+            ownedBook: components["schemas"]["OwnedBook"]
           }
         }
       }
@@ -504,7 +504,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            comment?: components["schemas"]["Comment"]
+            comment: components["schemas"]["Comment"]
           }
         }
       }
@@ -537,7 +537,6 @@ export interface operations {
       path: {
         bookId: string
         commentId: string
-        wordId: number
       }
     }
     responses: {
@@ -545,7 +544,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            stamp?: components["schemas"]["Stamp"]
+            stamp: components["schemas"]["Stamp"]
           }
         }
       }
@@ -565,7 +564,6 @@ export interface operations {
         bookId: string
         commentId: string
         stampId: number
-        wordId: number
       }
     }
     responses: {
@@ -585,7 +583,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            word?: components["schemas"]["Word"]
+            word: components["schemas"]["Word"]
           }
         }
       }
@@ -613,7 +611,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            word?: components["schemas"]["Word"]
+            word: components["schemas"]["Word"]
           }
         }
       }
@@ -661,7 +659,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            word?: components["schemas"]["Word"]
+            word: components["schemas"]["Word"]
           }
         }
       }
@@ -688,7 +686,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            comment?: components["schemas"]["Comment"]
+            comment: components["schemas"]["Comment"]
           }
         }
       }
@@ -716,6 +714,48 @@ export interface operations {
       200: unknown
     }
   }
+  /** スタンプの投稿 */
+  "post-book-bookId-word-wordId-comment-commentId-stamp": {
+    parameters: {
+      path: {
+        bookId: string
+        commentId: string
+        wordId: number
+      }
+    }
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": {
+            stamp: components["schemas"]["Stamp"]
+          }
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        "application/json": {
+          stampTypeId: components["schemas"]["StampType"]
+        }
+      }
+    }
+  }
+  /** スタンプの削除 */
+  "delete-book-bookId-word-wordId-comment-commentId-stamp-stampId": {
+    parameters: {
+      path: {
+        bookId: string
+        commentId: string
+        stampId: number
+        wordId: number
+      }
+    }
+    responses: {
+      /** OK */
+      200: unknown
+    }
+  }
   /** 招待コード一覧 */
   "get-book-bookId-collaborators-invite-code": {
     parameters: {
@@ -728,7 +768,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            inviteCodes?: {
+            inviteCodes: {
               expireDate: string
               inviteCode: string
               role: components["schemas"]["Role"]
@@ -797,7 +837,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            collaboratorRequest?: components["schemas"]["CollaboratorRequest"]
+            collaboratorRequest: components["schemas"]["CollaboratorRequest"]
           }
         }
       }
@@ -816,7 +856,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            collaborator?: components["schemas"]["Collaborator"]
+            collaborator: components["schemas"]["Collaborator"]
           }
         }
       }
@@ -862,7 +902,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            collaborator?: components["schemas"]["Collaborator"]
+            collaborator: components["schemas"]["Collaborator"]
           }
         }
       }
@@ -887,7 +927,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            ownerdBook?: components["schemas"]["OwnedBook"]
+            ownerdBook: components["schemas"]["OwnedBook"]
           }
         }
       }
@@ -905,7 +945,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            wordScores?: components["schemas"]["WordScore"][]
+            wordScores: components["schemas"]["WordScore"][]
           }
         }
       }
@@ -929,7 +969,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            friend?: components["schemas"]["Profile"][]
+            friend: components["schemas"]["Profile"][]
           }
         }
       }
@@ -943,7 +983,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            connectCode?: string
+            connectCode: string
           }
         }
       }
@@ -957,7 +997,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            friend?: components["schemas"]["Profile"]
+            friend: components["schemas"]["Profile"]
           }
         }
       }
@@ -983,7 +1023,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            profile?: components["schemas"]["Profile"]
+            profile: components["schemas"]["Profile"]
           }
         }
       }

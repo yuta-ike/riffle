@@ -1,0 +1,18 @@
+import { components } from "./generated/schema"
+
+export type Book = components["schemas"]["Book"]
+export type OwnedBook = components["schemas"]["OwnedBook"]
+export type Word = components["schemas"]["Word"]
+export type Comment = components["schemas"]["Comment"]
+export type Stamp = components["schemas"]["Stamp"]
+export type Collaborator = components["schemas"]["Collaborator"]
+export type Category = components["schemas"]["Category"]
+export type User = components["schemas"]["User"]
+export type Profile = components["schemas"]["Profile"]
+export type BookType = components["schemas"]["BookType"]
+export type Role = components["schemas"]["Role"]
+export type CommentType = components["schemas"]["CommentType"]
+export type WordScore = components["schemas"]["WordScore"]
+export type AccessLevel = components["schemas"]["AccessLevel"]
+export type StampType = components["schemas"]["StampType"]
+export type CollaboratorRequest = components["schemas"]["CollaboratorRequest"]

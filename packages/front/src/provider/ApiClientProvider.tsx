@@ -1,10 +1,10 @@
 import React, { useEffect, useContext } from "react"
-import { getApiClient } from "../lib/apiClient"
+import { apiClient } from "../lib/apiClient"
 import { useAuthUser } from "./AuthProvider"
 import type ApiClient from "../lib/apiClient"
 
 // TODO: Context APIを利用する必要がないのでリファクタ対象
-const apiClient = getApiClient()
+const apiClient = apiClient()
 
 const ApiClientContext = React.createContext<ApiClient>(apiClient)
 
