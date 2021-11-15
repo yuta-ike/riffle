@@ -39,7 +39,13 @@ const CommentCard: React.VFC<CommentCardProps> = ({ comment, book, word }) => {
           {comment.stamps.length > 0 && (
             <div className="flex flex-wrap w-full mt-2 space-x-1">
               {comment.stamps.map((stamp) => (
-                <StampButton key={stamp.id} stampType={stamp.stampType} onClick={console.log} />
+                <StampButton
+                  key={stamp.id}
+                  stampType={stamp.stampType}
+                  onClick={console.log}
+                  count={0}
+                  pressed={false}
+                />
               ))}
               <button className="relative flex items-center px-2 py-1 space-x-1 leading-none rounded-full">
                 <Smile size="16px" />
