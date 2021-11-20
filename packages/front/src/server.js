@@ -28,9 +28,9 @@ const handle = app.getRequestHandler()
     }
     const server = https.createServer(options, expressApp)
     server.listen(port, host)
-    console.log(`🚀 Ready on https://localhost:${port}`)
+    console.log(`🚀 Ready on https://${host}:${port}`)
   } else {
     expressApp.listen(port, host)
-    console.log(`🚀 Ready on http://localhost:${port}`)
+    console.log(`🚀 Ready on http://${host}:${port}`)
   }
 })()
