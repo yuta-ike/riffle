@@ -11,6 +11,7 @@ const startApolloServer = async () => {
   const app = fastify({
     logger: true,
   })
+  console.log("CORS: ", JSON.parse(process.env.CORS_URLS ?? "[]"))
   app.register(cors, {
     origin: process.env.NODE_ENV === "development" ? "*" : (JSON.parse(process.env.CORS_URLS ?? "[]") as string[]),
   })
