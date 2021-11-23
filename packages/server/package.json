@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "NODE_ENV=development ts-node-dev --require dotenv/config --rs --transpile-only --respawn ./src/index.ts",
     "build": "tsc -p .",
-    "start": "node --require dotenv/config ./dist/index.js",
+    "start": "prisma migrate deploy && node --require dotenv/config ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext \".js,.ts\" --cache ./src",
     "type-check": "tsc -p . --noEmit",
