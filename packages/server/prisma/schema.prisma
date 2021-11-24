@@ -129,6 +129,8 @@ model Stamp {
   userId    String
   Comment   Comment?  @relation(fields: [commentId], references: [id])
   User      User      @relation(fields: [userId], references: [id])
+
+  @@unique([userId, commentId, stampType])
 }
 
 model User {
@@ -163,10 +165,10 @@ model Word {
   answer     String
   createdAt  DateTime     @default(now())
   updatedAt  DateTime?    @updatedAt
-  bookId     String?
+  bookId     String
   userId     String
   deletedAt  DateTime?
-  Book       Book?        @relation(fields: [bookId], references: [id])
+  Book       Book         @relation(fields: [bookId], references: [id])
   User       User         @relation(fields: [userId], references: [id])
   Comment    Comment[]
   WordDetail WordDetail[]
@@ -231,6 +233,8 @@ enum AccessLevel {
 }
 
 enum StampType {
-  good
-  bad
+  thumbsup
+  heart
+  star
+  award
 }

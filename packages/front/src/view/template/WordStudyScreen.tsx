@@ -43,7 +43,7 @@ const WordStudyScreen: React.VFC<WordStudyScreenProps> = ({
 
   return (
     <>
-      <div className={c(className, "space-y-8")}>
+      <div className={c(className, "space-y-8 flex flex-col h-full")}>
         <div className="px-4 bg-white rounded-lg shadow-main">
           <div className="h-[10em] py-4 flex items-center justify-center text-center text-lg">{word.question}</div>
           <hr />
@@ -74,9 +74,9 @@ const WordStudyScreen: React.VFC<WordStudyScreenProps> = ({
           </div>
         </div>
         {/* TODO: 作成者 */}
-        <div className="px-4 space-y-6">
+        <div className="flex flex-col px-4 space-y-5 overflow-y-scroll">
           {word.comments.map((comment) => (
-            <CommentColumn key={comment.id} comment={comment} />
+            <CommentColumn key={comment.id} ownedBook={ownedBook} comment={comment} />
           ))}
         </div>
       </div>

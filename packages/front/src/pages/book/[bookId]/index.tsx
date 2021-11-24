@@ -1,10 +1,10 @@
 import { GetServerSideProps, NextPage } from "next"
 import { useRouter } from "next/dist/client/router"
 import React, { useCallback, useState } from "react"
-import { BookOpen, Plus } from "react-feather"
+import { BookOpen, Edit } from "react-feather"
 import { apiClient } from "../../../lib/apiClient"
 import { useApiSWR, useRequest } from "../../../lib/apiClient/hooks"
-import { Book, CommentType, OwnedBook, Word } from "../../../types/models"
+import { CommentType, OwnedBook, Word } from "../../../types/models"
 import Card from "../../../view/base/Card"
 import Fab from "../../../view/base/FAB"
 import CircleImage from "../../../view/components/CircleImage"
@@ -14,11 +14,11 @@ import CollaboratorCard from "../../../view/model/collaborator/CollaboratorCard"
 import CommentColumn from "../../../view/model/comment/CommentColumn"
 import WordCard from "../../../view/model/word/WordCard"
 import WordScoreCard from "../../../view/model/word/WordScoreCard"
-import nookies from "nookies"
 import { verifyIdToken } from "../../../lib/firebaseAdmin/auth"
 import { useSWRConfig } from "swr"
 import sendInviteMessage from "../../../service/sendInviteMessage"
-import { AuthUser, useAuthUser, useLiff } from "../../../provider/LiffProvider"
+import { AuthUser, useLiff } from "../../../provider/LiffProvider"
+import Link from "next/link"
 
 const BOOK = {
   id: "497f6eca-6276-4993-bfeb-53cbbbba6f08",
@@ -231,13 +231,17 @@ const BookDetail: NextPage<BookDetailProps & { authUser: AuthUser }> = ({
         <div className="flex flex-col p-4 space-y-4">
           {tab === "cards" && (
             <>
-              <Card className="flex items-center space-x-2">
-                <h2 className="w-full text-sm text-gray-500">カードを追加する</h2>
-                <button className="flex items-center flex-shrink-0 px-2 py-1 space-x-1 text-sm border-2 rounded border-primary/80 text-primary">
-                  <Plus size="16px" stroke="rgba(65, 105, 225, 0.8)" strokeWidth={3} />
-                  追加
-                </button>
-              </Card>
+              <Link href={`/book/${router.query.bookId}/edit`}>
+                <a>
+                  <Card className="flex items-center space-x-2">
+                    <h2 className="w-full text-sm text-gray-500">カードを編集する</h2>
+                    <div className="flex items-center flex-shrink-0 px-2 py-1 space-x-1 text-sm border rounded border-primary/80">
+                      <Edit size="14px" stroke="rgba(65, 105, 225, 0.8)" strokeWidth={2} />
+                      <span className="text-primary">編集</span>
+                    </div>
+                  </Card>
+                </a>
+              </Link>
               {ownedBookData.ownedBook.book.words.map((word) => (
                 <WordCard key={word.id} ownedBook={ownedBookData.ownedBook} word={word} />
               ))}
@@ -258,7 +262,7 @@ const BookDetail: NextPage<BookDetailProps & { authUser: AuthUser }> = ({
                       <hr />
                     </div>
                   ) : null}
-                  <CommentColumn comment={comment} />
+                  <CommentColumn comment={comment} ownedBook={ownedBookData.ownedBook} />
                 </div>
               ))}
               <CommentForm onSend={handleSendComment} minRows={2} />

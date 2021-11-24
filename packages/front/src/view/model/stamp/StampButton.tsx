@@ -1,6 +1,6 @@
 import React, { useCallback } from "react"
+import c from "classnames"
 import { ThumbsUp, Heart, Star, Award } from "react-feather"
-import { StampType } from "../../../types/models"
 
 type StampButtonProps = {
   stampType: string
@@ -12,17 +12,24 @@ type StampButtonProps = {
 const StampButton: React.VFC<StampButtonProps> = ({ stampType, count, pressed, onClick }) => {
   const handleClick = useCallback(() => {
     onClick(stampType)
-  }, [stampType])
+  }, [onClick, stampType])
+
   return (
-    <button className="flex items-center px-2 py-1 space-x-1 leading-none bg-gray-100 rounded" onClick={handleClick}>
+    <button
+      className={c(
+        "flex items-center px-1.5 py-0.5 space-x-1 leading-none border border-solid rounded-full shadow-sm",
+        pressed ? "bg-primary/10 border-primary/80" : "bg-gray-200 border-transparent",
+      )}
+      onClick={handleClick}
+    >
       {stampType === "thumbsup" ? (
-        <ThumbsUp size="14px" />
+        <ThumbsUp size="15px" fill="rgb(255, 138, 138)" />
       ) : stampType === "heart" ? (
-        <Heart size="14px" />
+        <Heart size="15px" fill="rgb(255, 130, 222)" />
       ) : stampType === "star" ? (
-        <Star size="14px" />
+        <Star size="15px" fill="rgb(254, 242, 126)" />
       ) : stampType === "award" ? (
-        <Award size="14px" />
+        <Award size="15px" fill="rgb(255, 205, 130)" />
       ) : null}
       <span className="text-xs">{count}</span>
     </button>

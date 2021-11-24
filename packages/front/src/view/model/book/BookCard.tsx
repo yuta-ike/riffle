@@ -12,7 +12,7 @@ export type BookCardProps = {
 const BookCard: React.VFC<BookCardProps> = ({ ownedBook }) => {
   return (
     <div className="flex flex-col space-y-1.5">
-      <div className="text-sm text-gray-400">■ {ownedBook.book.title}</div>
+      {/* <div className="text-sm text-gray-400">■ {ownedBook.book.title}</div> */}
       <div className="flex space-x-4">
         <Thumbnail category={ownedBook.book.category} size="large" className="flex-shrink-0">
           {ownedBook.book.title?.[0] ?? ""}

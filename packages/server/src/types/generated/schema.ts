@@ -338,7 +338,7 @@ export interface components {
     }
     /** roleを持たない友達への公開設定 */
     AccessLevel: "full" | "meta" | "none"
-    StampType: "good" | "bad"
+    StampType: "thumbsup" | "heart" | "star" | "award"
     CollaboratorRequest: {
       userId: string
       bookId: string
@@ -619,9 +619,9 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          order: number
-          question: string
-          answer: string
+          order?: number
+          question?: string
+          answer?: string
         }
       }
     }
@@ -736,7 +736,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          stampTypeId: components["schemas"]["StampType"]
+          stampType: components["schemas"]["StampType"]
         }
       }
     }

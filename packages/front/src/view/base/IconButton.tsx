@@ -7,19 +7,28 @@ export type IconButtonProps = {
   label: string
   className?: string
   disabled?: boolean
+  size?: "small" | "xs"
 }
 
-const IconButton: React.VFC<IconButtonProps> = ({ onClick, label, children, className, disabled }) => {
+const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function IconButtonInner(
+  { onClick, label, children, className, disabled, size = "small" },
+  ref,
+) {
   return (
     <button
       onClick={onClick}
       aria-label={label}
-      className={c("flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/10", className)}
+      className={c(
+        "flex items-center justify-center rounded-full hover:bg-black/10",
+        size === "small" ? "w-8 h-8" : "w-6 h-6",
+        className,
+      )}
       disabled={disabled}
+      ref={ref}
     >
       {children}
     </button>
   )
-}
+})
 
 export default IconButton

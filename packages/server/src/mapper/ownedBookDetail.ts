@@ -20,7 +20,13 @@ export const prismaOwnedBookDetailQuery = (userId: string) /*: Omit<Prisma.Owned
                 include: {
                   User: true,
                 },
+                orderBy: {
+                  createdAt: "desc",
+                },
               },
+            },
+            orderBy: {
+              createdAt: "desc",
             },
           },
           Word: {
@@ -35,7 +41,13 @@ export const prismaOwnedBookDetailQuery = (userId: string) /*: Omit<Prisma.Owned
                     include: {
                       User: true,
                     },
+                    orderBy: {
+                      createdAt: "desc",
+                    },
                   },
+                },
+                orderBy: {
+                  createdAt: "desc",
                 },
               },
               User: true,
@@ -47,6 +59,9 @@ export const prismaOwnedBookDetailQuery = (userId: string) /*: Omit<Prisma.Owned
               WordScore: {
                 where: {
                   userId,
+                },
+                orderBy: {
+                  createdAt: "desc",
                 },
               },
             },

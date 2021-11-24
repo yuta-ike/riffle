@@ -34,7 +34,10 @@ export const useRequest = () => {
         setError(null)
         setIsValidating(true)
         const token = await authUser?.token()
-        const res = await apiClient().post(path, data, { ...customHeader, authorization: `Bearer ${token}` })
+        const res = await apiClient().post(path, data, {
+          ...customHeader,
+          authorization: token == null ? undefined : `Bearer ${token}`,
+        })
         setError(null)
         return res.data
       } catch (e) {
@@ -73,7 +76,11 @@ export const useRequest = () => {
       try {
         setError(null)
         setIsValidating(true)
-        const res = await apiClient().put(path, data, { ...customHeader, authorization: `Bearer ${authUser?.token}` })
+        const token = await authUser?.token?.()
+        const res = await apiClient().put(path, data, {
+          ...customHeader,
+          authorization: token == null ? undefined : `Bearer ${token}`,
+        })
         setError(null)
         return res.data
       } catch (e) {
@@ -109,7 +116,11 @@ export const useRequest = () => {
       try {
         setError(null)
         setIsValidating(true)
-        const res = await apiClient().delete(path, { ...customHeader, authorization: `Bearer ${authUser?.token}` })
+        const token = await authUser?.token?.()
+        const res = await apiClient().delete(path, {
+          ...customHeader,
+          authorization: token == null ? undefined : `Bearer ${token}`,
+        })
         setError(null)
         return res.data
       } catch (e) {

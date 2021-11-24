@@ -7,7 +7,9 @@ export type BottomSheetProps = {
 }
 
 const BottomSheet: React.VFC<BottomSheetProps> = ({ children, className }) => {
-  return <div className={c("fixed inset-x-0 bottom-0 p-8 shadow-main", className)}>{children}</div>
+  return (
+    <div className={c("fixed p-4 bg-gray-50 space-x-2 flex inset-x-0 bottom-0 shadow-main", className)}>{children}</div>
+  )
 }
 
 export default BottomSheet

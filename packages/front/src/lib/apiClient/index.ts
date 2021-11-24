@@ -111,7 +111,10 @@ class ApiClient {
         : void
     >
   > {
-    return this.axiosInstance.post(buildPath(path), data, {
+    console.log({
+      headers: { ...this.authorizationHeader, ...customHeader },
+    })
+    return this.axiosInstance.put(buildPath(path), data, {
       headers: { ...this.authorizationHeader, ...customHeader },
     })
   }
@@ -126,7 +129,7 @@ class ApiClient {
         : void
     >
   > {
-    return this.axiosInstance.get(buildPath(path), {
+    return this.axiosInstance.delete(buildPath(path), {
       headers: { ...this.authorizationHeader, ...customHeader },
     })
   }

@@ -993,10 +993,6 @@ paths:
                   type: string
                 answer:
                   type: string
-              required:
-                - order
-                - question
-                - answer
             examples:
               example:
                 value:
@@ -1236,10 +1232,10 @@ paths:
             schema:
               type: object
               properties:
-                stampTypeId:
+                stampType:
                   $ref: '#/components/schemas/StampType'
               required:
-                - stampTypeId
+                - stampType
             examples:
               example:
                 value:
@@ -1261,12 +1257,12 @@ paths:
         required: true
       - schema:
           type: integer
-        name: stampId
+        name: wordId
         in: path
         required: true
       - schema:
-          type: integer
-        name: wordId
+          type: string
+        name: stampId
         in: path
         required: true
     delete:
@@ -2682,8 +2678,10 @@ components:
       type: string
       title: StampType
       enum:
-        - good
-        - bad
+        - thumbsup
+        - heart
+        - star
+        - award
     CollaboratorRequest:
       title: CollaboratorRequest
       type: object

@@ -34,7 +34,10 @@ const Input: React.VFC<InputProps> = ({
 
   return (
     <Component
-      className={c("w-full px-4 py-1 placeholder-gray-200 border border-gray-200 rounded-[12px]", className)}
+      className={c(
+        "w-full px-4 py-1 placeholder-gray-200 border border-gray-200 rounded-[12px] resize-none",
+        className,
+      )}
       placeholder={placeholder}
       value={value}
       onChange={handleChange}

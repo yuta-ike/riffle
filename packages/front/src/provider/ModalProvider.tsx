@@ -1,8 +1,11 @@
 import React, { createContext, useCallback, useContext, useMemo, useRef, useState } from "react"
 import CompleteModal from "../view/components/CompleteModal"
+import ConfirmModal from "../view/components/ConfirmModal"
+
+export type ModalType = "complete" | "confirm"
 
 export type ModalContext = {
-  show: (message?: string) => Promise<void>
+  show: <T = unknown>(type: ModalType, message?: string) => Promise<T>
 }
 
 const ModalContext = createContext<ModalContext>({
@@ -16,30 +19,39 @@ export type ModalProviderProps = {
 }
 
 const ModalProvider: React.VFC<ModalProviderProps> = ({ children }) => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState<ModalType | null>(null)
   const messageRef = useRef<string | undefined>(undefined)
-  const closeModalCallback = useRef<() => void>()
+  const closeModalCallback = useRef<(arg?: unknown) => void>()
   const show = useCallback(
-    (message?: string) => {
+    (type: ModalType, message?: string) => {
       messageRef.current = message
-      setOpen(true)
-      return new Promise<void>((resolve) => {
+      setOpen(type)
+      return new Promise<unknown>((resolve) => {
         closeModalCallback.current = resolve
       })
     },
     [closeModalCallback],
   )
 
-  const handleClose = useCallback(() => {
-    setOpen(false)
-    closeModalCallback.current?.()
-  }, [setOpen, closeModalCallback])
+  const handleClose = useCallback(
+    (arg?: unknown) => {
+      setOpen(null)
+      closeModalCallback.current?.(arg)
+    },
+    [setOpen, closeModalCallback],
+  )
 
   const value = useMemo(() => ({ show }), [show])
 
   return (
     <>
-      <CompleteModal open={open} onClose={handleClose} message={messageRef.current ?? "完了しました!!"} />
+      <CompleteModal
+        open={open === "complete"}
+        onClose={handleClose}
+        message={messageRef.current ?? "完了しました!!"}
+      />
+      <ConfirmModal open={open === "confirm"} onClose={handleClose} message={messageRef.current ?? ""} />
+      {/* @ts-ignore */}
       <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
     </>
   )

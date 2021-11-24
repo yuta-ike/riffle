@@ -4,8 +4,7 @@ import type { AppProps } from "next/app"
 import LiffProvider, { AuthUser, useAuthUser } from "../provider/LiffProvider"
 import { SWRConfig } from "swr"
 import ModalProvider from "../provider/ModalProvider"
-// import AuthProvider from "../provider/AuthProvider"
-// import ApiClientProvider from "../provider/ApiClientProvider"
+import Loading from "../view/template/Loading"
 
 const MyApp: React.VFC<AppProps> = ({ Component, pageProps }) => {
   return (
@@ -17,11 +16,7 @@ const MyApp: React.VFC<AppProps> = ({ Component, pageProps }) => {
     >
       <ModalProvider>
         <LiffProvider>
-          {/* <AuthProvider> */}
-          <AuthPage fallback={<div>LOADING...</div>}>
-            {(authUser) => <Component {...pageProps} authUser={authUser} />}
-          </AuthPage>
-          {/* </AuthProvider> */}
+          <AuthPage fallback={<Loading />}>{(authUser) => <Component {...pageProps} authUser={authUser} />}</AuthPage>
         </LiffProvider>
       </ModalProvider>
     </SWRConfig>

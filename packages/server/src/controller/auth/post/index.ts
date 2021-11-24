@@ -21,14 +21,14 @@ const createOrGetFirebaseUser = async (uid: string, name: string, iconUrl: strin
 
 const postLoginController: FastifyPluginAsync = async (server) => {
   server.post<"post", "/auth">("/auth", async (req) => {
-    const user = await verifyIdToken(req.headers.authorization?.slice("Bearer ".length) ?? "")
-    const uid = `line:${user.id}`
+    const liffUser = await verifyIdToken(req.headers.authorization?.slice("Bearer ".length) ?? "")
+    const uid = `line:${liffUser.id}`
 
-    const firebaseUser = await createOrGetFirebaseUser(uid, user.name, user.iconUrl)
+    const firebaseUser = await createOrGetFirebaseUser(uid, liffUser.name, liffUser.iconUrl)
     const token = await auth.createCustomToken(firebaseUser.uid)
     const riffleUser = await postLogin(firebaseUser.uid, {
-      iconUrl: firebaseUser.photoURL ?? "",
-      name: firebaseUser.displayName ?? "",
+      iconUrl: liffUser.iconUrl ?? "",
+      name: liffUser.name ?? "",
     })
     return {
       user: riffleUser,

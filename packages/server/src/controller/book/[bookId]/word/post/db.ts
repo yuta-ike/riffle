@@ -15,6 +15,7 @@ const postWord = async (userId: string, bookId: string, { question, answer, orde
       answer,
       order,
       userId,
+      bookId,
     },
     ...prismaWordQuery(),
   })

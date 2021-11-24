@@ -39,8 +39,8 @@ const BottomModal: React.VFC<BottomModalProps> = ({ open, onClose, children, hei
         >
           <div
             className={c(
-              "absolute bottom-0 z-30 w-full px-4 bg-gray-50 h-[90vh] rounded-t-3xl shadow-main overflow-y-hidden",
-              height === "tall" ? "h-[90vh]" : "h-[40vh]",
+              "absolute bottom-0 z-30 w-full px-4 bg-gray-50 h-[90vh] rounded-t-3xl shadow-main overflow-y-hidden flex flex-col",
+              height === "tall" ? "h-[95vh]" : "h-[40vh]",
             )}
           >
             <div className="grid grid-cols-3 py-2 text-right">
@@ -52,7 +52,7 @@ const BottomModal: React.VFC<BottomModalProps> = ({ open, onClose, children, hei
                 <Cross />
               </IconButton>
             </div>
-            <div className="h-full">{children}</div>
+            <div className="flex flex-col h-full">{children}</div>
           </div>
         </Transition.Child>
       </Dialog>
