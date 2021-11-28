@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from "next"
 import { useRouter } from "next/dist/client/router"
-import React, { useCallback, useState } from "react"
+import React, { Fragment, useCallback, useState } from "react"
 import { BookOpen, Edit } from "react-feather"
 import { apiClient } from "../../../lib/apiClient"
 import { useApiSWR, useRequest } from "../../../lib/apiClient/hooks"
@@ -19,6 +19,7 @@ import { useSWRConfig } from "swr"
 import sendInviteMessage from "../../../service/sendInviteMessage"
 import { AuthUser, useLiff } from "../../../provider/LiffProvider"
 import Link from "next/link"
+import InviteCard from "../../../view/components/InviteCard"
 
 const BOOK = {
   id: "497f6eca-6276-4993-bfeb-53cbbbba6f08",
@@ -145,7 +146,8 @@ const BOOK = {
 const USER = {
   id: "user-id",
   name: "john-doe",
-  iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
+  iconUrl:
+    "https://profile.line-scdn.net/0huyFoiQEhKlZ7Fj2jGehVAUdTJDsMOCweA3U2MF5CfGdTI2UJEHhjOVYefTECLzkIEHZmYgwUITJT",
 }
 
 const TABS = [
@@ -155,8 +157,6 @@ const TABS = [
   { value: "score", label: "きろく" },
   { value: "friends", label: "ともだち" },
 ] as const
-
-const LIFF_URL = process.env.NEXT_PUBLIC_LIFF_URL || ""
 
 export type Tab = typeof TABS[number]["value"]
 
@@ -171,7 +171,6 @@ const BookDetail: NextPage<BookDetailProps & { authUser: AuthUser }> = ({
   authUser,
 }) => {
   const router = useRouter()
-  const liff = useLiff()
   const [tab, setTab] = useState<Tab>(TABS[0].value)
   const { post } = useRequest()
   const { data: ownedBookData } = useApiSWR(
@@ -186,7 +185,7 @@ const BookDetail: NextPage<BookDetailProps & { authUser: AuthUser }> = ({
 
   const handleClickStudy = useCallback(() => {
     router.push(`/book/${router.query.bookId}/study`)
-  }, [])
+  }, [router])
 
   if (ownedBookData?.ownedBook == null) {
     return null
@@ -201,20 +200,6 @@ const BookDetail: NextPage<BookDetailProps & { authUser: AuthUser }> = ({
       },
     )
     mutate(`/owned-book/${ownedBookData.ownedBook.id}`)
-  }
-
-  const handleInviteWithLine = async () => {
-    const { inviteCode } = await post(
-      { url: "/book/{bookId}/collaborators/invite-code", params: { bookId: ownedBookData.ownedBook.book.id } },
-      { role: "viewer" },
-    )
-    if (liff == null) {
-      window.alert("エラーが発生しました。時間を空けて再度お試しください")
-      return
-    }
-    const inviteUrl = `${LIFF_URL}/book/${ownedBookData.ownedBook.book.id}/invited?code=${inviteCode}`
-    console.log(inviteUrl)
-    await sendInviteMessage(liff, authUser, ownedBookData.ownedBook.book, inviteUrl)
   }
 
   return (
@@ -234,7 +219,7 @@ const BookDetail: NextPage<BookDetailProps & { authUser: AuthUser }> = ({
               <Link href={`/book/${router.query.bookId}/edit`}>
                 <a>
                   <Card className="flex items-center space-x-2">
-                    <h2 className="w-full text-sm text-gray-500">カードを編集する</h2>
+                    <h2 className="w-full text-sm text-gray-500">カードを追加・編集する</h2>
                     <div className="flex items-center flex-shrink-0 px-2 py-1 space-x-1 text-sm border rounded border-primary/80">
                       <Edit size="14px" stroke="rgba(65, 105, 225, 0.8)" strokeWidth={2} />
                       <span className="text-primary">編集</span>
@@ -248,32 +233,33 @@ const BookDetail: NextPage<BookDetailProps & { authUser: AuthUser }> = ({
             </>
           )}
           {tab === "comment" && (
-            <>
+            <div className="flex flex-col space-y-4">
               {ownedBookData.ownedBook.book.comments.map((comment, index) => (
-                <div key={comment.id}>
-                  {index === 0 ||
-                  new Date(comment.createdAt).toDateString() !==
-                    new Date(BOOK.wordScores[index - 1]?.createdAt ?? "").toDateString() ? (
-                    <div className="w-full my-2">
-                      <p className="text-sm text-gray-400">
-                        {new Date(comment.createdAt).toLocaleDateString()} (
-                        {["日", "月", "火", "水", "木", "金", "土"][new Date(comment.createdAt).getDay()]})
-                      </p>
-                      <hr />
-                    </div>
-                  ) : null}
+                <Fragment key={comment.id}>
                   <CommentColumn comment={comment} ownedBook={ownedBookData.ownedBook} />
-                </div>
+                  {index === 1 && (
+                    <div className="flex flex-col ml-4 space-y-2">
+                      <div>
+                        <p className="text-base font-bold leading-none text-gray-500">traditional</p>
+                      </div>
+                      <CommentColumn
+                        className="pl-3 ml-1 border-l-2 border-gray-300 border-solid"
+                        comment={comment}
+                        ownedBook={ownedBookData.ownedBook}
+                      />
+                    </div>
+                  )}
+                </Fragment>
               ))}
               <CommentForm onSend={handleSendComment} minRows={2} />
-            </>
+            </div>
           )}
           {tab === "score" &&
             ownedBookData.ownedBook.book.wordScores?.map((wordScore, index) => (
               <div key={wordScore.id}>
                 {index === 0 ||
                 new Date(wordScore.createdAt).toDateString() !==
-                  new Date(BOOK.wordScores[index - 1]?.createdAt ?? "").toDateString() ? (
+                  new Date(ownedBookData.ownedBook.book.wordScores?.[index - 1]?.createdAt ?? "").toDateString() ? (
                   <div className="w-full my-4">
                     <p className="text-sm text-gray-400">
                       {new Date(wordScore.createdAt).toLocaleDateString()} (
@@ -283,31 +269,18 @@ const BookDetail: NextPage<BookDetailProps & { authUser: AuthUser }> = ({
                   </div>
                 ) : null}
                 <WordScoreCard
-                  word={BOOK.words.find(({ id }) => id === wordScore.wordId) as unknown as Word}
+                  ownedBook={ownedBookData.ownedBook}
+                  word={ownedBookData.ownedBook.book.words.find(({ id }) => id === wordScore.wordId) as unknown as Word}
                   wordScore={wordScore}
-                  onClickCheck={console.log}
                 />
               </div>
             ))}
           {tab === "friends" && (
             <div className="space-y-4">
               <div className="space-y-4">
-                <Card className="space-y-2">
-                  <h2 className="text-sm text-gray-500">友達を招待する</h2>
-                  <div className="flex space-x-2">
-                    <button
-                      className="flex-1 w-full py-1 text-sm border-2 rounded border-primary/80 text-primary"
-                      onClick={handleInviteWithLine}
-                    >
-                      LINEで招待
-                    </button>
-                    <button className="flex-1 w-full py-1 text-sm border-2 rounded border-primary/80 text-primary">
-                      URLで招待
-                    </button>
-                  </div>
-                </Card>
+                <InviteCard ownedBook={ownedBookData.ownedBook} authUser={authUser} />
                 <Card className="space-y-3">
-                  <h2 className="text-sm text-gray-500">参加リクエスト中のユーザー</h2>
+                  <h2 className="text-sm text-gray-500">参加リクエストが届いています</h2>
                   {/* TODO: dummy */}
                   {[USER].map((user) => (
                     <div key={user.id} className="flex items-center justify-between">
@@ -324,9 +297,9 @@ const BookDetail: NextPage<BookDetailProps & { authUser: AuthUser }> = ({
                     </div>
                   ))}
                 </Card>
-                <Card className="space-y-3">
-                  <h2 className="text-sm text-gray-500">招待中のユーザー</h2>
-                  {/* TODO: dummy */}
+                {/* TODO: 招待コードの表示 */}
+                {/* <Card className="space-y-3">
+                  <h2 className="text-sm text-gray-500">招待中</h2>
                   {[USER].map((user) => (
                     <div key={user.id} className="flex items-center justify-between">
                       <div className="flex items-center space-x-2" key={user.id}>
@@ -338,12 +311,13 @@ const BookDetail: NextPage<BookDetailProps & { authUser: AuthUser }> = ({
                       <div className="flex items-center space-x-2 text-sm">キャンセル</div>
                     </div>
                   ))}
-                </Card>
+                </Card> */}
               </div>
               <hr />
               {ownedBookData.ownedBook.book.collaborators.map((collaborator) => (
                 <CollaboratorCard
                   key={collaborator.id}
+                  ownedBook={ownedBookData.ownedBook}
                   collaborator={collaborator}
                   onChangeRole={console.log}
                   onClickKick={console.log}

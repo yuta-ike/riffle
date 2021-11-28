@@ -74,7 +74,7 @@ const WordStudyScreen: React.VFC<WordStudyScreenProps> = ({
           </div>
         </div>
         {/* TODO: 作成者 */}
-        <div className="flex flex-col px-4 space-y-5 overflow-y-scroll">
+        <div className="flex flex-col space-y-5 overflow-y-scroll">
           {word.comments.map((comment) => (
             <CommentColumn key={comment.id} ownedBook={ownedBook} comment={comment} />
           ))}

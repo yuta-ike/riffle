@@ -12,7 +12,8 @@ import { X as Cross } from "react-feather"
 import SelectButton from "../../../view/components/SelectButton"
 import { verifyIdToken } from "../../../lib/firebaseAdmin/auth"
 import { apiClient } from "../../../lib/apiClient"
-import { useApiSWR } from "../../../lib/apiClient/hooks"
+import { useApiSWR, useRequest } from "../../../lib/apiClient/hooks"
+import { useSWRConfig } from "swr"
 const BOOK = {
   id: "497f6eca-6276-4993-bfeb-53cbbbba6f08",
   title: "教科書第2章 新出単語",
@@ -195,6 +196,8 @@ export type StudyProps = {
 
 const Study: NextPage<StudyProps> = ({ bookId, ownedBook: initOwnedBook }) => {
   const router = useRouter()
+  const { post } = useRequest()
+  const { mutate } = useSWRConfig()
 
   const { data: ownedBookData } = useApiSWR(
     { url: "/owned-book/{bookId}", params: { bookId } },
@@ -217,15 +220,7 @@ const Study: NextPage<StudyProps> = ({ bookId, ownedBook: initOwnedBook }) => {
     }
     // TODO: 単語の並び替えなど
     setStudyWords(ownedBookData.ownedBook.book.words)
-  }, [])
-
-  const handleAgain = useCallback(() => {
-    setStudyWords(null)
-  }, [])
-
-  const handleFinish = useCallback(() => {
-    router.push(`/book/${bookId}`)
-  }, [])
+  }, [ownedBookData])
 
   const result = useRef<Record<number, boolean>>({})
 
@@ -234,6 +229,33 @@ const Study: NextPage<StudyProps> = ({ bookId, ownedBook: initOwnedBook }) => {
   }
 
   const ownedBook = ownedBookData.ownedBook
+
+  const postScore = async () => {
+    if (studyWords == null) {
+      throw new Error()
+    }
+
+    await post(
+      { url: "/book/{bookId}/score", params: { bookId: ownedBook.book.id } },
+      {
+        wordScores: studyWords.map((word) => ({
+          wordId: word.id,
+          result: score[word.id] ?? false,
+        })),
+      },
+    )
+    mutate(`/owned-book/${ownedBook.id}`)
+  }
+
+  const handleFinish = async () => {
+    await postScore()
+    router.push(`/book/${bookId}`)
+  }
+
+  const handleAgain = async () => {
+    await postScore()
+    setStudyWords(null)
+  }
 
   return (
     <article className="w-full min-h-screen p-4 bg-gray-50/50">
@@ -265,6 +287,7 @@ const Study: NextPage<StudyProps> = ({ bookId, ownedBook: initOwnedBook }) => {
       {/* Result */}
       {studyWords != null && studyWords[index] == null && (
         <WordStudyCompleteScreen
+          ownedBook={ownedBook}
           words={studyWords}
           result={result.current}
           score={Object.fromEntries(

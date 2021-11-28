@@ -1,10 +1,10 @@
 import React from "react"
-import { Word } from "../../types/models"
+import { OwnedBook, Word } from "../../types/models"
 import BottomSheet from "../base/BottomSheet"
-import Button from "../components/Button"
 import WordScoreCard from "../model/word/WordScoreCard"
 
 export type WordStudyCompleteScreenProps = {
+  ownedBook: OwnedBook
   words: Word[]
   result: Record<number, boolean>
   score: Record<number, boolean>
@@ -14,6 +14,7 @@ export type WordStudyCompleteScreenProps = {
 }
 
 const WordStudyCompleteScreen: React.VFC<WordStudyCompleteScreenProps> = ({
+  ownedBook,
   words,
   result,
   score,
@@ -29,6 +30,7 @@ const WordStudyCompleteScreen: React.VFC<WordStudyCompleteScreenProps> = ({
           {words.map((word) => (
             <WordScoreCard
               key={word.id}
+              ownedBook={ownedBook}
               word={word}
               wordScore={{
                 id: word.id,
@@ -38,6 +40,7 @@ const WordStudyCompleteScreen: React.VFC<WordStudyCompleteScreenProps> = ({
               }}
               className="w-full"
               overrideChecked={score?.[word.id] ?? false}
+              disableModalInteraction
               onClickCheck={() => onClickCheck(word.id)}
             />
           ))}

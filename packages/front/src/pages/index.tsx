@@ -6,7 +6,6 @@ import CommentCard from "../view/model/comment/CommentCard"
 import UserHeader from "../view/model/user/UserHeader"
 import { useApiSWR } from "../lib/apiClient/hooks"
 import { AuthUser } from "../provider/LiffProvider"
-import FAB from "../view/base/FAB"
 import Fab from "../view/base/FAB"
 import { Plus } from "react-feather"
 import { useRouter } from "next/dist/client/router"
@@ -45,7 +44,7 @@ const Home: NextPage<HomeProps> = ({ authUser, ownedBooks: initOwnedBooks }) => 
 
   const onClickNewBook = useCallback(() => {
     router.push("/book/new")
-  }, [])
+  }, [router])
 
   return (
     <>

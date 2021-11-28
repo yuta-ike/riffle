@@ -148,8 +148,8 @@ export interface paths {
       path: {
         bookId: string
         commentId: string
-        stampId: number
         wordId: number
+        stampId: string
       }
     }
   }
@@ -747,8 +747,8 @@ export interface operations {
       path: {
         bookId: string
         commentId: string
-        stampId: number
         wordId: number
+        stampId: string
       }
     }
     responses: {
@@ -942,20 +942,14 @@ export interface operations {
     }
     responses: {
       /** OK */
-      200: {
-        content: {
-          "application/json": {
-            wordScores: components["schemas"]["WordScore"][]
-          }
-        }
-      }
+      200: unknown
     }
     requestBody: {
       content: {
         "application/json": {
-          wordScores?: {
-            wordId?: number
-            result?: boolean
+          wordScores: {
+            wordId: number
+            result: boolean
           }[]
         }
       }

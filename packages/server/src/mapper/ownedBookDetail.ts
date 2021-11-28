@@ -141,6 +141,10 @@ export const ownedBookDetailMapper = (
         result: score.result,
         createdAt: score.createdAt.toISOString(),
       })),
-    ).flat(),
+    )
+      .flat()
+      .sort(
+        (wordScoreA, wordScoreB) => new Date(wordScoreA.createdAt).getTime() - new Date(wordScoreB.createdAt).getTime(),
+      ),
   },
 })

@@ -33,11 +33,11 @@ model Collaborator {
   joinedAt    DateTime?
   requestedAt DateTime?
   createdAt   DateTime  @default(now())
-  bookId      String?
+  bookId      String
   userId      String
   updatedAt   DateTime? @updatedAt
   deletedAt   DateTime?
-  Book        Book?     @relation(fields: [bookId], references: [id])
+  Book        Book      @relation(fields: [bookId], references: [id])
   User        User      @relation(fields: [userId], references: [id])
 }
 

@@ -1,5 +1,5 @@
 import React from "react"
-import ROLE_LABELS from "../../../constants/role"
+import {ROLE_LABELS} from "../../../constants/role"
 import { Role } from "../../../types/models"
 import Badge from "../../components/Badge"
 import ROLE_COLORS from "../../constants/roleColor"

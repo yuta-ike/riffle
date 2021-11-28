@@ -13,7 +13,13 @@ const startApolloServer = async () => {
   })
   console.log("CORS: ", JSON.parse(process.env.CORS_URLS ?? "[]"))
   app.register(cors, {
-    origin: process.env.NODE_ENV === "development" ? "*" : (JSON.parse(process.env.CORS_URLS ?? "[]") as string[]),
+    origin:
+      process.env.NODE_ENV === "development"
+        ? "https://localhost:3000"
+        : (JSON.parse(process.env.CORS_URLS ?? "[]") as string[]),
+    // allowedHeaders: "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+    // credentials: true,
+    // optionsSuccessStatus: 204,
   })
 
   app.register(postLoginController)

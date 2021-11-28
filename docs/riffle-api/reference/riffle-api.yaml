@@ -1680,25 +1680,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  wordScores:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/WordScore'
-                required:
-                  - wordScores
-              examples:
-                example:
-                  value:
-                    wordScores:
-                      - id: 1
-                        wordId: 1
-                        result: true
-                        createdAt: '2019-08-24T14:15:22Z'
       description: 単語帳のスコアを送信する
       requestBody:
         content:
@@ -1715,6 +1696,11 @@ paths:
                         type: integer
                       result:
                         type: boolean
+                    required:
+                      - wordId
+                      - result
+              required:
+                - wordScores
             examples:
               example:
                 value:

@@ -1,7 +1,6 @@
 import React from "react"
 import { CheckCircle, Users } from "react-feather"
 import { OwnedBook } from "../../../types/models"
-import Title from "../../base/typography/Title"
 import CategoryBadge from "../category/CategoryBadge"
 import Thumbnail from "../category/Thumbnail"
 
@@ -19,13 +18,13 @@ const BookCard: React.VFC<BookCardProps> = ({ ownedBook }) => {
         </Thumbnail>
         <div className="flex flex-col w-full space-y-2">
           <div className="flex">
-            <Title>{ownedBook.book.title}</Title>
+            <h2 className="font-bold">{ownedBook.book.title}</h2>
             <div className="flex items-center justify-center flex-shrink-0 ml-4">
               <CategoryBadge category={ownedBook.book.category} />
             </div>
           </div>
           <div>
-            <p className="text-sm text-gray-400">最後に勉強した日: 1日前</p>
+            <p className="text-xs text-gray-400">最後に勉強した日: 1日前</p>
           </div>
           <div className="flex px-2 py-1 space-x-4 bg-gray-100 rounded">
             <div className="flex items-center space-x-2 leading-none">

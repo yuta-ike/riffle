@@ -30,7 +30,9 @@ class ApiClient {
       baseURL: baseUrl,
       headers: {
         "Content-Type": "application/json",
+        // "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
       },
+      // withCredentials: true,
     })
   }
 
@@ -90,11 +92,17 @@ class ApiClient {
         : void
     >
   > {
+    console.log(typeof window)
+    console.log({
+      ...this.authorizationHeader,
+      ...customHeader,
+    })
     return this.axiosInstance.post(buildPath(path), data, {
       headers: {
         ...this.authorizationHeader,
         ...customHeader,
       },
+      // withCredentials: true,
     })
   }
 

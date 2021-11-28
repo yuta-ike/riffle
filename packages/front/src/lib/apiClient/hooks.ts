@@ -51,7 +51,7 @@ export const useRequest = () => {
         setIsValidating(false)
       }
     },
-    [],
+    [authUser, isValidating],
   )
   const put = useCallback(
     async <Path extends keyof MethodPaths<"put">>(
@@ -94,7 +94,7 @@ export const useRequest = () => {
         setIsValidating(false)
       }
     },
-    [],
+    [authUser, isValidating],
   )
   const deleteRequest = useCallback(
     async <Path extends keyof MethodPaths<"delete">>(
@@ -134,7 +134,7 @@ export const useRequest = () => {
         setIsValidating(false)
       }
     },
-    [],
+    [authUser, isValidating],
   )
 
   return { post, put, deleteRequest, isValidating, error }
@@ -153,7 +153,7 @@ export const useApiSWR = <Path extends keyof MethodPaths<"get">>(
       ? paths[Path]["get"]["responses"][200]["content"]["application/json"]
       : void
   >(
-    authUser?.cachedToken == null ? null : buildPath(path),
+    buildPath(path),
     async () => {
       const token = await authUser?.token()
       const res = await apiClient().get(path, { Authorization: `Bearer ${token}` })
