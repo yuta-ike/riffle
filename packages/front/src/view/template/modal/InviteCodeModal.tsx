@@ -9,6 +9,7 @@ import BaseModal from "../../base/BaseModal"
 import { AuthUser } from "../../../provider/LiffProvider"
 import { apiClient } from "../../../lib/apiClient"
 import { canUseShare, shareAPI } from "../../../lib/navigator/share"
+import generateInviteUrl from "../../../service/generateInviteUrl"
 
 export type InviteCodeModalProps = {
   open: boolean
@@ -40,10 +41,13 @@ const InviteCodeModal: React.VFC<InviteCodeModalProps> = ({ open, onClose, authU
 
   const handleSelectRole = async (role: Role) => {
     if (canUseShare()) {
+      if (inviteCode == null) {
+        return
+      }
       await shareAPI({
         title: "riffle",
         text: `${ownedBook.book.title}に招待されています`,
-        url: "https://example.com",
+        url: generateInviteUrl(inviteCode),
       })
         .then(console.log)
         .catch(console.log)
@@ -53,14 +57,17 @@ const InviteCodeModal: React.VFC<InviteCodeModalProps> = ({ open, onClose, authU
   }
 
   const handleShare = async () => {
+    if (inviteCode == null) {
+      return
+    }
     if ("share" in navigator) {
       await navigator.share({
         title: "riffle",
         text: `${ownedBook.book.title}に招待されています`,
-        url: "https://example.com",
+        url: generateInviteUrl(inviteCode),
       })
     } else if (navigator.clipboard) {
-      navigator.clipboard.writeText("https://example.com")
+      navigator.clipboard.writeText(generateInviteUrl(inviteCode))
       setCopyDone(true)
     }
   }
@@ -97,7 +104,7 @@ const InviteCodeModal: React.VFC<InviteCodeModalProps> = ({ open, onClose, authU
               <input
                 type="text"
                 // TODO: replace correct url
-                value={inviteCode == null ? "読み込み中" : `https://localhost:3000/invited?code=${inviteCode}`}
+                value={inviteCode == null ? "読み込み中" : generateInviteUrl(inviteCode)}
                 disabled
                 className="w-full py-2 pl-4 pr-1 text-xs text-gray-500"
               />
