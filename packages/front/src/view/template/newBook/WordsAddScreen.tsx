@@ -29,7 +29,6 @@ const WordsAddScreen: React.VFC<WordsAddScreenProps> = ({
           <WordInput
             question={question}
             answer={answer}
-            mode="text"
             onChangeQuestion={(value) =>
               setWords((prev) => {
                 const newWords = [...prev]

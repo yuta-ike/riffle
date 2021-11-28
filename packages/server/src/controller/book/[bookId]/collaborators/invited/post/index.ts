@@ -2,6 +2,7 @@ import { FastifyPluginAsync } from "fastify"
 import { deauthorizedCheck, acceptInviteAndCreateCollaborator, denyInvite } from "./db"
 
 const postInvitedController: FastifyPluginAsync = async (server) => {
+  // @ts-ignore TODO: check return type
   server.post<"post", "/book/:bookId/collaborators/invited">("/book/:bookId/collaborators/invited", async (req) => {
     const checkResult = await deauthorizedCheck(req.body.inviteCode)
     if (checkResult === "ALREADY_USED") {

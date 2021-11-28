@@ -149,7 +149,7 @@ export interface paths {
         bookId: string
         commentId: string
         wordId: number
-        stampId: string
+        stampId: number
       }
     }
   }
@@ -569,7 +569,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          stampTypeId: components["schemas"]["StampType"]
+          stampType: components["schemas"]["StampType"]
         }
       }
     }
@@ -765,7 +765,7 @@ export interface operations {
         bookId: string
         commentId: string
         wordId: number
-        stampId: string
+        stampId: number
       }
     }
     responses: {

@@ -784,10 +784,10 @@ paths:
             schema:
               type: object
               properties:
-                stampTypeId:
+                stampType:
                   $ref: '#/components/schemas/StampType'
               required:
-                - stampTypeId
+                - stampType
             examples:
               example:
                 value:
@@ -1261,7 +1261,7 @@ paths:
         in: path
         required: true
       - schema:
-          type: string
+          type: integer
         name: stampId
         in: path
         required: true

@@ -40,7 +40,7 @@ const CommentColumn: React.VFC<CommentColumnProps> = ({ comment, className, owne
     await post(
       { url: "/book/{bookId}/comment/{commentId}/stamp", params: { bookId: book.id, commentId: comment.id } },
       {
-        stampTypeId: stampType,
+        stampType,
       },
     )
     mutate(`/owned-book/${ownedBook.id}`)
