@@ -18,9 +18,9 @@ const UserHeader = <Tab extends string>({ user, tabs, selectedTab, onChangeTab, 
   return (
     <HeaderCard<Tab>
       className={c("flex flex-col", className)}
-      tabs={tabs}
-      onChangeTab={onChangeTab}
-      selectedTab={selectedTab}
+      // tabs={tabs}
+      // onChangeTab={onChangeTab}
+      // selectedTab={selectedTab}
     >
       <div className="flex space-x-4">
         <div className="flex items-center flex-shrink-0">

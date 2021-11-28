@@ -22,7 +22,7 @@ const HeaderCard = <Tab extends string>({
   className,
 }: HeaderCardProps<Tab>): React.ReactElement => {
   return (
-    <div className={c("relative bg-white shadow-main border border-black/10 border-solid", className)}>
+    <div className={c("relative bg-white shadow-main border-b border-black/10 border-solid", className)}>
       <div className="w-full px-4 py-3">{children}</div>
       {tabs != null && (
         <div className="flex w-full overflow-x-scroll flex-nowrap whitespace-nowrap overscroll-x-none">

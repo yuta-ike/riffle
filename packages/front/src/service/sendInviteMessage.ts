@@ -2,55 +2,57 @@ import { Liff } from "@line/liff/dist/lib"
 import { Book, User } from "../types/models"
 
 const sendInviteMessage = async (liff: Liff, inviter: User, book: Book, url: string) => {
-  await liff.shareTargetPicker([
-    {
-      type: "flex",
-      altText: `${inviter}さんから「${book.title}」へ招待されています。招待を受ける場合は${url}にアクセスしてください。`,
-      contents: {
-        type: "bubble",
-        body: {
-          type: "box",
-          layout: "vertical",
-          contents: [
-            {
-              type: "text",
-              text: `${inviter}さんから「${book.title}」へ招待されています`,
-              wrap: true,
-            },
-          ],
-          spacing: "lg",
-        },
-        footer: {
-          type: "box",
-          layout: "vertical",
-          spacing: "sm",
-          contents: [
-            {
-              type: "button",
-              style: "link",
-              height: "sm",
-              action: {
-                type: "uri",
-                label: "参加する",
-                uri: url,
+  await liff
+    .shareTargetPicker([
+      {
+        type: "flex",
+        altText: `${inviter}さんから「${book.title}」へ招待されています。招待を受ける場合は${url}にアクセスしてください。`,
+        contents: {
+          type: "bubble",
+          body: {
+            type: "box",
+            layout: "vertical",
+            contents: [
+              {
+                type: "text",
+                text: `${inviter}さんから「${book.title}」へ招待されています`,
+                wrap: true,
               },
-            },
-            {
-              type: "button",
-              style: "link",
-              height: "sm",
-              action: {
-                type: "uri",
-                label: "Riffleについて",
-                uri: "", // TODO: set correct url
+            ],
+            spacing: "lg",
+          },
+          footer: {
+            type: "box",
+            layout: "vertical",
+            spacing: "sm",
+            contents: [
+              {
+                type: "button",
+                style: "link",
+                height: "sm",
+                action: {
+                  type: "uri",
+                  label: "参加する",
+                  uri: url,
+                },
               },
-            },
-          ],
-          flex: 0,
+              {
+                type: "button",
+                style: "link",
+                height: "sm",
+                action: {
+                  type: "uri",
+                  label: "Riffleについて",
+                  uri: "", // TODO: set correct url
+                },
+              },
+            ],
+            flex: 0,
+          },
         },
       },
-    },
-  ])
+    ])
+    .catch(() => window.alert("送信に失敗しました"))
 }
 
 export default sendInviteMessage

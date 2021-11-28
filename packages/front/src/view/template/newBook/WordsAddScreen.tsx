@@ -23,7 +23,7 @@ const WordsAddScreen: React.VFC<WordsAddScreenProps> = ({
   const canSubmit = words.filter(({ question, answer }) => question !== "" && answer !== "").length > 0
 
   return (
-    <article className="flex flex-col items-center justify-start min-h-screen p-4 space-y-4 bg-gray-50">
+    <article className="flex flex-col items-center justify-start min-h-screen p-4 pb-[150px] space-y-4 bg-gray-50">
       {words.map(({ question, answer }, index) => (
         <Card key={index} className="w-full">
           <WordInput

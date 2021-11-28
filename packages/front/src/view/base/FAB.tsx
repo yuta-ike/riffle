@@ -9,7 +9,7 @@ export type FabProps = {
 
 const Fab: React.VFC<FabProps> = ({ children, onClick, notSquare = false }) => {
   return (
-    <div className="fixed bottom-4 right-4">
+    <div className="fixed bottom-[16px+env(safe-area-inset-bottom)] right-4">
       <button
         className={c(
           "flex items-center justify-center h-16 bg-primary/80 rounded-3xl shadow-main",

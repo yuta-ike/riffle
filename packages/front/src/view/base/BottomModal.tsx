@@ -39,7 +39,7 @@ const BottomModal: React.VFC<BottomModalProps> = ({ open, onClose, children, hei
           <div
             className={c(
               "fixed z-30 bottom-0 px-4 bg-gray-50 rounded-t-3xl shadow-main flex flex-col w-full overflow-hidden",
-              height === "tall" ? "h-[95vh]" : "h-[40vh]",
+              height === "tall" ? "h-[80vh]" : "h-[40vh]",
             )}
           >
             <div className="grid grid-cols-3 py-2 text-right">
