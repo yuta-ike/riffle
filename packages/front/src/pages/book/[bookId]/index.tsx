@@ -172,16 +172,25 @@ const BookDetail: NextPage<BookDetailProps & { authUser: AuthUser }> = ({
 }) => {
   const router = useRouter()
   const [tab, setTab] = useState<Tab>(TABS[0].value)
-  const { post } = useRequest()
+  const { post, put } = useRequest()
   const { data: ownedBookData } = useApiSWR(
     { url: "/owned-book/{bookId}", params: { bookId } },
     initOwnedBook != null ? { ownedBook: initOwnedBook } : undefined,
   )
   const { mutate } = useSWRConfig()
 
-  const handleClickFavorite = useCallback(() => {
-    console.log("favorite")
-  }, [])
+  const handleClickFavorite = useCallback(async () => {
+    if (ownedBookData == null) {
+      return
+    }
+    await put(
+      { url: "/owned-book/{bookId}", params: { bookId: ownedBookData.ownedBook.id } },
+      {
+        isFavorite: !ownedBookData.ownedBook.isFavorite,
+      },
+    )
+    mutate(`/owned-book/${ownedBookData.ownedBook.id}`)
+  }, [mutate, ownedBookData, put])
 
   const handleClickStudy = useCallback(() => {
     router.push(`/book/${router.query.bookId}/study`)

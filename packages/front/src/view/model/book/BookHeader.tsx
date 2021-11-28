@@ -18,7 +18,7 @@ export type BookHeaderProps<Tab extends string> = {
 }
 
 const BookHeader = <Tab extends string>({
-  ownedBook, // TODO: ownedBook
+  ownedBook,
   className,
   selectedTab,
   onClickTab,
@@ -41,8 +41,12 @@ const BookHeader = <Tab extends string>({
           <div className="w-full my-auto">
             <div className="flex items-center justify-between w-full">
               <Title>{ownedBook.book.title}</Title>
-              <IconButton onClick={onClickFavorite} label="お気に入り">
-                <Star size="14px" />
+              <IconButton pressed={ownedBook.isFavorite} onClick={onClickFavorite} label="お気に入り">
+                <Star
+                  size="18px"
+                  fill={ownedBook.isFavorite ? "rgb(251, 191, 36)" : "white"}
+                  stroke={ownedBook.isFavorite ? "rgb(251, 191, 36)" : "#333"}
+                />
               </IconButton>
             </div>
             <p className="space-x-4 text-sm">

@@ -25,13 +25,12 @@ const BottomModal: React.VFC<BottomModalProps> = ({ open, onClose, children, hei
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Dialog.Overlay className="fixed inset-0 bg-black/20" />
+          <Dialog.Overlay className="fixed inset-0 max-h-screen bg-black/20" />
         </Transition.Child>
-
         <Transition.Child
           as={Fragment}
-          enter="ease-out duration-300 transform overflow-y-hidden"
-          enterFrom="translate-y-full"
+          enter="ease-out duration-300"
+          enterFrom="translate-y-[99vh]"
           enterTo="translate-y-0"
           leave="ease-in duration-200 transform"
           leaveFrom="translate-y-0"
@@ -39,7 +38,7 @@ const BottomModal: React.VFC<BottomModalProps> = ({ open, onClose, children, hei
         >
           <div
             className={c(
-              "absolute bottom-0 z-30 w-full px-4 bg-gray-50 h-[90vh] rounded-t-3xl shadow-main overflow-y-hidden flex flex-col",
+              "fixed z-30 bottom-0 px-4 bg-gray-50 rounded-t-3xl shadow-main flex flex-col w-full overflow-hidden",
               height === "tall" ? "h-[95vh]" : "h-[40vh]",
             )}
           >

@@ -45,9 +45,9 @@ const WordStudyScreen: React.VFC<WordStudyScreenProps> = ({
     <>
       <div className={c(className, "space-y-8 flex flex-col h-full")}>
         <div className="px-4 bg-white rounded-lg shadow-main">
-          <div className="h-[10em] py-4 flex items-center justify-center text-center text-lg">{word.question}</div>
+          <div className="h-[8em] py-4 flex items-center justify-center text-center text-lg">{word.question}</div>
           <hr />
-          <div className="h-[10em] py-4 text-center text-lg flex flex-col relative">
+          <div className="h-[8em] py-4 text-center text-lg flex flex-col relative">
             {disableInteraction || showAnswer ? (
               <>
                 <button

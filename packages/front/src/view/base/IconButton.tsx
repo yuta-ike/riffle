@@ -8,10 +8,11 @@ export type IconButtonProps = {
   className?: string
   disabled?: boolean
   size?: "small" | "xs"
+  pressed?: boolean
 }
 
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function IconButtonInner(
-  { onClick, label, children, className, disabled, size = "small" },
+  { onClick, label, children, className, disabled, size = "small", pressed = undefined },
   ref,
 ) {
   return (
@@ -25,6 +26,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function
       )}
       disabled={disabled}
       ref={ref}
+      aria-pressed={pressed}
     >
       {children}
     </button>
