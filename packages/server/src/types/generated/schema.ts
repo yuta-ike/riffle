@@ -251,6 +251,11 @@ export interface paths {
     get: operations["get-profile"]
     parameters: {}
   }
+  "/verify-invite-code": {
+    /** 招待コードの検証 */
+    post: operations["get-verify-invite-code"]
+    parameters: {}
+  }
 }
 
 export interface components {
@@ -267,6 +272,18 @@ export interface components {
       updatedAt?: string
       collaborators: components["schemas"]["Collaborator"][]
       wordScores?: components["schemas"]["WordScore"][]
+    }
+    /** book summary */
+    BookSummary: {
+      id: string
+      title: string
+      category: components["schemas"]["Category"]
+      description?: string
+      createdAt: string
+      updatedAt?: string
+      wordCount: number
+      commentCount: number
+      collaboratorCount: number
     }
     OwnedBook: {
       id: number
@@ -1019,6 +1036,30 @@ export interface operations {
           "application/json": {
             profile: components["schemas"]["Profile"]
           }
+        }
+      }
+    }
+  }
+  /** 招待コードの検証 */
+  "get-verify-invite-code": {
+    parameters: {}
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          "application/json": {
+            bookSummary: components["schemas"]["BookSummary"]
+            expired: boolean
+            deauthorized: boolean
+            inviterUser: components["schemas"]["User"]
+          }
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        "application/json": {
+          inviteCode: string
         }
       }
     }

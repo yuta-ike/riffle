@@ -54,9 +54,6 @@ class ApiClient {
 
   private get authorizationHeader() {
     if (this.token == null) {
-      if (process.env.NODE_ENV === "development") {
-        console.warn("token is not set.")
-      }
       return undefined
     }
     return {
@@ -92,11 +89,6 @@ class ApiClient {
         : void
     >
   > {
-    console.log(typeof window)
-    console.log({
-      ...this.authorizationHeader,
-      ...customHeader,
-    })
     return this.axiosInstance.post(buildPath(path), data, {
       headers: {
         ...this.authorizationHeader,
@@ -119,9 +111,6 @@ class ApiClient {
         : void
     >
   > {
-    console.log({
-      headers: { ...this.authorizationHeader, ...customHeader },
-    })
     return this.axiosInstance.put(buildPath(path), data, {
       headers: { ...this.authorizationHeader, ...customHeader },
     })

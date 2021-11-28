@@ -1995,6 +1995,45 @@ paths:
       operationId: get-profile
       description: 自分のプロフィールを取得する
     parameters: []
+  /verify-invite-code:
+    post:
+      summary: 招待コードの検証
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bookSummary:
+                    $ref: '#/components/schemas/BookSummary'
+                  expired:
+                    type: boolean
+                  deauthorized:
+                    type: boolean
+                  inviterUser:
+                    $ref: '#/components/schemas/User'
+                required:
+                  - bookSummary
+                  - expired
+                  - deauthorized
+                  - inviterUser
+      operationId: get-verify-invite-code
+      description: 招待コードの検証
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                inviteCode:
+                  type: string
+              required:
+                - inviteCode
+    parameters: []
 components:
   schemas:
     Book:
@@ -2132,6 +2171,128 @@ components:
         - author
         - createdAt
         - collaborators
+    BookSummary:
+      title: BookSummary
+      type: object
+      description: book summary
+      examples:
+        - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+          title: string
+          category: japanese
+          description: string
+          words:
+            - id: 1
+              order: 1
+              question: traditional
+              answer: 伝統的な
+              comments:
+                - id: 1
+                  content: サンプルコメント
+                  type: word
+                  author:
+                    id: user-id
+                    name: john-doe
+                    iconUrl: 'http://example.com/icon.png'
+                  createdAt: '2021-08-24T14:15:22Z'
+                  stamps:
+                    - id: 1
+                      stampTypeId: 1
+                      author:
+                        id: user-id
+                        name: john-doe
+                        iconUrl: 'http://example.com/icon.png'
+                      createdAt: '2021-08-25T14:15:22Z'
+                    - id: 2
+                      stampTypeId: 3
+                      author:
+                        id: user-id-2
+                        name: 田中太郎
+                        iconUrl: 'http://example.com/icon.png'
+                      createdAt: '2021-08-25T18:15:22Z'
+              createdAt: '2021-08-20T14:15:22Z'
+              updatedAt: '2021-08-20T14:30:22Z'
+              author:
+                id: user-id
+                name: john-doe
+                iconUrl: 'http://example.com/icon.png'
+              done: true
+              flags:
+                - 0
+                - 1
+          comments:
+            - id: 1
+              content: サンプルコメント
+              type: default
+              author:
+                id: user-id
+                name: john-doe
+                iconUrl: 'http://example.com/icon.png'
+              createdAt: '2021-08-24T14:15:22Z'
+              stamps:
+                - id: 1
+                  stampTypeId: 1
+                  author:
+                    id: user-id
+                    name: john-doe
+                    iconUrl: 'http://example.com/icon.png'
+                  createdAt: '2021-08-25T14:15:22Z'
+                - id: 2
+                  stampTypeId: 3
+                  author:
+                    id: user-id-2
+                    name: 田中太郎
+                    iconUrl: 'http://example.com/icon.png'
+                  createdAt: '2021-08-25T18:15:22Z'
+          author:
+            id: user-id
+            name: john-doe
+            iconUrl: 'http://example.com/icon.png'
+          createdAt: '2019-08-24T14:15:22Z'
+          updatedAt: '2019-08-24T14:15:22Z'
+          collaborators:
+            - id: 0
+              user:
+                id: user-id
+                name: john-doe
+                iconUrl: 'http://example.com/icon.png'
+              joinDate: '2021-08-27T14:15:22Z'
+              requestDate: '2021-08-24T14:15:22Z'
+              role: editor
+          wordScores:
+            - id: 1
+              wordId: 1
+              result: true
+              createdAt: '2019-08-24T14:15:22Z'
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        category:
+          $ref: '#/components/schemas/Category'
+        description:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        wordCount:
+          type: integer
+        commentCount:
+          type: integer
+        collaboratorCount:
+          type: integer
+      required:
+        - id
+        - title
+        - category
+        - createdAt
+        - wordCount
+        - commentCount
+        - collaboratorCount
     OwnedBook:
       title: OwnedBook
       type: object

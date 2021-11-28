@@ -16,132 +16,131 @@ import WordCard from "../../../view/model/word/WordCard"
 import WordScoreCard from "../../../view/model/word/WordScoreCard"
 import { verifyIdToken } from "../../../lib/firebaseAdmin/auth"
 import { useSWRConfig } from "swr"
-import sendInviteMessage from "../../../service/sendInviteMessage"
-import { AuthUser, useLiff } from "../../../provider/LiffProvider"
+import { AuthUser } from "../../../provider/LiffProvider"
 import Link from "next/link"
 import InviteCard from "../../../view/components/InviteCard"
 
-const BOOK = {
-  id: "497f6eca-6276-4993-bfeb-53cbbbba6f08",
-  title: "教科書第2章 新出単語",
-  category: "english",
-  description: "教科書第2章の本文中に出てくる新出単語をまとめました",
-  comments: [
-    {
-      id: "1",
-      content: "サンプルコメント",
-      commentType: "default",
-      author: {
-        id: "user-id",
-        name: "john-doe",
-        iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
-      },
-      createdAt: "2021-08-24T14:15:22Z",
-      stamps: [
-        {
-          id: 1,
-          stampType: "thumbup",
-          author: {
-            id: "user-id",
-            name: "john-doe",
-            iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
-          },
-          createdAt: "2021-08-25T14:15:22Z",
-        },
-        {
-          id: 2,
-          stampType: "heart",
-          author: {
-            id: "user-id-2",
-            name: "田中太郎",
-            iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
-          },
-          createdAt: "2021-08-25T18:15:22Z",
-        },
-      ],
-    },
-  ],
-  words: [
-    {
-      id: 1,
-      order: 1,
-      question: "traditional",
-      answer: "伝統的な",
-      comments: [
-        {
-          id: "1",
-          content: "サンプルコメント",
-          commentType: "default",
-          author: {
-            id: "user-id",
-            name: "john-doe",
-            iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
-          },
-          createdAt: "2021-08-24T14:15:22Z",
-          stamps: [
-            {
-              id: 1,
-              stampType: "thumbup",
-              author: {
-                id: "user-id",
-                name: "john-doe",
-                iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
-              },
-              createdAt: "2021-08-25T14:15:22Z",
-            },
-            {
-              id: 2,
-              stampType: "heart",
-              author: {
-                id: "user-id-2",
-                name: "田中太郎",
-                iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
-              },
-              createdAt: "2021-08-25T18:15:22Z",
-            },
-          ],
-        },
-      ],
-      createdAt: "2021-08-20T14:15:22Z",
-      updatedAt: "2021-08-20T14:30:22Z",
-      author: {
-        id: "user-id",
-        name: "john-doe",
-        iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
-      },
-      done: true,
-      flags: [0, 1],
-    },
-  ],
-  author: {
-    id: "user-id",
-    name: "john-doe",
-    iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
-  },
-  createdAt: "2021-08-20T14:15:22Z",
-  updatedAt: "2021-08-20T14:20:22Z",
-  collaborators: [
-    {
-      id: 2,
-      user: {
-        id: "user-id-2",
-        name: "田中太郎",
-        iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
-      },
-      joinDate: "2021-08-27T14:15:22Z",
-      requestDate: "2021-08-25T14:15:22Z",
-      role: "editor",
-    },
-  ],
-  wordScores: [
-    {
-      id: 1,
-      wordId: 1,
-      result: true,
-      createdAt: "2019-08-24T14:15:22Z",
-    },
-  ],
-} as const
+// const BOOK = {
+//   id: "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+//   title: "教科書第2章 新出単語",
+//   category: "english",
+//   description: "教科書第2章の本文中に出てくる新出単語をまとめました",
+//   comments: [
+//     {
+//       id: "1",
+//       content: "サンプルコメント",
+//       commentType: "default",
+//       author: {
+//         id: "user-id",
+//         name: "john-doe",
+//         iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
+//       },
+//       createdAt: "2021-08-24T14:15:22Z",
+//       stamps: [
+//         {
+//           id: 1,
+//           stampType: "thumbup",
+//           author: {
+//             id: "user-id",
+//             name: "john-doe",
+//             iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
+//           },
+//           createdAt: "2021-08-25T14:15:22Z",
+//         },
+//         {
+//           id: 2,
+//           stampType: "heart",
+//           author: {
+//             id: "user-id-2",
+//             name: "田中太郎",
+//             iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
+//           },
+//           createdAt: "2021-08-25T18:15:22Z",
+//         },
+//       ],
+//     },
+//   ],
+//   words: [
+//     {
+//       id: 1,
+//       order: 1,
+//       question: "traditional",
+//       answer: "伝統的な",
+//       comments: [
+//         {
+//           id: "1",
+//           content: "サンプルコメント",
+//           commentType: "default",
+//           author: {
+//             id: "user-id",
+//             name: "john-doe",
+//             iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
+//           },
+//           createdAt: "2021-08-24T14:15:22Z",
+//           stamps: [
+//             {
+//               id: 1,
+//               stampType: "thumbup",
+//               author: {
+//                 id: "user-id",
+//                 name: "john-doe",
+//                 iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
+//               },
+//               createdAt: "2021-08-25T14:15:22Z",
+//             },
+//             {
+//               id: 2,
+//               stampType: "heart",
+//               author: {
+//                 id: "user-id-2",
+//                 name: "田中太郎",
+//                 iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
+//               },
+//               createdAt: "2021-08-25T18:15:22Z",
+//             },
+//           ],
+//         },
+//       ],
+//       createdAt: "2021-08-20T14:15:22Z",
+//       updatedAt: "2021-08-20T14:30:22Z",
+//       author: {
+//         id: "user-id",
+//         name: "john-doe",
+//         iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
+//       },
+//       done: true,
+//       flags: [0, 1],
+//     },
+//   ],
+//   author: {
+//     id: "user-id",
+//     name: "john-doe",
+//     iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
+//   },
+//   createdAt: "2021-08-20T14:15:22Z",
+//   updatedAt: "2021-08-20T14:20:22Z",
+//   collaborators: [
+//     {
+//       id: 2,
+//       user: {
+//         id: "user-id-2",
+//         name: "田中太郎",
+//         iconUrl: "https://pbs.twimg.com/profile_images/1260451774932156418/9D6Br_B6_x96.jpg",
+//       },
+//       joinDate: "2021-08-27T14:15:22Z",
+//       requestDate: "2021-08-25T14:15:22Z",
+//       role: "editor",
+//     },
+//   ],
+//   wordScores: [
+//     {
+//       id: 1,
+//       wordId: 1,
+//       result: true,
+//       createdAt: "2019-08-24T14:15:22Z",
+//     },
+//   ],
+// } as const
 
 const USER = {
   id: "user-id",
@@ -288,9 +287,8 @@ const BookDetail: NextPage<BookDetailProps & { authUser: AuthUser }> = ({
             <div className="space-y-4">
               <div className="space-y-4">
                 <InviteCard ownedBook={ownedBookData.ownedBook} authUser={authUser} />
-                <Card className="space-y-3">
+                {/* <Card className="space-y-3">
                   <h2 className="text-sm text-gray-500">参加リクエストが届いています</h2>
-                  {/* TODO: dummy */}
                   {[USER].map((user) => (
                     <div key={user.id} className="flex items-center justify-between">
                       <div className="flex items-center space-x-2" key={user.id}>
@@ -305,7 +303,7 @@ const BookDetail: NextPage<BookDetailProps & { authUser: AuthUser }> = ({
                       </div>
                     </div>
                   ))}
-                </Card>
+                </Card> */}
                 {/* TODO: 招待コードの表示 */}
                 {/* <Card className="space-y-3">
                   <h2 className="text-sm text-gray-500">招待中</h2>
@@ -326,6 +324,7 @@ const BookDetail: NextPage<BookDetailProps & { authUser: AuthUser }> = ({
               {ownedBookData.ownedBook.book.collaborators.map((collaborator) => (
                 <CollaboratorCard
                   key={collaborator.id}
+                  authUser={authUser}
                   ownedBook={ownedBookData.ownedBook}
                   collaborator={collaborator}
                   onChangeRole={console.log}

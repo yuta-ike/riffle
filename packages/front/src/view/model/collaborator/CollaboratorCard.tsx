@@ -7,9 +7,11 @@ import RoleBadge from "../user/RoleBadge"
 import IconButton from "../../base/IconButton"
 import { Edit } from "react-feather"
 import CollaboratorEditModal from "./CollaboratorEditModal"
+import { AuthUser } from "../../../provider/LiffProvider"
 
 export type CollaboratorCardProps = {
   ownedBook: OwnedBook
+  authUser: AuthUser
   collaborator: Collaborator
   className?: string
   onChangeRole: (role: Role) => void
@@ -18,6 +20,7 @@ export type CollaboratorCardProps = {
 
 const CollaboratorCard: React.VFC<CollaboratorCardProps> = ({
   ownedBook,
+  authUser,
   collaborator,
   className,
   onChangeRole,
@@ -26,6 +29,8 @@ const CollaboratorCard: React.VFC<CollaboratorCardProps> = ({
   const [open, setOpen] = useState(false)
 
   const handleClickEdit = useCallback(() => setOpen(true), [])
+
+  const isAdmin = ownedBook.book.collaborators.some(({ user }) => user.id === authUser.id)
 
   return (
     <>
@@ -36,9 +41,11 @@ const CollaboratorCard: React.VFC<CollaboratorCardProps> = ({
           <RoleBadge role={collaborator.role as Role} />
         </div>
         <div>
-          <IconButton onClick={handleClickEdit} label="設定">
-            <Edit size="16px" />
-          </IconButton>
+          {isAdmin && (
+            <IconButton onClick={handleClickEdit} label="設定">
+              <Edit size="16px" />
+            </IconButton>
+          )}
         </div>
       </Card>
       <CollaboratorEditModal

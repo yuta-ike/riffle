@@ -29,20 +29,15 @@ const loginWithLine = async (liff: Liff, apiClient: ApiClient) => {
   await liff.ready
 
   const liffToken = liff.getIDToken()
-  console.log("liffToken: ", liffToken)
   try {
-    console.log("X: ", liffToken)
     const {
       data: { token: customToken },
       // @ts-ignore
     } = await apiClient.post("/auth", null, {
       authorization: `Bearer ${liffToken}`,
     })
-    console.log("A: ", customToken)
     const credential = await signInWithCustomToken(auth, customToken)
-    console.log("B: ", credential)
     const token = await credential.user.getIdToken()
-    console.log("C: ", token)
     return token
   } catch (e) {
     console.error("error!!!!: ", e)
@@ -87,7 +82,6 @@ const LiffProvider: React.VFC<LiffProviderProps> = ({ children }) => {
           // },
         }))
       } else {
-        console.log("#loginWithLine")
         const token = await loginWithLine(liff, apiClient)
         // const profile = await liff.getProfile()
         setValue((prev) => ({
@@ -106,11 +100,8 @@ const LiffProvider: React.VFC<LiffProviderProps> = ({ children }) => {
 
   useEffect(() => {
     auth.onIdTokenChanged(async (user) => {
-      console.log("AAA")
       if (user != null) {
-        console.log("BBB")
         const token = await user.getIdToken()
-        console.log("CCC")
         setValue((prev) => ({
           ...prev,
           authUser: {
@@ -123,7 +114,6 @@ const LiffProvider: React.VFC<LiffProviderProps> = ({ children }) => {
         }))
         nookies.set(null, "token", token, {})
       } else {
-        console.log("DDD")
         setValue((prev) => ({
           ...prev,
           authUser: null,

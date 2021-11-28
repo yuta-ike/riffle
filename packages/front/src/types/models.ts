@@ -1,6 +1,7 @@
 import { components } from "./generated/schema"
 
 export type Book = components["schemas"]["Book"]
+export type BookSummary = components["schemas"]["BookSummary"]
 export type OwnedBook = components["schemas"]["OwnedBook"]
 export type Word = components["schemas"]["Word"]
 export type Comment = components["schemas"]["Comment"]

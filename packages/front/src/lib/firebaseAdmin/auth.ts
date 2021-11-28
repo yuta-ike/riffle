@@ -8,7 +8,6 @@ export const verifyIdToken = async (req: GetServerSidePropsContext) => {
   if (token == null) {
     return null
   }
-  console.log("token: ", token)
   try {
     await getAuth(adminApp).verifyIdToken(token)
     return token

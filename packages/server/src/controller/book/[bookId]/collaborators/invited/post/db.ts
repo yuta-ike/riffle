@@ -15,7 +15,7 @@ export const deauthorizedCheck = async (inviteCode: string) => {
     return "ALREADY_USED"
   }
 
-  if (new Date().getTime() <= res.expireDate.getTime()) {
+  if (res.expireDate.getTime() < new Date().getTime()) {
     return "EXPIRED"
   }
   return true

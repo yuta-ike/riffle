@@ -1,11 +1,11 @@
 import React, { useState } from "react"
 import { useRequest } from "../../lib/apiClient/hooks"
 import { AuthUser, useLiff } from "../../provider/LiffProvider"
+import generateInviteUrl from "../../service/generateInviteUrl"
 import sendInviteMessage from "../../service/sendInviteMessage"
 import { OwnedBook } from "../../types/models"
 import Card from "../base/Card"
 import InviteCodeModal from "../template/modal/InviteCodeModal"
-const LIFF_URL = process.env.NEXT_PUBLIC_LIFF_URL || ""
 
 export type InviteCardProps = {
   ownedBook: OwnedBook
@@ -27,9 +27,7 @@ const InviteCard: React.VFC<InviteCardProps> = ({ ownedBook, authUser }) => {
       window.alert("エラーが発生しました。時間を空けて再度お試しください")
       return
     }
-    const inviteUrl = `${LIFF_URL}/book/${ownedBook.book.id}/invited?code=${inviteCode}`
-    console.log(inviteUrl)
-    await sendInviteMessage(liff, authUser, ownedBook.book, inviteUrl)
+    await sendInviteMessage(liff, authUser, ownedBook.book, generateInviteUrl(inviteCode))
   }
 
   return (

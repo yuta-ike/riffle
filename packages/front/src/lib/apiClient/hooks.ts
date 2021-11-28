@@ -141,7 +141,7 @@ export const useRequest = () => {
 }
 
 export const useApiSWR = <Path extends keyof MethodPaths<"get">>(
-  path: PathObj<Path>,
+  path: PathObj<Path> | null,
   fallbackData?: paths[Path] extends { get: { responses: { 200: { content: { "application/json": unknown } } } } }
     ? paths[Path]["get"]["responses"][200]["content"]["application/json"]
     : void,
@@ -153,10 +153,10 @@ export const useApiSWR = <Path extends keyof MethodPaths<"get">>(
       ? paths[Path]["get"]["responses"][200]["content"]["application/json"]
       : void
   >(
-    buildPath(path),
+    path != null ? buildPath(path) : null,
     async () => {
       const token = await authUser?.token()
-      const res = await apiClient().get(path, { Authorization: `Bearer ${token}` })
+      const res = await apiClient().get(path as PathObj<Path>, { Authorization: `Bearer ${token}` })
       return res.data
     },
     {
