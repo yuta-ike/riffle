@@ -38,7 +38,7 @@
     "@types/tailwindcss": "^2.2.4",
     "eslint": "7",
     "eslint-config-next": "^12.0.8",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "tailwindcss": "^2.2.17",
     "typescript": "4.4.4"
   }
